@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(staticName = "create")
-public class ScriptManager implements ScriptService {
+public class ScriptManager {
 
     private final Map<String, ScriptService> services = new LinkedHashMap<>();
 
@@ -20,7 +20,6 @@ public class ScriptManager implements ScriptService {
         return Collections.unmodifiableMap(this.services);
     }
 
-    @Override
     public Set<String> listLoaded() {
         return this.services.values().stream()
                 .map(ScriptService::listLoaded)
@@ -28,7 +27,6 @@ public class ScriptManager implements ScriptService {
                 .collect(Collectors.toSet());
     }
 
-    @Override
     public void load(@NonNull String name, @NonNull String source) {
 
         String extension = this.getExtension(name);
@@ -41,7 +39,6 @@ public class ScriptManager implements ScriptService {
         service.load(name, source);
     }
 
-    @Override
     public boolean unload(@NonNull String name) {
 
         String extension = this.getExtension(name);

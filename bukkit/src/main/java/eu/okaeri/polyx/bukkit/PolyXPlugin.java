@@ -6,8 +6,9 @@ import eu.okaeri.platform.core.annotation.Register;
 import eu.okaeri.platform.core.plan.ExecutionPhase;
 import eu.okaeri.platform.core.plan.Planned;
 import eu.okaeri.polyx.bukkit.command.PolyCommand;
+import eu.okaeri.polyx.bukkit.provider.javascript.BukkitJavaScriptService;
 import eu.okaeri.polyx.core.config.PolyMessages;
-import eu.okaeri.polyx.bukkit.provider.groovy.BukkitGroovyScriptService;
+import eu.okaeri.polyx.bukkit.provider.groovy.BukkitGroovyService;
 import eu.okaeri.polyx.core.PolyClassLoader;
 import eu.okaeri.polyx.core.script.ScriptManager;
 import lombok.SneakyThrows;
@@ -42,6 +43,7 @@ public class PolyXPlugin extends OkaeriBukkitPlugin {
     @Bean("scriptManager")
     public ScriptManager configureScriptManager() {
         return ScriptManager.create()
-                .register("groovy", new BukkitGroovyScriptService(this));
+                .register("groovy", new BukkitGroovyService(this))
+                .register("js", new BukkitJavaScriptService(this));
     }
 }
