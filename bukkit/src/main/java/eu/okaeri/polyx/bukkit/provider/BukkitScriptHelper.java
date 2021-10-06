@@ -1,5 +1,6 @@
 package eu.okaeri.polyx.bukkit.provider;
 
+import eu.okaeri.commands.bukkit.CommandsBukkit;
 import eu.okaeri.polyx.bukkit.executor.ScriptCommandExecutor;
 import eu.okaeri.polyx.bukkit.executor.ScriptEventExecutor;
 import eu.okaeri.polyx.bukkit.executor.ScriptPluginMessageExecutor;
@@ -8,6 +9,7 @@ import eu.okaeri.polyx.core.script.ScriptHelper;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -19,6 +21,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -39,9 +42,11 @@ public abstract class BukkitScriptHelper implements ScriptHelper {
         this.getScriptTasks().forEach(BukkitTask::cancel);
         this.getScriptChannelListeners().forEach(executor -> this.plugin.getServer().getMessenger().unregisterIncomingPluginChannel(this.plugin, executor.getChannelName(), executor));
 
-        this.getScriptCommands().forEach(command -> {
-            // TODO: unregister
-        });
+        CommandMap commandMap = CommandsBukkit.getCommandMap();
+        this.getScriptCommands().stream()
+                .map(commandMap::getCommand)
+                .filter(Objects::nonNull)
+                .forEach(command -> command.unregister(commandMap));
     }
 
     public <T extends Event> void listen(@NonNull Class<T> eventClass, @NonNull Consumer<T> consumer) {
@@ -65,7 +70,7 @@ public abstract class BukkitScriptHelper implements ScriptHelper {
 
     public void command(@NonNull String label, @NonNull BiConsumer<CommandSender, List<String>> consumer) {
         ScriptCommandExecutor scriptCommandExecutor = new ScriptCommandExecutor(label, consumer);
-//        this.commandMap.register(label, scriptCommandExecutor); FIXME
+        CommandsBukkit.getCommandMap().register(label, scriptCommandExecutor);
         this.getScriptCommands().add(scriptCommandExecutor.getName());
     }
 
