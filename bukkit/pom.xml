@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>okaeri-polyx</artifactId>
+        <groupId>eu.okaeri</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>okaeri-polyx-bukkit</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>eu.okaeri</groupId>
+            <artifactId>okaeri-polyx-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.okaeri</groupId>
+            <artifactId>okaeri-platform-bukkit</artifactId>
+            <version>0.4.0-preview24</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>false</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ComponentsXmlResourceTransformer"/>
+                            </transformers>
+                            <relocations>
+                                <relocation>
+                                    <pattern>^eu\/okaeri\/(?!polyx)(.*)$</pattern>
+                                    <shadedPattern>eu/okaeri/polyx/lib/$1</shadedPattern>
+                                    <rawString>true</rawString>
+                                </relocation>
+                                <!-- graal -->
+                                <!--                        <relocation>-->
+                                <!--                            <pattern>com.ibm.</pattern>-->
+                                <!--                            <shadedPattern>eu.okaeri.polyx.lib.ibm.</shadedPattern>-->
+                                <!--                        </relocation>-->
+                                <!--                        <relocation>-->
+                                <!--                            <pattern>com.oracle.</pattern>-->
+                                <!--                            <shadedPattern>eu.okaeri.polyx.lib.oracle.</shadedPattern>-->
+                                <!--                        </relocation>-->
+                                <!--                        <relocation>-->
+                                <!--                            <pattern>org.graalvm.</pattern>-->
+                                <!--                            <shadedPattern>eu.okaeri.polyx.lib.graalvm.</shadedPattern>-->
+                                <!--                        </relocation>-->
+                                <!-- groovy -->
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
+</project>
