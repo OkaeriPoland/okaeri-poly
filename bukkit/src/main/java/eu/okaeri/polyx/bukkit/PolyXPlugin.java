@@ -30,8 +30,10 @@ public class PolyXPlugin extends OkaeriBukkitPlugin {
     public void loadAllScripts(File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
         Files.list(scriptFolder).forEach(path -> {
             try {
+                long start = System.currentTimeMillis();
                 scriptManager.load(path);
-                this.log("- Loaded script: " + path.getFileName());
+                long took = System.currentTimeMillis() - start;
+                this.log("- Loaded script: " + path.getFileName() + " [" + took + " ms]");
             }
             catch (Exception exception) {
                 this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);

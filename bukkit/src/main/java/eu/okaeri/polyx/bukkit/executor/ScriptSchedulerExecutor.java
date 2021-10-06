@@ -1,15 +1,15 @@
-package eu.okaeri.polyx.bukkit.provider.groovy.executor;
+package eu.okaeri.polyx.bukkit.executor;
 
-import groovy.lang.Closure;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ScriptSchedulerExecutor implements Runnable {
 
-    private final Closure<?> closure;
+    @NonNull private final Runnable runnable;
 
     @Override
     public void run() {
-        this.closure.call();
+        this.runnable.run();
     }
 }
