@@ -4,7 +4,6 @@ import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
 import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
 import eu.okaeri.polyx.bukkit.provider.BukkitScriptService;
-import lombok.Cleanup;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
@@ -25,10 +24,11 @@ public class BukkitJavaScriptService extends BukkitScriptService {
     @Override
     protected BukkitScriptHelper eval(@NonNull String name, @NonNull String source) {
 
-        BukkitJavaScriptHelper scriptHelper = new BukkitJavaScriptHelper(this.getPlugin());
-        @Cleanup Context context = Context.newBuilder(LANGUAGE_ID)
+        Context context = Context.newBuilder(LANGUAGE_ID)
+                .allowHostClassLookup(className -> true)
                 .allowHostAccess(HostAccess.ALL)
                 .build();
+        BukkitJavaScriptHelper scriptHelper = new BukkitJavaScriptHelper(this.getPlugin(), context);
 
         Value bindings = context.getBindings(LANGUAGE_ID);
         this.getDefaultBindings(scriptHelper).forEach(bindings::putMember);

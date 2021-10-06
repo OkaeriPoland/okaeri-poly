@@ -20,14 +20,13 @@ public abstract class ScriptService {
 
     public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
-        if (this.unload(name)) {
-            this.log("Unloaded '" + name + "' before loading again.");
+        if (this.scripts.containsKey(name)) {
+            this.unload(name);
         }
 
         ScriptHelper scriptHelper = this.eval(name, source);
         this.getScripts().put(name, scriptHelper);
 
-        this.log("The script '" + name + "' was loaded.");
         return scriptHelper;
     }
 
