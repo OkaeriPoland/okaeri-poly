@@ -13,6 +13,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>eu.okaeri</groupId>
+            <artifactId>okaeri-platform-core</artifactId>
+            <version>0.4.0-preview26</version>
+        </dependency>
+
+        <!-- graal -->
+        <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
             <version>${graalvm.version}</version>
@@ -32,6 +39,13 @@
             <artifactId>truffle-api</artifactId>
             <groupId>org.graalvm.truffle</groupId>
             <version>${graalvm.version}</version>
+        </dependency>
+
+        <!-- groovy -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
     </dependencies>
 
