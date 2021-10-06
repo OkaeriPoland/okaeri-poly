@@ -12,9 +12,13 @@ import eu.okaeri.platform.core.i18n.message.Audience;
 import eu.okaeri.polyx.core.config.PolyMessages;
 import eu.okaeri.polyx.core.script.ScriptManager;
 import eu.okaeri.polyx.core.script.ScriptService;
+import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
+import java.util.Optional;
 
 @ServiceDescriptor(label = "poly", aliases = {"polyx", "script"})
 public class PolyCommand implements CommandService {
@@ -22,15 +26,34 @@ public class PolyCommand implements CommandService {
     @Inject private ScriptManager scriptManager;
     @Inject private BI18n i18n;
     @Inject private PolyMessages messages;
+    @Inject private Path scriptFolder;
 
+    @SneakyThrows
     @Executor(pattern = "load *")
     public Message load(@Arg String name) {
-        return null;
+
+        Optional<Path> pathOptional = Files.list(this.scriptFolder)
+                .filter(path -> path.getFileName().toString().startsWith(name))
+                .findAny();
+
+        if (pathOptional.isEmpty()) {
+            return Message.of("No script found found for such name!");
+        }
+
+        Path path = pathOptional.get();
+        this.scriptManager.load(path);
+
+        return Message.of("Loaded script " + path + "!");
     }
 
     @Executor(pattern = "unload *")
     public Message unload(@Arg String name) {
-        return null;
+
+        if (this.scriptManager.unload(name)) {
+            return Message.of("Script unloaded!");
+        }
+
+        return Message.of("No script found for such name!");
     }
 
     @Executor
