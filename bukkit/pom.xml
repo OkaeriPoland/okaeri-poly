@@ -20,7 +20,7 @@
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-platform-bukkit</artifactId>
-            <version>0.4.0-preview24</version>
+            <version>0.4.0-preview26</version>
         </dependency>
 
         <dependency>
@@ -73,7 +73,35 @@
                                     <pattern>org.graalvm.</pattern>
                                     <shadedPattern>eu.okaeri.polyx.lib.graalvm.</shadedPattern>
                                 </relocation>
-                                <!-- groovy -->
+                                <!-- groovy (did not figure how to run relocated yet) -->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.codehaus.groovy.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.codehaus.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.apache.groovy.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.apache.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>groovy.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.groovy.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>groovyjarjarantlr.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.antlr.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>groovyjarjarantlr4.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.antlr4.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>groovyjarjarasm.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.asm.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>groovyjarjarpicocli.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.picocli.</shadedPattern>-->
+<!--                                </relocation>-->
                             </relocations>
                         </configuration>
                     </execution>

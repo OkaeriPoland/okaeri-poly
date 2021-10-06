@@ -1,20 +1,24 @@
 package eu.okaeri.polyx.bukkit;
 
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
+import eu.okaeri.platform.core.annotation.Bean;
+import eu.okaeri.platform.core.annotation.Register;
 import eu.okaeri.platform.core.plan.ExecutionPhase;
 import eu.okaeri.platform.core.plan.Planned;
+import eu.okaeri.polyx.bukkit.command.PolyCommand;
+import eu.okaeri.polyx.core.config.PolyMessages;
+import eu.okaeri.polyx.bukkit.provider.groovy.BukkitGroovyScriptService;
 import eu.okaeri.polyx.core.PolyClassLoader;
-import lombok.Cleanup;
+import eu.okaeri.polyx.core.script.ScriptManager;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Source;
-import org.graalvm.polyglot.Value;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 
+@Register(PolyMessages.class)
+@Register(PolyCommand.class)
 public class PolyXPlugin extends OkaeriBukkitPlugin {
 
     @SneakyThrows
@@ -35,16 +39,9 @@ public class PolyXPlugin extends OkaeriBukkitPlugin {
         Thread.currentThread().setContextClassLoader(loader);
     }
 
-    @SneakyThrows
-    @Planned(ExecutionPhase.POST_STARTUP)
-    public void test() {
-
-        @Cleanup Context context = Context.newBuilder("js").build();
-
-        context.eval(Source.newBuilder("js", "const a = 1 + 1", "src.js").build());
-        Value result = context.getBindings("js").getMember("a");
-
-        Integer integer = result.as(Integer.class);
-        System.out.println("it works! " + integer);
+    @Bean("scriptManager")
+    public ScriptManager configureScriptManager() {
+        return ScriptManager.create()
+                .register("groovy", new BukkitGroovyScriptService(this));
     }
 }
