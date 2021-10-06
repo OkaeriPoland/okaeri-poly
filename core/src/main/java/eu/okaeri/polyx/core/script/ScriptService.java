@@ -18,7 +18,7 @@ public abstract class ScriptService {
         return Collections.unmodifiableSet(this.scripts.keySet());
     }
 
-    public void load(@NonNull String name, @NonNull String source) {
+    public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
         if (this.unload(name)) {
             this.log("Unloaded '" + name + "' before loading again.");
@@ -26,7 +26,9 @@ public abstract class ScriptService {
 
         ScriptHelper scriptHelper = this.eval(name, source);
         this.getScripts().put(name, scriptHelper);
+
         this.log("The script '" + name + "' was loaded.");
+        return scriptHelper;
     }
 
     public boolean unload(@NonNull String name) {

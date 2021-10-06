@@ -2,7 +2,10 @@ package eu.okaeri.polyx.core.script;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +30,14 @@ public class ScriptManager {
                 .collect(Collectors.toSet());
     }
 
-    public void load(@NonNull String name, @NonNull String source) {
+    @SneakyThrows
+    public ScriptHelper load(@NonNull Path path) {
+        String fileName = path.getFileName().toString();
+        String source = String.join("\n", Files.readAllLines(path));
+        return this.load(fileName, source);
+    }
+
+    public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
         String extension = this.getExtension(name);
         ScriptService service = this.services.get(extension);
@@ -36,7 +46,7 @@ public class ScriptManager {
             throw new RuntimeException("Cannot find service for extension: " + extension);
         }
 
-        service.load(name, source);
+        return service.load(name, source);
     }
 
     public boolean unload(@NonNull String name) {
