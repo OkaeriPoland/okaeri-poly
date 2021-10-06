@@ -27,6 +27,68 @@ public class BenchmarkScriptingMatmul {
     }
 
     @State(Scope.Benchmark)
+    public static class NativeHelper {
+
+        static double[][] matgen(int n) {
+
+            double[][] a = new double[n][n];
+            double tmp = 1.0 / n / n;
+
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    a[i][j] = tmp * (i - j) * (i + j);
+                }
+            }
+
+            return a;
+        }
+
+        static double[][] matmul(double[][] a, double[][] b) {
+
+            int m = a.length;
+            int n = a[0].length;
+            int p = b[0].length;
+
+            double[][] x = new double[m][p];
+            double[][] c = new double[p][n];
+
+            for (int i = 0; i < p; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    c[i][j] = b[j][i];
+                }
+            }
+
+            for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < p; ++j) {
+
+                    double s = 0.0;
+                    for (int k = 0; k < n; ++k) {
+                        s = s + a[i][k] * c[j][k];
+                    }
+
+                    x[i][j] = s;
+                }
+            }
+
+            return x;
+        }
+
+        double main() {
+            int n = 100;
+            double[][] a = matgen(n);
+            double[][] b = matgen(n);
+            double[][] x = matmul(a, b);
+            return x[(n / 2)][(n / 2)];
+        }
+    }
+
+    @Benchmark
+    public void native_matmul(NativeHelper helper, Blackhole blackhole) {
+        double result = helper.main();
+        blackhole.consume(result);
+    }
+
+    @State(Scope.Benchmark)
     public static class GraaljsHelper {
 
         public Value main;
@@ -104,6 +166,7 @@ public class BenchmarkScriptingMatmul {
     public static class GroovyHelper {
 
         public Method main;
+        public Object instance;
 
         @SneakyThrows
         public GroovyHelper() {
@@ -154,7 +217,7 @@ public class BenchmarkScriptingMatmul {
                     "    return x\n" +
                     "}\n" +
                     "\n" +
-                    "static double main() {\n" +
+                    "double main() {\n" +
                     "    def n = 100\n" +
                     "    def a = matgen(n)\n" +
                     "    def b = matgen(n)\n" +
@@ -163,6 +226,7 @@ public class BenchmarkScriptingMatmul {
                     "}\n";
 
             Class<?> gClass = new GroovyClassLoader().parseClass(script);
+            this.instance = gClass.newInstance();
             this.main = gClass.getDeclaredMethod("main");
         }
     }
@@ -170,7 +234,7 @@ public class BenchmarkScriptingMatmul {
     @Benchmark
     @SneakyThrows
     public void groovy_matmul(GroovyHelper helper, Blackhole blackhole) {
-        Object result = helper.main.invoke(null);
+        Object result = helper.main.invoke(helper.instance);
         blackhole.consume(result);
     }
 
@@ -178,6 +242,7 @@ public class BenchmarkScriptingMatmul {
     public static class GroovyCSHelper {
 
         public Method main;
+        public Object instance;
 
         @SneakyThrows
         public GroovyCSHelper() {
@@ -230,7 +295,7 @@ public class BenchmarkScriptingMatmul {
                     "}\n" +
                     "\n" +
                     "@CompileStatic\n" +
-                    "static def main() {\n" +
+                    "def main() {\n" +
                     "    int n = 100\n" +
                     "    double[][] a = matgen(n)\n" +
                     "    double[][] b = matgen(n)\n" +
@@ -239,6 +304,7 @@ public class BenchmarkScriptingMatmul {
                     "}\n";
 
             Class<?> gClass = new GroovyClassLoader().parseClass(script);
+            this.instance = gClass.newInstance();
             this.main = gClass.getDeclaredMethod("main");
         }
     }
@@ -246,7 +312,7 @@ public class BenchmarkScriptingMatmul {
     @Benchmark
     @SneakyThrows
     public void groovy_matmul_compile_static(GroovyCSHelper helper, Blackhole blackhole) {
-        Object result = helper.main.invoke(null);
+        Object result = helper.main.invoke(helper.instance);
         blackhole.consume(result);
     }
 }
