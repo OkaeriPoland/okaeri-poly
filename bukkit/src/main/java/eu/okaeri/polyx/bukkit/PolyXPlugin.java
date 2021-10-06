@@ -14,8 +14,6 @@ import org.graalvm.polyglot.Value;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.List;
 
 public class PolyXPlugin extends OkaeriBukkitPlugin {
 
