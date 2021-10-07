@@ -65,8 +65,48 @@ Additional global variables:
 - `logger`: instance of `java.util.logging.Logger`
 - `proxy`: instance of `net.md_5.bungee.api.ProxyServer`
 
+### Dependency
+
+### Maven
+
+Add repository to the `repositories` section:
+
+```xml
+<repository>
+    <id>okaeri-repo</id>
+    <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
+</repository>
+```
+
+Add dependency to the `dependencies` section:
+
+```xml
+<dependency>
+    <groupId>eu.okaeri</groupId>
+    <artifactId>okaeri-poly-[platform]</artifactId>
+    <version>1.0.0</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+### Gradle
+
+Add repository to the `repositories` section:
+
+```groovy
+maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
+```
+
+Add dependency to the `maven` section:
+
+```groovy
+compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]:3.3.6'
+```
+
 ### IDE
+
 #### IntelliJ (Groovy)
+
 0. Create new projects and add poly as a provided dependency.
 1. Open any `.groovy` script with Groovy support enabled.
 2. Point your cursor on the `script` variable.
