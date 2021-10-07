@@ -2,8 +2,8 @@ package eu.okaeri.poly.bukkit.provider.javascript;
 
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptServiceImpl;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
@@ -12,25 +12,25 @@ import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
 @Component
-public class BukkitJavaScriptService extends BukkitScriptService {
+public class BukkitJavaScriptServiceImpl extends BukkitScriptServiceImpl {
 
     private static final boolean DEBUG = Boolean.getBoolean("poly.debug");
     public static final String LANGUAGE_ID = "js";
 
     @Inject
-    public BukkitJavaScriptService(Plugin plugin) {
+    public BukkitJavaScriptServiceImpl(Plugin plugin) {
         super(plugin);
     }
 
     @Override
-    protected BukkitScriptHelper eval(@NonNull String name, @NonNull String source) {
+    public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
         Context context = Context.newBuilder(LANGUAGE_ID)
                 .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
                 .allowHostClassLookup(className -> true)
                 .allowHostAccess(HostAccess.ALL)
                 .build();
-        BukkitJavaScriptHelper scriptHelper = new BukkitJavaScriptHelper(this.getPlugin(), context);
+        ScriptHelper scriptHelper = new BukkitJavaScriptHelperImpl(this.getPlugin(), context);
 
         Value bindings = context.getBindings(LANGUAGE_ID);
         this.getDefaultBindings(scriptHelper).forEach(bindings::putMember);

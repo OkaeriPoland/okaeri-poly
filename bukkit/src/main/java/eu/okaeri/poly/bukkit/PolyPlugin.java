@@ -6,13 +6,15 @@ import eu.okaeri.platform.core.annotation.Bean;
 import eu.okaeri.platform.core.annotation.Register;
 import eu.okaeri.platform.core.plan.ExecutionPhase;
 import eu.okaeri.platform.core.plan.Planned;
+import eu.okaeri.poly.api.Poly;
+import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.bukkit.command.PolyCommand;
-import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyService;
-import eu.okaeri.poly.bukkit.provider.javascript.BukkitJavaScriptService;
-import eu.okaeri.poly.bukkit.provider.python.BukkitPythonService;
+import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyServiceImpl;
+import eu.okaeri.poly.bukkit.provider.javascript.BukkitJavaScriptServiceImpl;
+import eu.okaeri.poly.bukkit.provider.python.BukkitPythonServiceImpl;
 import eu.okaeri.poly.core.PolyClassLoader;
 import eu.okaeri.poly.core.config.PolyMessages;
-import eu.okaeri.poly.core.script.ScriptManager;
+import eu.okaeri.poly.core.script.ScriptManagerImpl;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,7 +29,7 @@ import java.util.logging.Level;
 @Getter // api
 @Register(PolyMessages.class)
 @Register(PolyCommand.class)
-public class PolyPlugin extends OkaeriBukkitPlugin {
+public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Inject private ScriptManager scriptManager;
 
@@ -73,9 +75,9 @@ public class PolyPlugin extends OkaeriBukkitPlugin {
 
     @Bean("scriptManager")
     private ScriptManager configureScriptManager() {
-        return ScriptManager.create()
-                .register("groovy", new BukkitGroovyService(this))
-                .register("js", new BukkitJavaScriptService(this))
-                .register("py", new BukkitPythonService(this));
+        return ScriptManagerImpl.create()
+                .register("groovy", new BukkitGroovyServiceImpl(this))
+                .register("js", new BukkitJavaScriptServiceImpl(this))
+                .register("py", new BukkitPythonServiceImpl(this));
     }
 }

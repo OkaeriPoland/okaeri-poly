@@ -1,7 +1,7 @@
 package eu.okaeri.poly.bukkit.provider.python;
 
-import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptServiceImpl;
 import lombok.Cleanup;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
@@ -9,16 +9,16 @@ import org.python.util.PythonInterpreter;
 
 import java.util.Map;
 
-public class BukkitPythonService extends BukkitScriptService {
+public class BukkitPythonServiceImpl extends BukkitScriptServiceImpl {
 
-    public BukkitPythonService(Plugin plugin) {
+    public BukkitPythonServiceImpl(Plugin plugin) {
         super(plugin);
     }
 
     @Override
-    protected BukkitScriptHelper eval(@NonNull String name, @NonNull String source) {
+    public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        BukkitPythonHelper scriptHelper = new BukkitPythonHelper(this.getPlugin());
+        ScriptHelper scriptHelper = new BukkitPythonHelperImpl(this.getPlugin());
         @Cleanup PythonInterpreter python = new PythonInterpreter();
 
         Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);

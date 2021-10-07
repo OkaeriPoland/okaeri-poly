@@ -1,5 +1,8 @@
 package eu.okaeri.poly.core.script;
 
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.api.script.ScriptManager;
+import eu.okaeri.poly.api.script.ScriptService;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -10,19 +13,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(staticName = "create")
-public class ScriptManager {
+public class ScriptManagerImpl implements ScriptManager {
 
     private final Map<String, ScriptService> services = new LinkedHashMap<>();
 
+    @Override
     public ScriptManager register(@NonNull String extension, @NonNull ScriptService scriptService) {
         this.services.put(extension, scriptService);
         return this;
     }
 
+    @Override
     public Map<String, ScriptService> getServices() {
         return Collections.unmodifiableMap(this.services);
     }
 
+    @Override
     public Set<String> listLoaded() {
         return this.services.values().stream()
                 .map(ScriptService::listLoaded)
@@ -30,6 +36,7 @@ public class ScriptManager {
                 .collect(Collectors.toSet());
     }
 
+    @Override
     @SneakyThrows
     public ScriptHelper load(@NonNull Path path) {
         String fileName = path.getFileName().toString();
@@ -37,6 +44,7 @@ public class ScriptManager {
         return this.load(fileName, source);
     }
 
+    @Override
     public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
         String extension = this.getExtension(name);
@@ -49,6 +57,7 @@ public class ScriptManager {
         return service.load(name, source);
     }
 
+    @Override
     public boolean unload(@NonNull String name) {
 
         String extension = this.getExtension(name);
