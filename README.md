@@ -52,6 +52,8 @@ Additional global variables:
 - `logger`: instance of `java.util.logging.Logger`
 - `server`: instance of `org.bukkit.Server`
 
+Demo project: [bukkit-example](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example)
+
 ### Bungee
 
 | Backend    | Helper                                                                                                                                                           | Note                                                                                                                               |
@@ -65,6 +67,8 @@ Additional global variables:
 - `plugin`: instance of `eu.okaeri.poly.bungee.PolyPlugin`
 - `logger`: instance of `java.util.logging.Logger`
 - `proxy`: instance of `net.md_5.bungee.api.ProxyServer`
+
+Demo project: [bungee-example](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bungee-example)
 
 ### Dependency
 
