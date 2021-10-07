@@ -9,9 +9,9 @@ import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.platform.bukkit.i18n.message.BukkitAudience;
 import eu.okaeri.platform.core.i18n.message.Audience;
+import eu.okaeri.poly.api.script.ScriptManager;
+import eu.okaeri.poly.api.script.ScriptService;
 import eu.okaeri.poly.core.config.PolyMessages;
-import eu.okaeri.poly.core.script.ScriptManager;
-import eu.okaeri.poly.core.script.ScriptService;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 

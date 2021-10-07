@@ -2,25 +2,25 @@ package eu.okaeri.poly.bukkit.provider.groovy;
 
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptServiceImpl;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 
 @Component
-public class BukkitGroovyService extends BukkitScriptService {
+public class BukkitGroovyServiceImpl extends BukkitScriptServiceImpl {
 
     @Inject
-    public BukkitGroovyService(Plugin plugin) {
+    public BukkitGroovyServiceImpl(Plugin plugin) {
         super(plugin);
     }
 
     @Override
-    protected BukkitScriptHelper eval(@NonNull String name, @NonNull String source) {
+    public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        BukkitGroovyHelper scriptHelper = new BukkitGroovyHelper(this.getPlugin());
+        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl(this.getPlugin());
         GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
 
         try {

@@ -7,11 +7,13 @@
     <groupId>eu.okaeri</groupId>
     <artifactId>okaeri-poly</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <modules>
         <module>core</module>
+        <module>core-api</module>
         <module>bukkit</module>
+        <module>bukkit-api</module>
     </modules>
 
     <properties>
@@ -70,6 +72,10 @@
         <repository>
             <id>okaeri-repo</id>
             <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 

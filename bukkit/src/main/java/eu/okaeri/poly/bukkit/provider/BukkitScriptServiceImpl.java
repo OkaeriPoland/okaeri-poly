@@ -1,6 +1,7 @@
 package eu.okaeri.poly.bukkit.provider;
 
-import eu.okaeri.poly.core.script.ScriptService;
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.core.script.ScriptServiceImpl;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,16 +12,12 @@ import java.util.Map;
 
 @Getter(AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-public abstract class BukkitScriptService extends ScriptService {
+public abstract class BukkitScriptServiceImpl extends ScriptServiceImpl {
 
     private final Plugin plugin;
 
     @Override
-    protected void log(@NonNull String message) {
-        this.plugin.getLogger().info(message);
-    }
-
-    protected Map<String, Object> getDefaultBindings(@NonNull BukkitScriptHelper scriptHelper) {
+    public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
         return Map.of(
                 "script", scriptHelper,
                 "plugin", this.getPlugin(),
@@ -28,5 +25,6 @@ public abstract class BukkitScriptService extends ScriptService {
         );
     }
 
-    protected abstract BukkitScriptHelper eval(@NonNull String name, @NonNull String source);
+    @Override
+    public abstract ScriptHelper exec(@NonNull String name, @NonNull String source);
 }

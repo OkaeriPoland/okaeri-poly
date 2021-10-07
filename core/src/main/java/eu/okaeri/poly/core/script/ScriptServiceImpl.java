@@ -1,5 +1,7 @@
 package eu.okaeri.poly.core.script;
 
+import eu.okaeri.poly.api.script.ScriptHelper;
+import eu.okaeri.poly.api.script.ScriptService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,26 +12,29 @@ import java.util.Map;
 import java.util.Set;
 
 @Getter(AccessLevel.PROTECTED)
-public abstract class ScriptService {
+public abstract class ScriptServiceImpl implements ScriptService {
 
     private final Map<String, ScriptHelper> scripts = new LinkedHashMap<>();
 
+    @Override
     public Set<String> listLoaded() {
         return Collections.unmodifiableSet(this.scripts.keySet());
     }
 
+    @Override
     public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
         if (this.scripts.containsKey(name)) {
             this.unload(name);
         }
 
-        ScriptHelper scriptHelper = this.eval(name, source);
+        ScriptHelper scriptHelper = this.exec(name, source);
         this.getScripts().put(name, scriptHelper);
 
         return scriptHelper;
     }
 
+    @Override
     public boolean unload(@NonNull String name) {
 
         if (!this.scripts.containsKey(name)) {
@@ -40,7 +45,6 @@ public abstract class ScriptService {
         return true;
     }
 
-    protected abstract ScriptHelper eval(@NonNull String name, @NonNull String source);
-
-    protected abstract void log(@NonNull String message);
+    @Override
+    public abstract ScriptHelper exec(@NonNull String name, @NonNull String source);
 }

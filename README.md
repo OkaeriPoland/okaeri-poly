@@ -10,7 +10,7 @@ Enterprise grade Minecraft scripting adapter for Groovy, JavaScript, and Python.
 
 ## Requirements
 
-Java 11 or newer. Using GraalVM will improve performance if JavaScript backend is required.
+Java 11 or newer. Using GraalVM will improve performance if JavaScript backend is required. It is also recommended to not run other plugins using Groovy/Jython.
 
 ## Supported platforms
 
@@ -83,8 +83,8 @@ Add dependency to the `dependencies` section:
 ```xml
 <dependency>
     <groupId>eu.okaeri</groupId>
-    <artifactId>okaeri-poly-[platform]</artifactId>
-    <version>1.0.0</version>
+    <artifactId>okaeri-poly-[platform]-api</artifactId>
+    <version>1.1.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -100,7 +100,7 @@ maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 Add dependency to the `maven` section:
 
 ```groovy
-compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]:3.3.6'
+compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.1.0'
 ```
 
 ### IDE
