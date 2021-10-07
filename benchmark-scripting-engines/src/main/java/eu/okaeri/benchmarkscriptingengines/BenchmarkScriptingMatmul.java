@@ -7,6 +7,8 @@ import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -313,6 +315,69 @@ public class BenchmarkScriptingMatmul {
     @SneakyThrows
     public void groovy_matmul_compile_static(GroovyCSHelper helper, Blackhole blackhole) {
         Object result = helper.main.invoke(helper.instance);
+        blackhole.consume(result);
+    }
+
+    @State(Scope.Benchmark)
+    public static class JythonHelper {
+
+        public PyObject main;
+
+        @SneakyThrows
+        public JythonHelper() {
+            String script = "def matgen(n):\n" +
+                    "    a = ([None] * n)\n" +
+                    "    tmp = 1.0 / n / n\n" +
+                    "\n" +
+                    "    for i in range(n):\n" +
+                    "        a[i] = ([None] * n)\n" +
+                    "        for j in range(n):\n" +
+                    "            a[i][j] = tmp * (i - j) * (i + j)\n" +
+                    "\n" +
+                    "    return a\n" +
+                    "\n" +
+                    "\n" +
+                    "def matmul(a, b):\n" +
+                    "    m = len(a)\n" +
+                    "    n = len(a[0])\n" +
+                    "    p = len(b[0])\n" +
+                    "\n" +
+                    "    x = ([None] * m)\n" +
+                    "    c = ([None] * p)\n" +
+                    "\n" +
+                    "    for i in range(p):\n" +
+                    "        c[i] = ([None] * n)\n" +
+                    "        for j in range(n):\n" +
+                    "            c[i][j] = b[j][i]\n" +
+                    "\n" +
+                    "    for i in range(m):\n" +
+                    "        x[i] = ([None] * p)\n" +
+                    "        for j in range(p):\n" +
+                    "            s = 0.0\n" +
+                    "            for k in range(n):\n" +
+                    "                s = s + a[i][k] * c[j][k]\n" +
+                    "            x[i][j] = s\n" +
+                    "\n" +
+                    "    return x\n" +
+                    "\n" +
+                    "\n" +
+                    "def main():\n" +
+                    "    n = 100\n" +
+                    "    a = matgen(n)\n" +
+                    "    b = matgen(n)\n" +
+                    "    x = matmul(a, b)\n" +
+                    "    return x[int(n / 2)][int(n / 2)]\n";
+
+            PythonInterpreter python = new PythonInterpreter();
+            python.exec(script);
+            this.main = python.get("main");
+        }
+    }
+
+    @Benchmark
+    @SneakyThrows
+    public void jython_matmul(JythonHelper helper, Blackhole blackhole) {
+        Object result = helper.main.__call__();
         blackhole.consume(result);
     }
 }

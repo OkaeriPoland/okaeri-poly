@@ -102,6 +102,43 @@
 <!--                                    <pattern>groovyjarjarpicocli.</pattern>-->
 <!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.picocli.</shadedPattern>-->
 <!--                                </relocation>-->
+                                <!-- python (this one did not work with relocations too) -->
+<!--                                <relocation>-->
+<!--                                    <pattern>javatests.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.javatests.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>jnr.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.jnr.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>jni.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.jni.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>com.kenai.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.kenai.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>com.xhaus.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.xhaus.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>com.ziclix.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.ziclix.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.python.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.python.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.w3c.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.w3c.</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.fusesource.</pattern>-->
+<!--                                    <shadedPattern>eu.okaeri.polyx.lib.fusesource.</shadedPattern>-->
+<!--                                </relocation>-->
                             </relocations>
                         </configuration>
                     </execution>
