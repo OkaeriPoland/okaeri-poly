@@ -3,8 +3,8 @@ package eu.okaeri.poly.bukkit.command;
 import eu.okaeri.commands.annotation.Arg;
 import eu.okaeri.commands.annotation.Executor;
 import eu.okaeri.commands.annotation.ServiceDescriptor;
+import eu.okaeri.commands.bukkit.annotation.Permission;
 import eu.okaeri.commands.service.CommandService;
-import eu.okaeri.i18n.message.Message;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.platform.bukkit.i18n.message.BukkitAudience;
@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
+@Permission("poly.admin")
 @ServiceDescriptor(label = "poly", aliases = {"poly", "script"})
 public class PolyCommand implements CommandService {
 
@@ -29,26 +30,28 @@ public class PolyCommand implements CommandService {
     @Inject private Path scriptFolder;
 
     @SneakyThrows
+    @Permission("poly.admin.load")
     @Executor(pattern = "load *")
-    public Message load(@Arg String name) {
+    public String load(@Arg String name) {
 
         Optional<Path> pathOptional = Files.list(this.scriptFolder)
                 .filter(path -> path.getFileName().toString().startsWith(name))
                 .findAny();
 
         if (pathOptional.isEmpty()) {
-            return Message.of("No script found found for such name!");
+            return "No script found found for such name!";
         }
 
         Path path = pathOptional.get();
         this.scriptManager.load(path);
 
-        return Message.of("Loaded script " + path + "!");
+        return "Loaded script " + path + "!";
     }
 
     @SneakyThrows
+    @Permission("poly.admin.unload")
     @Executor(pattern = "unload *")
-    public Message unload(@Arg String name) {
+    public String unload(@Arg String name) {
 
         String scriptName = Files.list(this.scriptFolder)
                 .map(Path::getFileName)
@@ -58,13 +61,14 @@ public class PolyCommand implements CommandService {
                 .orElse(name);
 
         if (this.scriptManager.unload(scriptName)) {
-            return Message.of("Script unloaded!");
+            return "Script unloaded!";
         }
 
-        return Message.of("No script found for such name!");
+        return "No script found for such name!";
     }
 
     @Executor
+    @Permission("poly.admin.list")
     public Audience list(CommandSender sender) {
 
         BukkitAudience audience = BukkitAudience.of(sender);

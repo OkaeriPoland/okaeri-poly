@@ -16,4 +16,6 @@ public interface ScriptService {
     boolean unload(@NonNull String name);
 
     ScriptHelper exec(@NonNull String name, @NonNull String source);
+
+    Object eval(@NonNull String source);
 }

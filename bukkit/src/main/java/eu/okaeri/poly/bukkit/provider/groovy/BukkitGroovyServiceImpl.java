@@ -1,26 +1,23 @@
 package eu.okaeri.poly.bukkit.provider.groovy;
 
-import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.platform.core.annotation.Component;
+import eu.okaeri.poly.api.Poly;
 import eu.okaeri.poly.api.script.ScriptHelper;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptServiceImpl;
+import eu.okaeri.poly.core.script.ScriptServiceImpl;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 
-@Component
-public class BukkitGroovyServiceImpl extends BukkitScriptServiceImpl {
+public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
 
-    @Inject
-    public BukkitGroovyServiceImpl(Plugin plugin) {
-        super(plugin);
+    public BukkitGroovyServiceImpl(Poly poly) {
+        super(poly);
     }
 
     @Override
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl(this.getPlugin());
+        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly());
         GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
 
         try {
@@ -31,5 +28,19 @@ public class BukkitGroovyServiceImpl extends BukkitScriptServiceImpl {
         }
 
         return scriptHelper;
+    }
+
+    @Override
+    public Object eval(@NonNull String source) {
+
+        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly());
+        GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
+
+        try {
+            return groovyShell.evaluate(source);
+        }
+        catch (Throwable throwable) {
+            throw new RuntimeException("Failed script eval", throwable);
+        }
     }
 }

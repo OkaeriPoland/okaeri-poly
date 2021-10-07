@@ -1,20 +1,29 @@
 package eu.okaeri.poly.core.script;
 
+import eu.okaeri.poly.api.Poly;
 import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+@RequiredArgsConstructor
 @Getter(AccessLevel.PROTECTED)
 public abstract class ScriptServiceImpl implements ScriptService {
 
     private final Map<String, ScriptHelper> scripts = new LinkedHashMap<>();
+    private final Poly poly;
+
+    @Override
+    public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
+        return this.poly.getDefaultBindings(scriptHelper);
+    }
 
     @Override
     public Set<String> listLoaded() {
@@ -44,7 +53,4 @@ public abstract class ScriptServiceImpl implements ScriptService {
         this.scripts.get(name).unregister();
         return true;
     }
-
-    @Override
-    public abstract ScriptHelper exec(@NonNull String name, @NonNull String source);
 }

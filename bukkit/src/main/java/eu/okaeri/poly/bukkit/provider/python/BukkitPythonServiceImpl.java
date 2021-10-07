@@ -1,7 +1,8 @@
 package eu.okaeri.poly.bukkit.provider.python;
 
+import eu.okaeri.poly.api.Poly;
 import eu.okaeri.poly.api.script.ScriptHelper;
-import eu.okaeri.poly.bukkit.provider.BukkitScriptServiceImpl;
+import eu.okaeri.poly.core.script.ScriptServiceImpl;
 import lombok.Cleanup;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
@@ -9,16 +10,16 @@ import org.python.util.PythonInterpreter;
 
 import java.util.Map;
 
-public class BukkitPythonServiceImpl extends BukkitScriptServiceImpl {
+public class BukkitPythonServiceImpl extends ScriptServiceImpl {
 
-    public BukkitPythonServiceImpl(Plugin plugin) {
-        super(plugin);
+    public BukkitPythonServiceImpl(Poly poly) {
+        super(poly);
     }
 
     @Override
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitPythonHelperImpl(this.getPlugin());
+        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly());
         @Cleanup PythonInterpreter python = new PythonInterpreter();
 
         Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);
@@ -32,5 +33,24 @@ public class BukkitPythonServiceImpl extends BukkitScriptServiceImpl {
         }
 
         return scriptHelper;
+    }
+
+    @Override
+    public Object eval(@NonNull String source) {
+
+        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly());
+        @Cleanup PythonInterpreter python = new PythonInterpreter();
+
+        Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);
+        bindings.forEach(python::set);
+
+        try {
+            // limited capability and weird return type
+            // not sure if usable in the command form
+            return python.eval(source);
+        }
+        catch (Throwable throwable) {
+            throw new RuntimeException("Failed script eval", throwable);
+        }
     }
 }

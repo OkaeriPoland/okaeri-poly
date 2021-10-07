@@ -58,6 +58,17 @@ public class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
+    public Object eval(@NonNull String extension, @NonNull String source) {
+
+        ScriptService service = this.services.get(extension);
+        if (service == null) {
+            throw new RuntimeException("Cannot find service for extension: " + extension);
+        }
+
+        return service.eval(source);
+    }
+
+    @Override
     public boolean unload(@NonNull String name) {
 
         String extension = this.getExtension(name);
