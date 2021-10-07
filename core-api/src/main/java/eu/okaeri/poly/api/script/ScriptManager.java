@@ -18,5 +18,7 @@ public interface ScriptManager {
 
     ScriptHelper load(@NonNull String name, @NonNull String source);
 
+    Object eval(@NonNull String extension, @NonNull String source);
+
     boolean unload(@NonNull String name);
 }

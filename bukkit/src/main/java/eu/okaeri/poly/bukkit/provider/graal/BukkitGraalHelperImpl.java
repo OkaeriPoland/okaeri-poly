@@ -1,14 +1,14 @@
-package eu.okaeri.poly.bukkit.provider.javascript;
+package eu.okaeri.poly.bukkit.provider.graal;
 
 import eu.okaeri.poly.bukkit.provider.BukkitScriptHelperImpl;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 
-public class BukkitJavaScriptHelperImpl extends BukkitScriptHelperImpl {
+public class BukkitGraalHelperImpl extends BukkitScriptHelperImpl {
 
     private final Context context;
 
-    public BukkitJavaScriptHelperImpl(Plugin plugin, Context context) {
+    public BukkitGraalHelperImpl(Plugin plugin, Context context) {
         super(plugin);
         this.context = context;
     }
