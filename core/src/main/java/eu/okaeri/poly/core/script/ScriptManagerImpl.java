@@ -61,8 +61,11 @@ public class ScriptManagerImpl implements ScriptManager {
     public boolean unload(@NonNull String name) {
 
         String extension = this.getExtension(name);
-        ScriptService service = this.services.get(extension);
+        if (extension == null) {
+            throw new RuntimeException("Cannot resolve extension: " + name);
+        }
 
+        ScriptService service = this.services.get(extension);
         if (service == null) {
             throw new RuntimeException("Cannot find service for extension: " + extension);
         }

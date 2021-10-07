@@ -43,7 +43,7 @@ script.listen(BlockBreakEvent, EventPriority.MONITOR, true) { event ->
     event.player.sendMessage("You're so lucky you received 1 diamond!")
 }
 
-script.command("heal") { sender, args ->
+script.command("healme") { sender, args ->
 
     if (!(sender instanceof Player)) {
         sender.sendMessage("Sorry no mercy for console.");
