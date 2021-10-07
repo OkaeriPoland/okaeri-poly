@@ -1,5 +1,6 @@
 package eu.okaeri.polyx.bukkit;
 
+import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
 import eu.okaeri.platform.core.annotation.Bean;
 import eu.okaeri.platform.core.annotation.Register;
@@ -8,9 +9,11 @@ import eu.okaeri.platform.core.plan.Planned;
 import eu.okaeri.polyx.bukkit.command.PolyCommand;
 import eu.okaeri.polyx.bukkit.provider.groovy.BukkitGroovyService;
 import eu.okaeri.polyx.bukkit.provider.javascript.BukkitJavaScriptService;
+import eu.okaeri.polyx.bukkit.provider.python.BukkitPythonService;
 import eu.okaeri.polyx.core.PolyClassLoader;
 import eu.okaeri.polyx.core.config.PolyMessages;
 import eu.okaeri.polyx.core.script.ScriptManager;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,13 +24,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
 
+@Getter // api
 @Register(PolyMessages.class)
 @Register(PolyCommand.class)
-public class PolyXPlugin extends OkaeriBukkitPlugin {
+public class PolyPlugin extends OkaeriBukkitPlugin {
+
+    @Inject private ScriptManager scriptManager;
 
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
-    public void loadAllScripts(File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
+    private void loadAllScripts(File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
         Files.list(scriptFolder).forEach(path -> {
             try {
                 long start = System.currentTimeMillis();
@@ -43,7 +49,7 @@ public class PolyXPlugin extends OkaeriBukkitPlugin {
 
     @SneakyThrows
     @Planned(ExecutionPhase.SETUP)
-    public void setupClassLoader() {
+    private void setupClassLoader() {
 
         // no warning needed
         System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
@@ -61,14 +67,15 @@ public class PolyXPlugin extends OkaeriBukkitPlugin {
 
     @SneakyThrows
     @Bean("scriptFolder")
-    public Path configureScriptsPath(File dataFolder) {
+    private Path configureScriptsPath(File dataFolder) {
         return Files.createDirectories(dataFolder.toPath().resolve("scripts"));
     }
 
     @Bean("scriptManager")
-    public ScriptManager configureScriptManager() {
+    private ScriptManager configureScriptManager() {
         return ScriptManager.create()
                 .register("groovy", new BukkitGroovyService(this))
-                .register("js", new BukkitJavaScriptService(this));
+                .register("js", new BukkitJavaScriptService(this))
+                .register("py", new BukkitPythonService(this));
     }
 }

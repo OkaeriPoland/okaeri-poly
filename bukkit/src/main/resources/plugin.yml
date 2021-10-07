@@ -1,6 +1,6 @@
-name: PolyX
+name: Poly
 version: ${project.version}
-main: eu.okaeri.polyx.bukkit.PolyXPlugin
+main: eu.okaeri.polyx.bukkit.PolyPlugin
 description: 'Enterprise Grade Minecraft Scripting Adapter'
 author: 'Dawid Sawicki <dawid@okaeri.eu>'
 api-version: 1.13
