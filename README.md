@@ -10,7 +10,7 @@ Enterprise grade Minecraft scripting adapter for Groovy, JavaScript, and Python.
 
 ## Requirements
 
-Java 11 or newer. Using GraalVM will improve performance if JavaScript backend is required. It is also recommended to not run other plugins using Groovy/Jython.
+Java 11 or newer. Using GraalVM will improve performance if JavaScript backend is required. It is also recommended not to run other plugins using Groovy/Jython.
 
 ## Supported platforms
 
