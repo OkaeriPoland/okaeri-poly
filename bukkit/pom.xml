@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>okaeri-polyx</artifactId>
+        <artifactId>okaeri-poly</artifactId>
         <groupId>eu.okaeri</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>okaeri-polyx-bukkit</artifactId>
+    <artifactId>okaeri-poly-bukkit</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-polyx-core</artifactId>
+            <artifactId>okaeri-poly-core</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
@@ -56,88 +56,88 @@
                             </transformers>
                             <relocations>
                                 <relocation>
-                                    <pattern>^eu\/okaeri\/(?!polyx)(.*)$</pattern>
-                                    <shadedPattern>eu/okaeri/polyx/lib/$1</shadedPattern>
+                                    <pattern>^eu\/okaeri\/(?!poly)(.*)$</pattern>
+                                    <shadedPattern>eu/okaeri/poly/lib/$1</shadedPattern>
                                     <rawString>true</rawString>
                                 </relocation>
                                 <!-- graal -->
                                 <relocation>
                                     <pattern>com.ibm.</pattern>
-                                    <shadedPattern>eu.okaeri.polyx.lib.ibm.</shadedPattern>
+                                    <shadedPattern>eu.okaeri.poly.lib.ibm.</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.oracle.</pattern>
-                                    <shadedPattern>eu.okaeri.polyx.lib.oracle.</shadedPattern>
+                                    <shadedPattern>eu.okaeri.poly.lib.oracle.</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.graalvm.</pattern>
-                                    <shadedPattern>eu.okaeri.polyx.lib.graalvm.</shadedPattern>
+                                    <shadedPattern>eu.okaeri.poly.lib.graalvm.</shadedPattern>
                                 </relocation>
                                 <!-- groovy (did not figure how to run relocated yet) -->
 <!--                                <relocation>-->
 <!--                                    <pattern>org.codehaus.groovy.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.codehaus.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.codehaus.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>org.apache.groovy.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.apache.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.apache.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>groovy.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.groovy.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.groovy.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>groovyjarjarantlr.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.antlr.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.antlr.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>groovyjarjarantlr4.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.antlr4.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.antlr4.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>groovyjarjarasm.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.asm.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.asm.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>groovyjarjarpicocli.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.groovy.x.picocli.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.picocli.</shadedPattern>-->
 <!--                                </relocation>-->
                                 <!-- python (this one did not work with relocations too) -->
 <!--                                <relocation>-->
 <!--                                    <pattern>javatests.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.javatests.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.javatests.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>jnr.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.jnr.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.jnr.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>jni.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.jni.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.jni.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>com.kenai.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.kenai.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.kenai.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>com.xhaus.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.xhaus.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.xhaus.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>com.ziclix.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.ziclix.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.ziclix.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>org.python.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.python.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.python.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>org.w3c.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.w3c.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.w3c.</shadedPattern>-->
 <!--                                </relocation>-->
 <!--                                <relocation>-->
 <!--                                    <pattern>org.fusesource.</pattern>-->
-<!--                                    <shadedPattern>eu.okaeri.polyx.lib.fusesource.</shadedPattern>-->
+<!--                                    <shadedPattern>eu.okaeri.poly.lib.fusesource.</shadedPattern>-->
 <!--                                </relocation>-->
                             </relocations>
                         </configuration>

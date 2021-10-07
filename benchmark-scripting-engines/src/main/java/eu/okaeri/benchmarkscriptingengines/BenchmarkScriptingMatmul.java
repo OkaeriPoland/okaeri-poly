@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 @BenchmarkMode(Mode.Throughput)
 public class BenchmarkScriptingMatmul {
 
-    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
+    private static final boolean DEBUG = Boolean.getBoolean("poly.debug");
 
     public static void main(String[] args) throws IOException {
         org.openjdk.jmh.Main.main(args);

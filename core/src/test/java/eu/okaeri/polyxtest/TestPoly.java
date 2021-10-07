@@ -1,4 +1,4 @@
-package eu.okaeri.polyxtest;
+package eu.okaeri.polytest;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPoly {
 
-    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
+    private static final boolean DEBUG = Boolean.getBoolean("poly.debug");
 
     @Test
     @SneakyThrows

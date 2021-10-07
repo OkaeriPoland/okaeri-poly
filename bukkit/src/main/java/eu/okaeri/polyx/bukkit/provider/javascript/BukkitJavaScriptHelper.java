@@ -1,6 +1,6 @@
-package eu.okaeri.polyx.bukkit.provider.javascript;
+package eu.okaeri.poly.bukkit.provider.javascript;
 
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 

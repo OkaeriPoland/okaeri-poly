@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.bukkit.executor;
+package eu.okaeri.poly.bukkit.executor;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

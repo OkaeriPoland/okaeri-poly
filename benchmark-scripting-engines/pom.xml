@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-polyx-core</artifactId>
+            <artifactId>okaeri-poly-core</artifactId>
             <version>1.0.0</version>
         </dependency>
 

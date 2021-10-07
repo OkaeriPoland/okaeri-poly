@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.core.script;
+package eu.okaeri.poly.core.script;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

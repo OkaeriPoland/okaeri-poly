@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.core;
+package eu.okaeri.poly.core;
 
 import java.net.URL;
 import java.net.URLClassLoader;

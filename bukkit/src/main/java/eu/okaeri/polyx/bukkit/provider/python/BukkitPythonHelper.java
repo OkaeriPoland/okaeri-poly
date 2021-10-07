@@ -1,6 +1,6 @@
-package eu.okaeri.polyx.bukkit.provider.python;
+package eu.okaeri.poly.bukkit.provider.python;
 
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
 import lombok.NonNull;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;

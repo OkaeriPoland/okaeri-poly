@@ -1,7 +1,7 @@
-package eu.okaeri.polyx.bukkit.provider.python;
+package eu.okaeri.poly.bukkit.provider.python;
 
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
 import lombok.Cleanup;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;

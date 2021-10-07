@@ -1,9 +1,9 @@
-package eu.okaeri.polyx.bukkit.provider.javascript;
+package eu.okaeri.poly.bukkit.provider.javascript;
 
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
@@ -14,7 +14,7 @@ import org.graalvm.polyglot.Value;
 @Component
 public class BukkitJavaScriptService extends BukkitScriptService {
 
-    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
+    private static final boolean DEBUG = Boolean.getBoolean("poly.debug");
     public static final String LANGUAGE_ID = "js";
 
     @Inject

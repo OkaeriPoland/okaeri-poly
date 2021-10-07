@@ -1,9 +1,9 @@
-package eu.okaeri.polyx.bukkit.provider.groovy;
+package eu.okaeri.poly.bukkit.provider.groovy;
 
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptService;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptService;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import lombok.NonNull;

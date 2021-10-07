@@ -1,6 +1,6 @@
-package eu.okaeri.polyx.bukkit.provider.groovy;
+package eu.okaeri.poly.bukkit.provider.groovy;
 
-import eu.okaeri.polyx.bukkit.provider.BukkitScriptHelper;
+import eu.okaeri.poly.bukkit.provider.BukkitScriptHelper;
 import org.bukkit.plugin.Plugin;
 
 public class BukkitGroovyHelper extends BukkitScriptHelper {
