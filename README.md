@@ -65,6 +65,15 @@ Additional global variables:
 - `logger`: instance of `java.util.logging.Logger`
 - `proxy`: instance of `net.md_5.bungee.api.ProxyServer`
 
+### IDE
+#### IntelliJ (Groovy)
+0. Create new projects and add poly as a provided dependency.
+1. Open any `.groovy` script with Groovy support enabled.
+2. Point your cursor on the `script` variable.
+3. Press `Alt + Enter` and choose `Add dynamic property 'script'`.
+4. Set property type to matching helper type (see sections above).
+5. Optionally add additional variables that are specified.
+
 ### Details
 
 Otherwise, standard implementation practices/limitations apply. This software is intended for advanced users that are not afraid to explore. See provider repos for more details:
