@@ -46,10 +46,18 @@ public class PolyCommand implements CommandService {
         return Message.of("Loaded script " + path + "!");
     }
 
+    @SneakyThrows
     @Executor(pattern = "unload *")
     public Message unload(@Arg String name) {
 
-        if (this.scriptManager.unload(name)) {
+        String scriptName = Files.list(this.scriptFolder)
+                .map(Path::getFileName)
+                .map(Path::toString)
+                .filter(fileName -> fileName.startsWith(name))
+                .findAny()
+                .orElse(name);
+
+        if (this.scriptManager.unload(scriptName)) {
             return Message.of("Script unloaded!");
         }
 
