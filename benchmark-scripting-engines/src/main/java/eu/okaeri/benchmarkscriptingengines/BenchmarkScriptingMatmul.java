@@ -18,9 +18,7 @@ import java.lang.reflect.Method;
 @BenchmarkMode(Mode.Throughput)
 public class BenchmarkScriptingMatmul {
 
-    static {
-        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
-    }
+    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
 
     public static void main(String[] args) throws IOException {
         org.openjdk.jmh.Main.main(args);
@@ -150,7 +148,9 @@ public class BenchmarkScriptingMatmul {
                     "    return x[n / 2][n / 2]\n" +
                     "};\n";
 
-            Context context = Context.create();
+            Context context = Context.newBuilder("js")
+                    .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
+                    .build();
             context.eval(Source.newBuilder("js", script, "matmul.js").build());
             main = context.getBindings("js").getMember("main");
         }

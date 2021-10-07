@@ -1,8 +1,11 @@
 ## Results
 ```console
 # JDK 11, Windows 11, Ryzen 5 3600
+#
+# jdk: 11.0.12 (temurin)
 # graal: 21.2.0
 # groovy: 3.0.9
+#
 Benchmark                                               Mode  Cnt     Score     Error  Units
 BenchmarkScriptingMatmul.graaljs_matmul                thrpt    3     4,601 ±   0,047  ops/s
 BenchmarkScriptingMatmul.groovy_matmul                 thrpt    3    13,054 ±   0,882  ops/s
