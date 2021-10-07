@@ -5,12 +5,14 @@
 # jdk: 11.0.12 (temurin)
 # graal: 21.2.0
 # groovy: 3.0.9
+# jython: 2.7.2
 #
-Benchmark                                               Mode  Cnt     Score     Error  Units
-BenchmarkScriptingMatmul.graaljs_matmul                thrpt    3     4,601 ±   0,047  ops/s
-BenchmarkScriptingMatmul.groovy_matmul                 thrpt    3    13,054 ±   0,882  ops/s
-BenchmarkScriptingMatmul.groovy_matmul_compile_static  thrpt    3  1648,556 ±   7,340  ops/s
-BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1729,092 ± 160,851  ops/s
+Benchmark                                               Mode  Cnt     Score      Error  Units
+BenchmarkScriptingMatmul.graaljs_matmul                thrpt    3     4,512 ±    0,016  ops/s
+BenchmarkScriptingMatmul.groovy_matmul                 thrpt    3    12,661 ±    1,700  ops/s
+BenchmarkScriptingMatmul.groovy_matmul_compile_static  thrpt    3  1662,161 ±   26,739  ops/s
+BenchmarkScriptingMatmul.jython_matmul                 thrpt    3    12,974 ±    0,131  ops/s
+BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1739,149 ± 1514,806  ops/s
 ```
 ```console
 # JDK 11, Windows 11, Ryzen 5 3600
@@ -18,10 +20,12 @@ BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1729,092 ± 1
 # jdk: 11.0.12 (graalvm-ce)
 # graal: 21.2.0
 # groovy: 3.0.9
+# jython: 2.7.2
 #
-Benchmark                                               Mode  Cnt     Score     Error  Units
-BenchmarkScriptingMatmul.graaljs_matmul                thrpt    3  1159,523 ±  87,696  ops/s
-BenchmarkScriptingMatmul.groovy_matmul                 thrpt    3    11,877 ±   0,935  ops/s
-BenchmarkScriptingMatmul.groovy_matmul_compile_static  thrpt    3  1719,940 ± 624,958  ops/s
-BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1763,808 ± 266,482  ops/s
+Benchmark                                               Mode  Cnt     Score    Error  Units
+BenchmarkScriptingMatmul.graaljs_matmul                thrpt    3  1233,284 ± 20,865  ops/s
+BenchmarkScriptingMatmul.groovy_matmul                 thrpt    3    12,685 ±  1,306  ops/s
+BenchmarkScriptingMatmul.groovy_matmul_compile_static  thrpt    3  1813,959 ± 23,357  ops/s
+BenchmarkScriptingMatmul.jython_matmul                 thrpt    3    12,505 ±  0,315  ops/s
+BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1783,404 ± 54,866  ops/s
 ```

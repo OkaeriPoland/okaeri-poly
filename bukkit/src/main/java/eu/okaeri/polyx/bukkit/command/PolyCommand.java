@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.bukkit.command;
+package eu.okaeri.poly.bukkit.command;
 
 import eu.okaeri.commands.annotation.Arg;
 import eu.okaeri.commands.annotation.Executor;
@@ -9,9 +9,9 @@ import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.platform.bukkit.i18n.message.BukkitAudience;
 import eu.okaeri.platform.core.i18n.message.Audience;
-import eu.okaeri.polyx.core.config.PolyMessages;
-import eu.okaeri.polyx.core.script.ScriptManager;
-import eu.okaeri.polyx.core.script.ScriptService;
+import eu.okaeri.poly.core.config.PolyMessages;
+import eu.okaeri.poly.core.script.ScriptManager;
+import eu.okaeri.poly.core.script.ScriptService;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 
@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-@ServiceDescriptor(label = "poly", aliases = {"polyx", "script"})
+@ServiceDescriptor(label = "poly", aliases = {"poly", "script"})
 public class PolyCommand implements CommandService {
 
     @Inject private ScriptManager scriptManager;

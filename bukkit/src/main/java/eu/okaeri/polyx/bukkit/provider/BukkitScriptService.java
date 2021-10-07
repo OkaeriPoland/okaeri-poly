@@ -1,6 +1,6 @@
-package eu.okaeri.polyx.bukkit.provider;
+package eu.okaeri.poly.bukkit.provider;
 
-import eu.okaeri.polyx.core.script.ScriptService;
+import eu.okaeri.poly.core.script.ScriptService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;

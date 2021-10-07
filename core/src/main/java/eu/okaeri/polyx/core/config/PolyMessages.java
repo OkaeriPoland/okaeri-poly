@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.core.config;
+package eu.okaeri.poly.core.config;
 
 import eu.okaeri.i18n.configs.LocaleConfig;
 import eu.okaeri.platform.core.annotation.Messages;

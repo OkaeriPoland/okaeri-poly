@@ -1,11 +1,11 @@
-package eu.okaeri.polyx.bukkit.provider;
+package eu.okaeri.poly.bukkit.provider;
 
 import eu.okaeri.commands.bukkit.CommandsBukkit;
-import eu.okaeri.polyx.bukkit.executor.ScriptCommandExecutor;
-import eu.okaeri.polyx.bukkit.executor.ScriptEventExecutor;
-import eu.okaeri.polyx.bukkit.executor.ScriptPluginMessageExecutor;
-import eu.okaeri.polyx.bukkit.executor.ScriptSchedulerExecutor;
-import eu.okaeri.polyx.core.script.ScriptHelper;
+import eu.okaeri.poly.bukkit.executor.ScriptCommandExecutor;
+import eu.okaeri.poly.bukkit.executor.ScriptEventExecutor;
+import eu.okaeri.poly.bukkit.executor.ScriptPluginMessageExecutor;
+import eu.okaeri.poly.bukkit.executor.ScriptSchedulerExecutor;
+import eu.okaeri.poly.core.script.ScriptHelper;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

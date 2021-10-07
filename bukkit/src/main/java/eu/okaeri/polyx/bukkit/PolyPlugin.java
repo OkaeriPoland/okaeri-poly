@@ -1,4 +1,4 @@
-package eu.okaeri.polyx.bukkit;
+package eu.okaeri.poly.bukkit;
 
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
@@ -6,13 +6,13 @@ import eu.okaeri.platform.core.annotation.Bean;
 import eu.okaeri.platform.core.annotation.Register;
 import eu.okaeri.platform.core.plan.ExecutionPhase;
 import eu.okaeri.platform.core.plan.Planned;
-import eu.okaeri.polyx.bukkit.command.PolyCommand;
-import eu.okaeri.polyx.bukkit.provider.groovy.BukkitGroovyService;
-import eu.okaeri.polyx.bukkit.provider.javascript.BukkitJavaScriptService;
-import eu.okaeri.polyx.bukkit.provider.python.BukkitPythonService;
-import eu.okaeri.polyx.core.PolyClassLoader;
-import eu.okaeri.polyx.core.config.PolyMessages;
-import eu.okaeri.polyx.core.script.ScriptManager;
+import eu.okaeri.poly.bukkit.command.PolyCommand;
+import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyService;
+import eu.okaeri.poly.bukkit.provider.javascript.BukkitJavaScriptService;
+import eu.okaeri.poly.bukkit.provider.python.BukkitPythonService;
+import eu.okaeri.poly.core.PolyClassLoader;
+import eu.okaeri.poly.core.config.PolyMessages;
+import eu.okaeri.poly.core.script.ScriptManager;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
