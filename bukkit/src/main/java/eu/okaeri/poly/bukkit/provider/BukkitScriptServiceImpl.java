@@ -21,6 +21,7 @@ public abstract class BukkitScriptServiceImpl extends ScriptServiceImpl {
         return Map.of(
                 "script", scriptHelper,
                 "plugin", this.getPlugin(),
+                "logger", this.getPlugin().getLogger(),
                 "server", this.plugin.getServer()
         );
     }
