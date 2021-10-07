@@ -108,7 +108,7 @@ compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.1.0'
 
 #### IntelliJ (Groovy)
 
-0. Create new projects and add poly as a provided dependency.
+0. Create new project and add poly-\[platform]-api as a provided dependency.
 1. Open any `.groovy` script with Groovy support enabled.
 2. Point your cursor on the `script` variable.
 3. Press `Alt + Enter` and choose `Add dynamic property 'script'`.
