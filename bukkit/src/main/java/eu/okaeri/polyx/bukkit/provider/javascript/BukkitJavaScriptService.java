@@ -14,6 +14,7 @@ import org.graalvm.polyglot.Value;
 @Component
 public class BukkitJavaScriptService extends BukkitScriptService {
 
+    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
     public static final String LANGUAGE_ID = "js";
 
     @Inject
@@ -25,6 +26,7 @@ public class BukkitJavaScriptService extends BukkitScriptService {
     protected BukkitScriptHelper eval(@NonNull String name, @NonNull String source) {
 
         Context context = Context.newBuilder(LANGUAGE_ID)
+                .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
                 .allowHostClassLookup(className -> true)
                 .allowHostAccess(HostAccess.ALL)
                 .build();

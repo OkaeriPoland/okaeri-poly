@@ -15,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPolyX {
 
-    static {
-        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
-    }
+    private static final boolean DEBUG = Boolean.getBoolean("polyx.debug");
 
     @Test
     public void test_basic_graal_context() throws IOException {
 
-        @Cleanup Context context = Context.create();
+        @Cleanup Context context = Context.newBuilder("js")
+                .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
+                .build();
         context.eval(Source.newBuilder("js", "const a = 1 + 1", "src.js").build());
         Value result = context.getBindings("js").getMember("a");
 
