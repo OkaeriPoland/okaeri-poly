@@ -51,6 +51,6 @@ public abstract class ScriptServiceImpl implements ScriptService {
         }
 
         this.scripts.get(name).unregister();
-        return true;
+        return this.scripts.remove(name) != null;
     }
 }

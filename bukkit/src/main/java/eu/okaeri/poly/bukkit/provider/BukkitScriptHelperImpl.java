@@ -1,6 +1,6 @@
 package eu.okaeri.poly.bukkit.provider;
 
-import eu.okaeri.commands.bukkit.CommandsBukkit;
+import eu.okaeri.commands.bukkit.CommandsBukkitUnsafe;
 import eu.okaeri.poly.api.bukkit.BukkitScriptHelper;
 import eu.okaeri.poly.bukkit.executor.ScriptCommandExecutor;
 import eu.okaeri.poly.bukkit.executor.ScriptEventExecutor;
@@ -9,6 +9,7 @@ import eu.okaeri.poly.bukkit.executor.ScriptSchedulerExecutor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -30,6 +31,8 @@ import java.util.function.Consumer;
 public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
 
     private final Plugin plugin;
+    private final String name;
+
     private final Listener scriptEventListener = new Listener() {};
     private final List<String> scriptCommands = new ArrayList<>();
     private final List<BukkitTask> scriptTasks = new ArrayList<>();
@@ -45,11 +48,12 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
                 .map(ScriptPluginMessageExecutor.class::cast)
                 .forEach(executor -> this.plugin.getServer().getMessenger().unregisterIncomingPluginChannel(this.plugin, executor.getChannelName(), executor));
 
-        CommandMap commandMap = CommandsBukkit.getCommandMap();
+        CommandMap commandMap = CommandsBukkitUnsafe.getCommandMap();
         this.getScriptCommands().stream()
                 .map(commandMap::getCommand)
                 .filter(Objects::nonNull)
-                .forEach(command -> command.unregister(commandMap));
+                .map(Command::getName)
+                .forEach(CommandsBukkitUnsafe::unregister);
     }
 
     @Override
@@ -78,7 +82,7 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     @Override
     public void command(@NonNull String label, @NonNull BiConsumer<CommandSender, List<String>> consumer) {
         ScriptCommandExecutor scriptCommandExecutor = new ScriptCommandExecutor(label, consumer);
-        CommandsBukkit.getCommandMap().register(label, scriptCommandExecutor);
+        CommandsBukkitUnsafe.getCommandMap().register(label, scriptCommandExecutor);
         this.getScriptCommands().add(scriptCommandExecutor.getName());
     }
 

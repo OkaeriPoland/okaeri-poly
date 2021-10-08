@@ -13,7 +13,7 @@ public class BukkitGraalServiceImpl extends GraalScriptService {
     }
 
     @Override
-    protected ScriptHelper createScriptHelper(Context context) {
-        return new BukkitGraalHelperImpl((Plugin) this.getPoly(), context);
+    protected ScriptHelper createScriptHelper(Context context, String scriptName) {
+        return new BukkitGraalHelperImpl((Plugin) this.getPoly(), scriptName, context);
     }
 }

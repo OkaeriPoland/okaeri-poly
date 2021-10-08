@@ -17,6 +17,7 @@ import eu.okaeri.poly.bukkit.provider.python.BukkitPythonServiceImpl;
 import eu.okaeri.poly.core.PolyClassLoader;
 import eu.okaeri.poly.core.config.PolyConfig;
 import eu.okaeri.poly.core.config.PolyMessages;
+import eu.okaeri.poly.core.script.ScriptLoggerWrapper;
 import eu.okaeri.poly.core.script.ScriptManagerImpl;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -45,7 +46,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         return Map.of(
                 "script", scriptHelper,
                 "plugin", this,
-                "logger", this.getLogger(),
+                "logger", new ScriptLoggerWrapper(this.getLogger(), scriptHelper.getName()),
                 "server", this.getServer()
         );
     }
