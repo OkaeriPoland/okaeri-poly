@@ -161,7 +161,7 @@ Otherwise, standard implementation practices/limitations apply. This software is
 |------------------------------|--------------------------|--------------------------|------------------------|------------------|
 | ⭐ Groovy (w. @CompileStatic) | ⭐ Excellent              | ⭐ Excellent              | ⭐ Excellent            | ⭐ Excellent      |
 | ⭐ Groovy                     | 🔵 Good                   | 🔵 Good                   | 🟢 Very good            | ⭐ Excellent      |
-| 🟢 JavaScript (Graaljs)       | 🟠 Fair                   | 🟢 Very good              | 🟠 Fair                 | 🟢 Very good      |
+| 🔵 JavaScript (Graaljs)       | 🟠 Fair                   | 🟢 Very good              | 🟠 Fair                 | 🟢 Very good      |
 | 🟠 Python (Jython)            | 🔵 Good                   | 🔵 Good                   | 🔴 Poor                 | 🟠 Fair           |
 
 ### Performance
