@@ -138,13 +138,6 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     }
 
     @Override
-    public void runNowAsync(@NonNull Runnable runnable) {
-        ScriptSchedulerExecutor scriptSchedulerExecutor = new ScriptSchedulerExecutor(runnable);
-        BukkitTask bukkitTask = this.getPlugin().getServer().getScheduler().runTaskAsynchronously(this.getPlugin(), scriptSchedulerExecutor);
-        this.getScriptTasks().add(bukkitTask);
-    }
-
-    @Override
     public void runNow(@NonNull Runnable runnable) {
         ScriptSchedulerExecutor scriptSchedulerExecutor = new ScriptSchedulerExecutor(runnable);
         BukkitTask bukkitTask = this.getPlugin().getServer().getScheduler().runTask(this.getPlugin(), scriptSchedulerExecutor);
@@ -152,8 +145,10 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     }
 
     @Override
-    public void registerOutgoingPluginChannel(@NonNull String name) {
-        this.getPlugin().getServer().getMessenger().registerOutgoingPluginChannel(this.getPlugin(), name);
+    public void runNowAsync(@NonNull Runnable runnable) {
+        ScriptSchedulerExecutor scriptSchedulerExecutor = new ScriptSchedulerExecutor(runnable);
+        BukkitTask bukkitTask = this.getPlugin().getServer().getScheduler().runTaskAsynchronously(this.getPlugin(), scriptSchedulerExecutor);
+        this.getScriptTasks().add(bukkitTask);
     }
 
     @Override
@@ -164,5 +159,10 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     @Override
     public void onUnload(@NonNull Runnable runnable) {
         this.unloadCallbacks.add(runnable);
+    }
+
+    @Override
+    public void registerOutgoingPluginChannel(@NonNull String name) {
+        this.getPlugin().getServer().getMessenger().registerOutgoingPluginChannel(this.getPlugin(), name);
     }
 }
