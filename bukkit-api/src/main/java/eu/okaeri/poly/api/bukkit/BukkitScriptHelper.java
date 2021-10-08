@@ -44,13 +44,13 @@ public interface BukkitScriptHelper extends ScriptHelper {
 
     void runLaterAsync(long ticks, @NonNull Runnable runnable);
 
-    void runNowAsync(@NonNull Runnable runnable);
-
     void runNow(@NonNull Runnable runnable);
 
-    void registerOutgoingPluginChannel(@NonNull String name);
+    void runNowAsync(@NonNull Runnable runnable);
 
     void onLoad(@NonNull Runnable runnable);
 
     void onUnload(@NonNull Runnable runnable);
+
+    void registerOutgoingPluginChannel(@NonNull String name);
 }

@@ -119,6 +119,11 @@ compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.1.1'
 4. Set property type to matching helper type (see sections above).
 5. Optionally add additional variables that are specified.
 
+#### IntelliJ (JavaScript)
+
+1. Go to `Settings > Languages & Frameworks > JavaScript`.
+2. Set `JavaScript language version` to `Nashorn JS` or select specific files using `...`.
+
 ### Details
 
 Otherwise, standard implementation practices/limitations apply. This software is intended for advanced users that are not afraid to explore. See provider repos for more details:

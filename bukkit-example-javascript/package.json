@@ -1,0 +1,12 @@
+{
+  "name": "bukkit-example-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/demo.js",
+  "scripts": {
+    "prepare": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
