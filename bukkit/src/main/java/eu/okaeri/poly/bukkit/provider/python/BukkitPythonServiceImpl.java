@@ -19,7 +19,7 @@ public class BukkitPythonServiceImpl extends ScriptServiceImpl {
     @Override
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly());
+        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly(), name);
         @Cleanup PythonInterpreter python = new PythonInterpreter();
 
         Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);
@@ -38,7 +38,7 @@ public class BukkitPythonServiceImpl extends ScriptServiceImpl {
     @Override
     public Object eval(@NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly());
+        ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly(), "eval");
         @Cleanup PythonInterpreter python = new PythonInterpreter();
 
         Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);

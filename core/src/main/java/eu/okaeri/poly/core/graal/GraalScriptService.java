@@ -20,7 +20,7 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
         this.languageId = languageId;
     }
 
-    protected abstract ScriptHelper createScriptHelper(Context context);
+    protected abstract ScriptHelper createScriptHelper(Context context, String scriptName);
 
     protected Context createContext() {
         return Context.newBuilder(languageId)
@@ -34,7 +34,7 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
         Context context = this.createContext();
-        ScriptHelper scriptHelper = this.createScriptHelper(context);
+        ScriptHelper scriptHelper = this.createScriptHelper(context, name);
 
         Value bindings = context.getBindings(languageId);
         this.getDefaultBindings(scriptHelper).forEach(bindings::putMember);
@@ -53,7 +53,7 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
     public Object eval(@NonNull String source) {
 
         Context context = this.createContext();
-        ScriptHelper scriptHelper = this.createScriptHelper(context);
+        ScriptHelper scriptHelper = this.createScriptHelper(context, "eval");
 
         Value bindings = context.getBindings(languageId);
         this.getDefaultBindings(scriptHelper).forEach(bindings::putMember);

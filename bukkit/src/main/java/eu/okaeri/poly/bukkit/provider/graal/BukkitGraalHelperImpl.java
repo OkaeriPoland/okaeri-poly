@@ -8,8 +8,8 @@ public class BukkitGraalHelperImpl extends BukkitScriptHelperImpl {
 
     private final Context context;
 
-    public BukkitGraalHelperImpl(Plugin plugin, Context context) {
-        super(plugin);
+    public BukkitGraalHelperImpl(Plugin plugin, String scriptName, Context context) {
+        super(plugin, scriptName);
         this.context = context;
     }
 

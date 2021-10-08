@@ -17,7 +17,7 @@ public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
     @Override
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly());
+        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly(), name);
         GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
 
         try {
@@ -33,7 +33,7 @@ public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
     @Override
     public Object eval(@NonNull String source) {
 
-        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly());
+        ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly(), "eval");
         GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
 
         try {
