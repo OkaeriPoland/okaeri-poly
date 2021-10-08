@@ -114,6 +114,7 @@ compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.1.1'
 
 - Create new (maven/gradle) project or use existing project of your choice.
 - Add poly-\[platform]-api as a provided dependency.
+- Add platform provided dependencies (e.g. spigot-api).
 - Open any `.groovy` script with Groovy support enabled.
 - Point your cursor on the `script` variable.
 - Press `Alt + Enter` and choose `Add dynamic property 'script'`.
@@ -133,7 +134,8 @@ my-poly-project/
 #### IntelliJ (JavaScript)
 
 - Create new (empty) project or use existing project of your choice.
-- Download `.d.ts` files for `graal` and your platform from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
+- Download `.d.ts` files for `graal` from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
+- Download `.d.ts` for your platform (or minimal target) from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
 - Put `.d.ts` files alongside your project `.js` files.
 
 ```console
@@ -141,7 +143,7 @@ my-poly-project/
     src/
         script1.js
         script2.js
-    okaeri-poly-[platform]-api.d.ts
+    okaeri-poly-[platform]-api-[target].d.ts
     okaeri-poly-graal.d.ts
 ```
 
