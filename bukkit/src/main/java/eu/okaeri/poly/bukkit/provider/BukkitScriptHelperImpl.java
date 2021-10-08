@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 
 @Getter
 @RequiredArgsConstructor
@@ -37,9 +38,31 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     private final List<String> scriptCommands = new ArrayList<>();
     private final List<BukkitTask> scriptTasks = new ArrayList<>();
     private final List<PluginMessageListener> scriptChannelListeners = new ArrayList<>();
+    private final List<Runnable> loadCallbacks = new ArrayList<>();
+    private final List<Runnable> unloadCallbacks = new ArrayList<>();
+
+    @Override
+    public void callOnLoad() {
+        try {
+            this.loadCallbacks.forEach(Runnable::run);
+        } catch (Exception exception) {
+            this.plugin.getLogger().log(Level.WARNING, "Unhandled exception in script.onLoad for " + this.name);
+        }
+    }
+
+    @Override
+    public void callOnUnload() {
+        try {
+            this.unloadCallbacks.forEach(Runnable::run);
+        } catch (Exception exception) {
+            this.plugin.getLogger().log(Level.WARNING, "Unhandled exception in script.onUnload for " + this.name);
+        }
+    }
 
     @Override
     public void unregister() {
+
+        this.callOnUnload();
 
         HandlerList.unregisterAll(this.getScriptEventListener());
         this.getScriptTasks().forEach(BukkitTask::cancel);
@@ -131,5 +154,15 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
     @Override
     public void registerOutgoingPluginChannel(@NonNull String name) {
         this.getPlugin().getServer().getMessenger().registerOutgoingPluginChannel(this.getPlugin(), name);
+    }
+
+    @Override
+    public void onLoad(@NonNull Runnable runnable) {
+        this.loadCallbacks.add(runnable);
+    }
+
+    @Override
+    public void onUnload(@NonNull Runnable runnable) {
+        this.unloadCallbacks.add(runnable);
     }
 }

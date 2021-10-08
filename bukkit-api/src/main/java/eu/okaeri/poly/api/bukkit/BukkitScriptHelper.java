@@ -49,4 +49,8 @@ public interface BukkitScriptHelper extends ScriptHelper {
     void runNow(@NonNull Runnable runnable);
 
     void registerOutgoingPluginChannel(@NonNull String name);
+
+    void onLoad(@NonNull Runnable runnable);
+
+    void onUnload(@NonNull Runnable runnable);
 }
