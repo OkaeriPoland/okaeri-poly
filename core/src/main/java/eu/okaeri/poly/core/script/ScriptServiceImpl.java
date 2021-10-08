@@ -3,11 +3,9 @@ package eu.okaeri.poly.core.script;
 import eu.okaeri.poly.api.Poly;
 import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptService;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -53,5 +51,25 @@ public abstract class ScriptServiceImpl implements ScriptService {
 
         this.scripts.get(name).unregister();
         return this.scripts.remove(name) != null;
+    }
+
+    @SneakyThrows
+    protected void updateWithBindings(@NonNull Object script, @NonNull Map<String, Object> defaultBindings) {
+        for (Field field : script.getClass().getFields()) {
+
+            String fieldName = field.getName();
+            Class<?> fieldType = field.getType();
+
+            if (!defaultBindings.containsKey(fieldName)) {
+                continue;
+            }
+
+            Object newValue = defaultBindings.get(fieldName);
+            if (newValue == null || !fieldType.isAssignableFrom(newValue.getClass())) {
+                continue;
+            }
+
+            field.set(script, newValue);
+        }
     }
 }

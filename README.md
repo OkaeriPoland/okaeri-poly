@@ -30,9 +30,22 @@ Put your script files inside `plugins/Poly/scripts/` directory. File extension w
 Command support, event listeners, and scheduler can be accessed through `script` object/variable helper. This ensures script unloading unregisters commands, listeners, and cancels pending tasks.
 
 ```groovy
+@BaseScript BukkitGroovyScript script
+
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+import groovy.transform.BaseScript
 import org.bukkit.event.player.PlayerJoinEvent
 
-// groovy example
+// groovy example (with @BaseScript)
+listen(PlayerJoinEvent) { event ->
+    logger.info("${event.player.name} joined the game!")
+}
+```
+
+```groovy
+import org.bukkit.event.player.PlayerJoinEvent
+
+// groovy example (dynamic properties)
 script.listen(PlayerJoinEvent) { event ->
     logger.info("${event.player.name} joined the game!")
 }
@@ -89,7 +102,7 @@ Add dependency to the `dependencies` section:
 <dependency>
     <groupId>eu.okaeri</groupId>
     <artifactId>okaeri-poly-[platform]-api</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -105,21 +118,12 @@ maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 Add dependency to the `maven` section:
 
 ```groovy
-compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.1.2'
+compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.0'
 ```
 
 ### IDE
 
 #### IntelliJ (Groovy)
-
-- Create new (maven/gradle) project or use existing project of your choice.
-- Add poly-\[platform]-api as a provided dependency.
-- Add platform provided dependencies (e.g. spigot-api).
-- Open any `.groovy` script with Groovy support enabled.
-- Point your cursor on the `script` variable.
-- Press `Alt + Enter` and choose `Add dynamic property 'script'`.
-- Set property type to matching helper type (see sections above).
-- Optionally add additional variables that are specified.
 
 ```console
 my-poly-project/
@@ -131,12 +135,28 @@ my-poly-project/
     pom.xml
 ```
 
-#### IntelliJ (JavaScript)
+- **Using @BaseScript (recommended):**
+  - Create new (maven/gradle) project or use existing project of your choice.
+  - Add poly-\[platform]-api as a provided dependency.
+  - Add platform provided dependencies (e.g. spigot-api).
+  - Use BaseScript annotation in your scripts:
+  ```groovy
+  @BaseScript BukkitGroovyScript script
+  
+  import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+  import groovy.transform.BaseScript
+  ```
+- **Using dynamic properties:**
+  - Create new (maven/gradle) project or use existing project of your choice.
+  - Add poly-\[platform]-api as a provided dependency.
+  - Add platform provided dependencies (e.g. spigot-api).
+  - Open any `.groovy` script with Groovy support enabled.
+  - Point your cursor on the `script` variable.
+  - Press `Alt + Enter` and choose `Add dynamic property 'script'`.
+  - Set property type to matching helper type (see sections above).
+  - Optionally add additional variables that are specified.
 
-- Create new (empty) project or use existing project of your choice.
-- Download `.d.ts` files for `graal` from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
-- Download `.d.ts` for your platform (or minimal target) from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
-- Put `.d.ts` files alongside your project `.js` files.
+#### IntelliJ (JavaScript)
 
 ```console
 my-poly-project/
@@ -146,6 +166,11 @@ my-poly-project/
     okaeri-poly-[platform]-api-[target].d.ts
     okaeri-poly-graal.d.ts
 ```
+
+- Create new (empty) project or use existing project of your choice.
+- Download `.d.ts` files for `graal` from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
+- Download `.d.ts` for your platform (or minimal target) from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
+- Put `.d.ts` files alongside your project `.js` files.
 
 ### Details
 
