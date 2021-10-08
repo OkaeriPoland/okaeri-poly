@@ -4,5 +4,9 @@ public interface ScriptHelper {
 
     String getName();
 
+    void callOnLoad();
+
+    void callOnUnload();
+
     void unregister();
 }

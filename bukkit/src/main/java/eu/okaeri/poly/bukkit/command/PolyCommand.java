@@ -9,6 +9,7 @@ import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.platform.bukkit.i18n.message.BukkitAudience;
 import eu.okaeri.platform.core.i18n.message.Audience;
+import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.api.script.ScriptService;
 import eu.okaeri.poly.core.config.PolyMessages;
@@ -43,9 +44,9 @@ public class PolyCommand implements CommandService {
         }
 
         Path path = pathOptional.get();
-        this.scriptManager.load(path);
+        ScriptHelper script = this.scriptManager.load(path);
 
-        return "Loaded script " + path + "!";
+        return "Loaded script " + script.getName() + "!";
     }
 
     @SneakyThrows
@@ -61,7 +62,7 @@ public class PolyCommand implements CommandService {
                 .orElse(name);
 
         if (this.scriptManager.unload(scriptName)) {
-            return "Script unloaded!";
+            return "Unloaded script " + scriptName + "!";
         }
 
         return "No script found for such name!";

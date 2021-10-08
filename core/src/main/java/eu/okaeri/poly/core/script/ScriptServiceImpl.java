@@ -39,6 +39,7 @@ public abstract class ScriptServiceImpl implements ScriptService {
 
         ScriptHelper scriptHelper = this.exec(name, source);
         this.getScripts().put(name, scriptHelper);
+        scriptHelper.callOnLoad();
 
         return scriptHelper;
     }
