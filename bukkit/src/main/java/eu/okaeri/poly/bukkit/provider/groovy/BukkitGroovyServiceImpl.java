@@ -1,12 +1,16 @@
 package eu.okaeri.poly.bukkit.provider.groovy;
 
 import eu.okaeri.poly.api.Poly;
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript;
 import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.core.script.ScriptServiceImpl;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
+import org.codehaus.groovy.control.CompilerConfiguration;
+
+import java.util.Map;
 
 public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
 
@@ -17,11 +21,17 @@ public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
     @Override
     public ScriptHelper exec(@NonNull String name, @NonNull String source) {
 
+        CompilerConfiguration compilerConfiguration = new CompilerConfiguration();
+        compilerConfiguration.setScriptBaseClass(BukkitGroovyScript.class.getName());
+
         ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly(), name);
-        GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
+        Map<String, Object> defaultBindings = this.getDefaultBindings(scriptHelper);
+        GroovyShell groovyShell = new GroovyShell(new Binding(defaultBindings), compilerConfiguration);
 
         try {
-            groovyShell.evaluate(source);
+            BukkitGroovyScript script = (BukkitGroovyScript) groovyShell.parse(source);
+            this.updateWithBindings(script, defaultBindings);
+            script.run();
         }
         catch (Throwable throwable) {
             throw new RuntimeException("Failed script load", throwable);
