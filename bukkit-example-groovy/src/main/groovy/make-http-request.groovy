@@ -17,7 +17,7 @@ script.command("checkserverip") { sender, args ->
 
     script.runNowAsync {
 
-        def request = HttpRequest.newBuilder().GET()
+        def request = HttpRequest.newBuilder()
                 .uri(URI.create("https://checkip.amazonaws.com/"))
                 .build()
 

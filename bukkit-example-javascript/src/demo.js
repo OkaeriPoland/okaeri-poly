@@ -12,7 +12,9 @@ const HttpClient = Java.type("java.net.http.HttpClient")
 const HttpRequest = Java.type("java.net.http.HttpRequest")
 const HttpResponse = Java.type("java.net.http.HttpResponse")
 const Instant = Java.type("java.time.Instant")
+
 const Thread = Java.type("java.lang.Thread")
+const URI = Java.type("java.net.URI")
 
 let scriptGlobalCounter = 0
 const httpClient = HttpClient.newHttpClient()
@@ -60,7 +62,9 @@ script.command("checkserverip", (sender, args) => {
 
     script.runNowAsync(() => {
 
-        const request = HttpRequest.newBuilder().GET()
+        // FIXME: .graalvm.polyglot.PolyglotException: java.lang.IllegalStateException: java.lang.IllegalAccessException: access to public member failed:
+        //        jdk.internal.net.http.HttpRequestBuilderImpl.uri[Ljava.lang.Object;@1011ee36/invokeVirtual, from public Lookup
+        const request = HttpRequest.newBuilder()
             .uri(URI.create("https://checkip.amazonaws.com/"))
             .build()
 
