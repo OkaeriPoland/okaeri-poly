@@ -71,9 +71,6 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @Planned(ExecutionPhase.SETUP)
     private void setupClassLoader() {
 
-        // no warning needed
-        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
-
         // get url
         Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
         getFile.setAccessible(true);
