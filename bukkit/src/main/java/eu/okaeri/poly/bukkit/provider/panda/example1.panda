@@ -1,0 +1,22 @@
+import eu.okaeri.poly.bukkit.provider.panda.BukkitPandaContext
+import eu.okaeri.poly.api.bukkit.BukkitScriptHelper
+
+import org.bukkit.command.CommandSender
+
+import java.util.function.BiConsumer
+import java.util.List
+
+
+internal type PandaCommand : BiConsumer<CommandSender, List>
+{
+    override accept(CommandSender sender, List commands) -> PrimitiveVoid
+    {
+        sender.sendMessage("Hi from panda!")
+    }
+}
+
+main
+{
+    BukkitScriptHelper script = BukkitPandaContext.getCurrentScript()
+    script.command("panda", new PandaCommand())
+}

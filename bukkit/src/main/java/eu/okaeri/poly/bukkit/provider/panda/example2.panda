@@ -1,0 +1,16 @@
+import eu.okaeri.poly.bukkit.provider.panda.BukkitPandaContext
+import eu.okaeri.poly.api.bukkit.BukkitScriptHelper
+
+import org.bukkit.command.CommandSender
+
+internal type PandaStart : Runnable {
+    override run () -> PrimitiveVoid {
+        log 'Hi from panda!'
+    }
+}
+
+main
+{
+    BukkitScriptHelper script = BukkitPandaContext.getCurrentScript()
+    script.onLoad(new PandaStart())
+}

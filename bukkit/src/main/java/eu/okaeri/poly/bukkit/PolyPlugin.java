@@ -13,6 +13,7 @@ import eu.okaeri.poly.bukkit.command.EvalCommand;
 import eu.okaeri.poly.bukkit.command.PolyCommand;
 import eu.okaeri.poly.bukkit.provider.graal.BukkitGraalServiceImpl;
 import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyServiceImpl;
+import eu.okaeri.poly.bukkit.provider.panda.BukkitPandaServiceImpl;
 import eu.okaeri.poly.bukkit.provider.python.BukkitPythonServiceImpl;
 import eu.okaeri.poly.core.PolyClassLoader;
 import eu.okaeri.poly.core.config.PolyConfig;
@@ -95,7 +96,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         ScriptManager scriptManager = ScriptManagerImpl.create()
                 .register("groovy", new BukkitGroovyServiceImpl(this))
                 .register("js", new BukkitGraalServiceImpl(this, "js"))
-                .register("py", new BukkitPythonServiceImpl(this));
+                .register("py", new BukkitPythonServiceImpl(this))
+                .register("panda", new BukkitPandaServiceImpl(this));
 
         // additional supported by graal
         Engine.create().getLanguages().forEach((extension, lang) -> {

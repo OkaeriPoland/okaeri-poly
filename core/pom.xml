@@ -60,6 +60,13 @@
             <artifactId>jython-standalone</artifactId>
             <version>${jython.version}</version>
         </dependency>
+
+        <!-- panda -->
+        <dependency>
+            <groupId>org.panda-lang</groupId>
+            <artifactId>panda</artifactId>
+            <version>0.5.0-alpha</version>
+        </dependency>
     </dependencies>
 
     <build>

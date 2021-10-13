@@ -11,6 +11,14 @@ import org.graalvm.polyglot.Value;
 import org.junit.jupiter.api.Test;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import panda.interpreter.architecture.Application;
+import panda.interpreter.utils.PandaUtils;
+import panda.std.Option;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -54,5 +62,26 @@ public class TestPoly {
 
         int integer = result.asInt();
         assertEquals(2, integer);
+    }
+
+    @Test
+    @SneakyThrows
+    public void test_basic_panda() {
+
+        Path scriptPath = Paths.get("./target/script.panda");
+        Files.writeString(scriptPath,
+                "internal type ScriptRunnable : Runnable {\n" +
+                        "override run () -> PrimitiveVoid {\n" +
+                        " log 'hi'\n" +
+                        "}}\n" +
+                "main { new ScriptRunnable().run(); return 1 + 1 }"
+        );
+
+        Option<Object> application = PandaUtils.load(new File("./target/"), scriptPath.toFile())
+                .flatMap(Application::launch)
+                .get();
+
+        Object result = application.get();
+        assertEquals(2, result);
     }
 }
