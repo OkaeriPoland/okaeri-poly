@@ -21,7 +21,7 @@
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-platform-core</artifactId>
-            <version>0.4.0-preview28</version>
+            <version>0.4.0-preview29</version>
         </dependency>
 
         <!-- graal -->
