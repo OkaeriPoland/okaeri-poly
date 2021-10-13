@@ -3,7 +3,7 @@ package eu.okaeri.poly.bukkit.command;
 import eu.okaeri.commands.annotation.Arg;
 import eu.okaeri.commands.annotation.Executor;
 import eu.okaeri.commands.annotation.RawArgs;
-import eu.okaeri.commands.annotation.ServiceDescriptor;
+import eu.okaeri.commands.annotation.Command;
 import eu.okaeri.commands.bukkit.annotation.Permission;
 import eu.okaeri.commands.service.CommandService;
 import eu.okaeri.injector.annotation.Inject;
@@ -18,7 +18,7 @@ import java.net.InetSocketAddress;
 import java.util.Set;
 
 @Permission("poly.eval")
-@ServiceDescriptor(label = "eval", aliases = {">"})
+@Command(label = "eval", aliases = {">"})
 public class EvalCommand implements CommandService {
 
     @Inject private ScriptManager scriptManager;
