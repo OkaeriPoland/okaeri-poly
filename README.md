@@ -177,7 +177,7 @@ my-poly-project/
 Otherwise, standard implementation practices/limitations apply. This software is intended for advanced users that are not afraid to explore. See provider repos for more details:
 
 - Groovy: [apache/groovy](https://github.com/apache/groovy), docs: [groovy-lang.org](https://groovy-lang.org/documentation.html)
-- JavaScript: [oracle/graaljs](https://github.com/oracle/graaljs), docs: [github.com](https://github.com/oracle/graaljs/tree/master/docs/user)
+- JavaScript: [oracle/graaljs](https://github.com/oracle/graaljs), docs: [www.graalvm.org (basics)](https://www.graalvm.org/reference-manual/js/JavaInteroperability/), [www.graalvm.org (modules)](https://www.graalvm.org/reference-manual/js/Modules/)
 - Python: [jython/jython](https://github.com/jython/jython), docs: [jython.readthedocs.io](https://jython.readthedocs.io/en/latest/)
 
 ## Backend comparison
