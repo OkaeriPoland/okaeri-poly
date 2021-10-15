@@ -1,5 +1,7 @@
 package eu.okaeri.poly.bukkit;
 
+import eu.okaeri.commands.Commands;
+import eu.okaeri.commands.handler.completion.SimpleNamedCompletionHandler;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
 import eu.okaeri.platform.core.annotation.Bean;
@@ -25,12 +27,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.graalvm.polyglot.Engine;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Stream;
 
 @Getter // api
 @Register(PolyConfig.class)
@@ -53,7 +58,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
-    private void loadAllScripts(File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
+    private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
         Files.list(scriptFolder).forEach(path -> {
             try {
                 long start = System.currentTimeMillis();
@@ -82,9 +87,25 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         Thread.currentThread().setContextClassLoader(loader);
     }
 
+    @Planned(ExecutionPhase.PRE_STARTUP)
+    private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
+        commands.registerCompletion("loadedscripts", new SimpleNamedCompletionHandler(() -> this.scriptManager.listLoaded().stream()));
+        commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
+            try {
+                Set<String> loaded = this.scriptManager.listLoaded();
+                return Files.list(scriptFolder)
+                        .map(Path::getFileName)
+                        .map(Path::toString)
+                        .filter(name -> !loaded.contains(name));
+            } catch (IOException ignored) {
+                return Stream.of();
+            }
+        }));
+    }
+
     @SneakyThrows
     @Bean("scriptFolder")
-    private Path configureScriptsPath(File dataFolder) {
+    private Path configureScriptsPath(@Inject("dataFolder") File dataFolder) {
         return Files.createDirectories(dataFolder.toPath().resolve("scripts"));
     }
 
