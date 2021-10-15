@@ -1,9 +1,8 @@
 package eu.okaeri.poly.bukkit.command;
 
 import eu.okaeri.commands.annotation.Arg;
-import eu.okaeri.commands.annotation.Executor;
-import eu.okaeri.commands.annotation.RawArgs;
 import eu.okaeri.commands.annotation.Command;
+import eu.okaeri.commands.annotation.Executor;
 import eu.okaeri.commands.bukkit.annotation.Permission;
 import eu.okaeri.commands.service.CommandService;
 import eu.okaeri.injector.annotation.Inject;
@@ -26,9 +25,8 @@ public class EvalCommand implements CommandService {
     @Inject private BI18n i18n;
     @Inject private PolyMessages messages;
 
-    @Executor(pattern = "*")
-    // FIXME: use correct consuming argument when available in the okaeri-commands
-    public String eval(CommandSender sender, @Arg String code, @RawArgs String source) {
+    @Executor(pattern = "*...")
+    public String eval(CommandSender sender, @Arg String code) {
 
         if (!this.config.getEval().isEnabled()) {
             return "Eval not enabled! (see config.yml)";
@@ -40,7 +38,7 @@ public class EvalCommand implements CommandService {
 
         String engine = this.config.getEval().getEngine();
         try {
-            Object result = this.scriptManager.eval(engine, source);
+            Object result = this.scriptManager.eval(engine, code);
             return "$> " + result;
         }
         catch (Exception exception) {

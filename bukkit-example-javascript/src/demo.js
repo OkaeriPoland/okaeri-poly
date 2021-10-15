@@ -64,6 +64,13 @@ script.command("checkserverip", (sender, args) => {
 
         // FIXME: .graalvm.polyglot.PolyglotException: java.lang.IllegalStateException: java.lang.IllegalAccessException: access to public member failed:
         //        jdk.internal.net.http.HttpRequestBuilderImpl.uri[Ljava.lang.Object;@1011ee36/invokeVirtual, from public Lookup
+        //
+        // eu.okaeri.poly.lib.graalvm.polyglot.PolyglotException: class eu.okaeri.poly.lib.oracle.truffle.host.HostMethodDesc$SingleMethod$MethodReflectImpl
+        // cannot access class jdk.internal.net.http.HttpRequestBuilderImpl (in module java.net.http) because module java.net.http does not export
+        // jdk.internal.net.http to unnamed module @439baada
+        //
+        // --add-exports java.net.http/jdk.internal.net.http=ALL-UNNAMED
+        //
         const request = HttpRequest.newBuilder()
             .uri(URI.create("https://checkip.amazonaws.com/"))
             .build()

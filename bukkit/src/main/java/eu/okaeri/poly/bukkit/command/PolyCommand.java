@@ -1,6 +1,7 @@
 package eu.okaeri.poly.bukkit.command;
 
 import eu.okaeri.commands.annotation.Arg;
+import eu.okaeri.commands.annotation.Completion;
 import eu.okaeri.commands.annotation.Executor;
 import eu.okaeri.commands.annotation.Command;
 import eu.okaeri.commands.bukkit.annotation.Permission;
@@ -33,6 +34,7 @@ public class PolyCommand implements CommandService {
     @SneakyThrows
     @Permission("poly.admin.load")
     @Executor(pattern = "load *")
+    @Completion(arg = "name", value = "@unloadedscripts")
     public String load(@Arg String name) {
 
         Optional<Path> pathOptional = Files.list(this.scriptFolder)
@@ -52,6 +54,7 @@ public class PolyCommand implements CommandService {
     @SneakyThrows
     @Permission("poly.admin.unload")
     @Executor(pattern = "unload *")
+    @Completion(arg = "name", value = "@loadedscripts")
     public String unload(@Arg String name) {
 
         String scriptName = Files.list(this.scriptFolder)
