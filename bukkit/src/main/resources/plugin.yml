@@ -1,6 +1,7 @@
 name: Poly
 version: ${project.version}
 main: eu.okaeri.poly.bukkit.PolyPlugin
-description: 'Enterprise Grade Minecraft Scripting Adapter'
+description: Enterprise grade Minecraft scripting adapter for Groovy, JavaScript, and Python
+website: https://github.com/OkaeriPoland/okaeri-poly
 author: 'Dawid Sawicki <dawid@okaeri.eu>'
 api-version: 1.13

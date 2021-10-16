@@ -102,7 +102,7 @@ Add dependency to the `dependencies` section:
 <dependency>
     <groupId>eu.okaeri</groupId>
     <artifactId>okaeri-poly-[platform]-api</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -118,7 +118,7 @@ maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 Add dependency to the `maven` section:
 
 ```groovy
-compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.0'
+compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.1'
 ```
 
 ### IDE
