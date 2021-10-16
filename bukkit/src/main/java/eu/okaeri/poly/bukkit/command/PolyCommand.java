@@ -31,9 +31,9 @@ public class PolyCommand implements CommandService {
     @Inject private PolyMessages messages;
     @Inject private Path scriptFolder;
 
+    @Executor
     @SneakyThrows
     @Permission("poly.admin.load")
-    @Executor(pattern = "load *")
     @Completion(arg = "name", value = "@unloadedscripts")
     public String load(@Arg String name) {
 
@@ -51,9 +51,9 @@ public class PolyCommand implements CommandService {
         return "Loaded script " + script.getName() + "!";
     }
 
+    @Executor
     @SneakyThrows
     @Permission("poly.admin.unload")
-    @Executor(pattern = "unload *")
     @Completion(arg = "name", value = "@loadedscripts")
     public String unload(@Arg String name) {
 
