@@ -593,6 +593,12 @@ declare interface List extends Collection {
     of(object: any): List;
 }
 
+// java.util.function.BiConsumer
+declare interface BiConsumer {
+    accept(object: any, object: any): void;
+    andThen(biConsumer: BiConsumer): BiConsumer;
+}
+
 // java.util.Collection
 declare interface Collection extends Iterable {
     add(object: any): boolean;
@@ -2793,12 +2799,6 @@ declare interface Filter {
 declare interface Listener {
 }
 
-// java.util.function.BiConsumer
-declare interface BiConsumer {
-    accept(object: any, object: any): void;
-    andThen(biConsumer: BiConsumer): BiConsumer;
-}
-
 // java.util.function.Consumer
 declare interface Consumer {
     accept(object: any): void;
@@ -4515,6 +4515,68 @@ declare interface RegionAccessor {
     setType(location: Location, material: Material): void;
 }
 
+// java.time.Duration
+declare interface Duration extends TemporalAmount, Comparable, Serializable {
+    isNegative(): boolean;
+    isZero(): boolean;
+    compareTo(object: any): number;
+    compareTo(duration: Duration): number;
+    getNano(): number;
+    toHoursPart(): number;
+    toMillisPart(): number;
+    toMinutesPart(): number;
+    toNanosPart(): number;
+    toSecondsPart(): number;
+    abs(): Duration;
+    dividedBy(l: number): Duration;
+    minus(duration: Duration): Duration;
+    minus(l: number, temporalUnit: TemporalUnit): Duration;
+    minusDays(l: number): Duration;
+    minusHours(l: number): Duration;
+    minusMillis(l: number): Duration;
+    minusMinutes(l: number): Duration;
+    minusNanos(l: number): Duration;
+    minusSeconds(l: number): Duration;
+    multipliedBy(l: number): Duration;
+    negated(): Duration;
+    plus(duration: Duration): Duration;
+    plus(l: number, temporalUnit: TemporalUnit): Duration;
+    plusDays(l: number): Duration;
+    plusHours(l: number): Duration;
+    plusMillis(l: number): Duration;
+    plusMinutes(l: number): Duration;
+    plusNanos(l: number): Duration;
+    plusSeconds(l: number): Duration;
+    truncatedTo(temporalUnit: TemporalUnit): Duration;
+    withNanos(i: number): Duration;
+    withSeconds(l: number): Duration;
+    addTo(temporal: Temporal): Temporal;
+    subtractFrom(temporal: Temporal): Temporal;
+    getUnits(): List;
+    dividedBy(duration: Duration): number;
+    get(temporalUnit: TemporalUnit): number;
+    getSeconds(): number;
+    toDays(): number;
+    toDaysPart(): number;
+    toHours(): number;
+    toMillis(): number;
+    toMinutes(): number;
+    toNanos(): number;
+    toSeconds(): number;
+    between(temporal: Temporal, temporal: Temporal): Duration;
+    from(temporalAmount: TemporalAmount): Duration;
+    of(l: number, temporalUnit: TemporalUnit): Duration;
+    ofDays(l: number): Duration;
+    ofHours(l: number): Duration;
+    ofMillis(l: number): Duration;
+    ofMinutes(l: number): Duration;
+    ofNanos(l: number): Duration;
+    ofSeconds(l: number): Duration;
+    ofSeconds(l: number, l: number): Duration;
+    parse(s: string): Duration;
+    ZERO: Duration;
+}
+
 // org.bukkit.ChunkSnapshot
 declare interface ChunkSnapshot {
     contains(blockData: BlockData): boolean;
@@ -4649,53 +4711,6 @@ declare interface Vector extends AbstractList, List, RandomAccess, Cloneable, Se
     setSize(i: number): void;
     sort(comparator: Comparator): void;
     trimToSize(): void;
-}
-
-// java.util.stream.Stream
-declare interface Stream extends BaseStream {
-    allMatch(predicate: Predicate): boolean;
-    anyMatch(predicate: Predicate): boolean;
-    noneMatch(predicate: Predicate): boolean;
-    collect(supplier: Supplier, biConsumer: BiConsumer, biConsumer: BiConsumer): any;
-    collect(collector: Collector): any;
-    reduce(object: any, biFunction: BiFunction, binaryOperator: BinaryOperator): any;
-    reduce(object: any, binaryOperator: BinaryOperator): any;
-    toArray(): any[];
-    toArray(intFunction: IntFunction): any[];
-    findAny(): Optional;
-    findFirst(): Optional;
-    max(comparator: Comparator): Optional;
-    min(comparator: Comparator): Optional;
-    reduce(binaryOperator: BinaryOperator): Optional;
-    flatMapToDouble(func: Function): DoubleStream;
-    mapToDouble(toDoubleFunction: ToDoubleFunction): DoubleStream;
-    flatMapToInt(func: Function): IntStream;
-    mapToInt(toIntFunction: ToIntFunction): IntStream;
-    flatMapToLong(func: Function): LongStream;
-    mapToLong(toLongFunction: ToLongFunction): LongStream;
-    distinct(): Stream;
-    filter(predicate: Predicate): Stream;
-    flatMap(func: Function): Stream;
-    limit(l: number): Stream;
-    map(func: Function): Stream;
-    peek(consumer: Consumer): Stream;
-    skip(l: number): Stream;
-    sorted(): Stream;
-    sorted(comparator: Comparator): Stream;
-    count(): number;
-    forEach(consumer: Consumer): void;
-    forEachOrdered(consumer: Consumer): void;
-    dropWhile(predicate: Predicate): Stream;
-    takeWhile(predicate: Predicate): Stream;
-    concat(stream: Stream, stream: Stream): Stream;
-    empty(): Stream;
-    generate(supplier: Supplier): Stream;
-    iterate(object: any, predicate: Predicate, func: UnaryOperator): Stream;
-    iterate(object: any, func: UnaryOperator): Stream;
-    of(object: any): Stream;
-    of(object: any): Stream;
-    ofNullable(object: any): Stream;
-    builder(): Builder;
 }
 
 // java.lang.reflect.Field
@@ -4962,19 +4977,6 @@ declare interface ProxySelector {
     getDefault(): ProxySelector;
     of(inetSocketAddress: InetSocketAddress): ProxySelector;
     setDefault(proxySelector: ProxySelector): void;
-}
-
-// java.util.SortedMap
-declare interface SortedMap extends Map {
-    firstKey(): any;
-    lastKey(): any;
-    values(): Collection;
-    comparator(): Comparator;
-    entrySet(): Set;
-    keySet(): Set;
-    headMap(object: any): SortedMap;
-    subMap(object: any, object: any): SortedMap;
-    tailMap(object: any): SortedMap;
 }
 
 // org.bukkit.block.Block
@@ -5302,6 +5304,26 @@ declare interface Raster {
     createPackedRaster(dataBuffer: DataBuffer, i: number, i: number, i: number, point: Point): WritableRaster;
     createWritableRaster(sampleModel: SampleModel, point: Point): WritableRaster;
     createWritableRaster(sampleModel: SampleModel, dataBuffer: DataBuffer, point: Point): WritableRaster;
+}
+
+// java.util.Spliterator
+declare interface Spliterator {
+    tryAdvance(consumer: Consumer): boolean;
+    characteristics(): number;
+    trySplit(): Spliterator;
+    estimateSize(): number;
+    hasCharacteristics(i: number): boolean;
+    getComparator(): Comparator;
+    getExactSizeIfKnown(): number;
+    forEachRemaining(consumer: Consumer): void;
+    CONCURRENT: number;
+    DISTINCT: number;
+    IMMUTABLE: number;
+    NONNULL: number;
+    ORDERED: number;
+    SIZED: number;
+    SORTED: number;
+    SUBSIZED: number;
 }
 
 // org.bukkit.entity.Player$Spigot
@@ -7166,22 +7188,6 @@ declare interface BukkitRunnable extends Runnable {
     cancel(): void;
 }
 
-// java.io.Reader
-declare interface Reader extends Readable, Closeable {
-    read(c: string, i: number, i: number): number;
-    close(): void;
-    markSupported(): boolean;
-    ready(): boolean;
-    read(): number;
-    read(c: string): number;
-    read(s: string): number;
-    skip(l: number): number;
-    transferTo(writer: Writer): number;
-    nullReader(): Reader;
-    mark(i: number): void;
-    reset(): void;
-}
-
 // org.bukkit.World$Environment
 declare enum Environment {
     NORMAL,
@@ -7554,68 +7560,6 @@ declare interface Point extends Point2D, Serializable {
     y: number;
 }
 
-// java.time.Duration
-declare interface Duration extends TemporalAmount, Comparable, Serializable {
-    isNegative(): boolean;
-    isZero(): boolean;
-    compareTo(object: any): number;
-    compareTo(duration: Duration): number;
-    getNano(): number;
-    toHoursPart(): number;
-    toMillisPart(): number;
-    toMinutesPart(): number;
-    toNanosPart(): number;
-    toSecondsPart(): number;
-    abs(): Duration;
-    dividedBy(l: number): Duration;
-    minus(duration: Duration): Duration;
-    minus(l: number, temporalUnit: TemporalUnit): Duration;
-    minusDays(l: number): Duration;
-    minusHours(l: number): Duration;
-    minusMillis(l: number): Duration;
-    minusMinutes(l: number): Duration;
-    minusNanos(l: number): Duration;
-    minusSeconds(l: number): Duration;
-    multipliedBy(l: number): Duration;
-    negated(): Duration;
-    plus(duration: Duration): Duration;
-    plus(l: number, temporalUnit: TemporalUnit): Duration;
-    plusDays(l: number): Duration;
-    plusHours(l: number): Duration;
-    plusMillis(l: number): Duration;
-    plusMinutes(l: number): Duration;
-    plusNanos(l: number): Duration;
-    plusSeconds(l: number): Duration;
-    truncatedTo(temporalUnit: TemporalUnit): Duration;
-    withNanos(i: number): Duration;
-    withSeconds(l: number): Duration;
-    addTo(temporal: Temporal): Temporal;
-    subtractFrom(temporal: Temporal): Temporal;
-    getUnits(): List;
-    dividedBy(duration: Duration): number;
-    get(temporalUnit: TemporalUnit): number;
-    getSeconds(): number;
-    toDays(): number;
-    toDaysPart(): number;
-    toHours(): number;
-    toMillis(): number;
-    toMinutes(): number;
-    toNanos(): number;
-    toSeconds(): number;
-    between(temporal: Temporal, temporal: Temporal): Duration;
-    from(temporalAmount: TemporalAmount): Duration;
-    of(l: number, temporalUnit: TemporalUnit): Duration;
-    ofDays(l: number): Duration;
-    ofHours(l: number): Duration;
-    ofMillis(l: number): Duration;
-    ofMinutes(l: number): Duration;
-    ofNanos(l: number): Duration;
-    ofSeconds(l: number): Duration;
-    ofSeconds(l: number, l: number): Duration;
-    parse(s: string): Duration;
-    ZERO: Duration;
-}
-
 // org.bukkit.generator.WorldInfo
 declare interface WorldInfo {
     getMaxHeight(): number;
@@ -7755,6 +7699,53 @@ declare interface AlgorithmConstraints {
 declare interface AnimalTamer {
     getName(): string;
     getUniqueId(): UUID;
+}
+
+// java.util.stream.Stream
+declare interface Stream extends BaseStream {
+    allMatch(predicate: Predicate): boolean;
+    anyMatch(predicate: Predicate): boolean;
+    noneMatch(predicate: Predicate): boolean;
+    collect(supplier: Supplier, biConsumer: BiConsumer, biConsumer: BiConsumer): any;
+    collect(collector: Collector): any;
+    reduce(object: any, biFunction: BiFunction, binaryOperator: BinaryOperator): any;
+    reduce(object: any, binaryOperator: BinaryOperator): any;
+    toArray(): any[];
+    toArray(intFunction: IntFunction): any[];
+    findAny(): Optional;
+    findFirst(): Optional;
+    max(comparator: Comparator): Optional;
+    min(comparator: Comparator): Optional;
+    reduce(binaryOperator: BinaryOperator): Optional;
+    flatMapToDouble(func: Function): DoubleStream;
+    mapToDouble(toDoubleFunction: ToDoubleFunction): DoubleStream;
+    flatMapToInt(func: Function): IntStream;
+    mapToInt(toIntFunction: ToIntFunction): IntStream;
+    flatMapToLong(func: Function): LongStream;
+    mapToLong(toLongFunction: ToLongFunction): LongStream;
+    distinct(): Stream;
+    filter(predicate: Predicate): Stream;
+    flatMap(func: Function): Stream;
+    limit(l: number): Stream;
+    map(func: Function): Stream;
+    peek(consumer: Consumer): Stream;
+    skip(l: number): Stream;
+    sorted(): Stream;
+    sorted(comparator: Comparator): Stream;
+    count(): number;
+    forEach(consumer: Consumer): void;
+    forEachOrdered(consumer: Consumer): void;
+    dropWhile(predicate: Predicate): Stream;
+    takeWhile(predicate: Predicate): Stream;
+    concat(stream: Stream, stream: Stream): Stream;
+    empty(): Stream;
+    generate(supplier: Supplier): Stream;
+    iterate(object: any, predicate: Predicate, func: UnaryOperator): Stream;
+    iterate(object: any, func: UnaryOperator): Stream;
+    of(object: any): Stream;
+    of(object: any): Stream;
+    ofNullable(object: any): Stream;
+    builder(): Builder;
 }
 
 // org.bukkit.loot.LootContext
@@ -7904,6 +7895,22 @@ declare interface SecureRandom extends Random {
     reseed(): void;
     reseed(secureRandomParameters: SecureRandomParameters): void;
     setSeed(b: number): void;
+}
+
+// java.io.Reader
+declare interface Reader extends Readable, Closeable {
+    read(c: string, i: number, i: number): number;
+    close(): void;
+    markSupported(): boolean;
+    ready(): boolean;
+    read(): number;
+    read(c: string): number;
+    read(s: string): number;
+    skip(l: number): number;
+    transferTo(writer: Writer): number;
+    nullReader(): Reader;
+    mark(i: number): void;
+    reset(): void;
 }
 
 // java.util.concurrent.Flow$Subscription
@@ -8368,24 +8375,32 @@ declare interface Permissible extends ServerOperator {
     removeAttachment(permissionAttachment: PermissionAttachment): void;
 }
 
-// java.util.Spliterator
-declare interface Spliterator {
-    tryAdvance(consumer: Consumer): boolean;
-    characteristics(): number;
-    trySplit(): Spliterator;
-    estimateSize(): number;
-    hasCharacteristics(i: number): boolean;
-    getComparator(): Comparator;
-    getExactSizeIfKnown(): number;
-    forEachRemaining(consumer: Consumer): void;
-    CONCURRENT: number;
-    DISTINCT: number;
-    IMMUTABLE: number;
-    NONNULL: number;
-    ORDERED: number;
-    SIZED: number;
-    SORTED: number;
-    SUBSIZED: number;
+// java.io.PrintWriter
+declare interface PrintWriter extends Writer {
+    checkError(): boolean;
+    format(s: string, object: any): PrintWriter;
+    format(locale: Locale, s: string, object: any): PrintWriter;
+    printf(s: string, object: any): PrintWriter;
+    printf(locale: Locale, s: string, object: any): PrintWriter;
+    print(b: boolean): void;
+    print(c: string): void;
+    print(c: string): void;
+    print(d: number): void;
+    print(f: number): void;
+    print(i: number): void;
+    print(object: any): void;
+    print(s: string): void;
+    print(l: number): void;
+    println(): void;
+    println(b: boolean): void;
+    println(c: string): void;
+    println(c: string): void;
+    println(d: number): void;
+    println(f: number): void;
+    println(i: number): void;
+    println(object: any): void;
+    println(s: string): void;
+    println(l: number): void;
 }
 
 // org.bukkit.BlockChangeDelegate
@@ -8500,47 +8515,6 @@ declare interface FallingBlock extends Entity {
 declare interface TrustManager {
 }
 
-// java.nio.CharBuffer
-declare interface CharBuffer extends Buffer, Comparable, Appendable, CharSequence, Readable {
-    get(): string;
-    get(i: number): string;
-    order(): ByteOrder;
-    asReadOnlyBuffer(): string;
-    compact(): string;
-    put(c: string): string;
-    put(i: number, c: string): string;
-    subSequence(i: number, i: number): string;
-    equals(object: any): boolean;
-    charAt(i: number): string;
-    length(): number;
-    put(c: string): string;
-    put(s: string): string;
-    compareTo(object: any): number;
-    compareTo(s: string): number;
-    hashCode(): number;
-    mismatch(s: string): number;
-    read(s: string): number;
-    append(c: string): Appendable;
-    append(s: string): Appendable;
-    append(s: string, i: number, i: number): Appendable;
-    subSequence(i: number, i: number): string;
-    toString(): string;
-    append(c: string): string;
-    append(s: string): string;
-    append(s: string, i: number, i: number): string;
-    get(c: string): string;
-    get(c: string, i: number, i: number): string;
-    put(c: string, i: number, i: number): string;
-    put(s: string, i: number, i: number): string;
-    put(s: string): string;
-    chars(): IntStream;
-    allocate(i: number): string;
-    wrap(c: string): string;
-    wrap(c: string, i: number, i: number): string;
-    wrap(s: string): string;
-    wrap(s: string, i: number, i: number): string;
-}
-
 // java.io.Writer
 declare interface Writer extends Appendable, Closeable, Flushable {
     close(): void;
@@ -8586,34 +8560,6 @@ declare interface ClassLoader {
 // java.nio.file.WatchEvent$Modifier
 declare interface Modifier {
     name(): string;
-}
-
-// java.io.PrintWriter
-declare interface PrintWriter extends Writer {
-    checkError(): boolean;
-    format(s: string, object: any): PrintWriter;
-    format(locale: Locale, s: string, object: any): PrintWriter;
-    printf(s: string, object: any): PrintWriter;
-    printf(locale: Locale, s: string, object: any): PrintWriter;
-    print(b: boolean): void;
-    print(c: string): void;
-    print(c: string): void;
-    print(d: number): void;
-    print(f: number): void;
-    print(i: number): void;
-    print(object: any): void;
-    print(s: string): void;
-    print(l: number): void;
-    println(): void;
-    println(b: boolean): void;
-    println(c: string): void;
-    println(c: string): void;
-    println(d: number): void;
-    println(f: number): void;
-    println(i: number): void;
-    println(object: any): void;
-    println(s: string): void;
-    println(l: number): void;
 }
 
 // javax.net.ssl.SSLEngine
@@ -8957,6 +8903,47 @@ declare enum Particle {
     LEGACY_FALLING_DUST,
 }
 
+// java.nio.CharBuffer
+declare interface CharBuffer extends Buffer, Comparable, Appendable, CharSequence, Readable {
+    get(): string;
+    get(i: number): string;
+    order(): ByteOrder;
+    asReadOnlyBuffer(): string;
+    compact(): string;
+    put(c: string): string;
+    put(i: number, c: string): string;
+    subSequence(i: number, i: number): string;
+    equals(object: any): boolean;
+    charAt(i: number): string;
+    length(): number;
+    put(c: string): string;
+    put(s: string): string;
+    compareTo(object: any): number;
+    compareTo(s: string): number;
+    hashCode(): number;
+    mismatch(s: string): number;
+    read(s: string): number;
+    append(c: string): Appendable;
+    append(s: string): Appendable;
+    append(s: string, i: number, i: number): Appendable;
+    subSequence(i: number, i: number): string;
+    toString(): string;
+    append(c: string): string;
+    append(s: string): string;
+    append(s: string, i: number, i: number): string;
+    get(c: string): string;
+    get(c: string, i: number, i: number): string;
+    put(c: string, i: number, i: number): string;
+    put(s: string, i: number, i: number): string;
+    put(s: string): string;
+    chars(): IntStream;
+    allocate(i: number): string;
+    wrap(c: string): string;
+    wrap(c: string, i: number, i: number): string;
+    wrap(s: string): string;
+    wrap(s: string, i: number, i: number): string;
+}
+
 // org.bukkit.permissions.Permission
 declare interface Permission {
     getDescription(): string;
@@ -9019,10 +9006,40 @@ declare interface Image {
     UndefinedProperty: any;
 }
 
+// java.util.SortedMap
+declare interface SortedMap extends Map {
+    firstKey(): any;
+    lastKey(): any;
+    values(): Collection;
+    comparator(): Comparator;
+    entrySet(): Set;
+    keySet(): Set;
+    headMap(object: any): SortedMap;
+    subMap(object: any, object: any): SortedMap;
+    tailMap(object: any): SortedMap;
+}
+
 // org.bukkit.configuration.file.YamlConfiguration
 declare interface YamlConfiguration extends FileConfiguration {
     loadConfiguration(file: File): YamlConfiguration;
     loadConfiguration(reader: Reader): YamlConfiguration;
+}
+
+// org.bukkit.scoreboard.Objective
+declare interface Objective {
+    isModifiable(): boolean;
+    getCriteria(): string;
+    getDisplayName(): string;
+    getName(): string;
+    getDisplaySlot(): DisplaySlot;
+    getRenderType(): RenderType;
+    getScore(s: string): Score;
+    getScore(offlinePlayer: OfflinePlayer): Score;
+    getScoreboard(): Scoreboard;
+    setDisplayName(s: string): void;
+    setDisplaySlot(displaySlot: DisplaySlot): void;
+    setRenderType(renderType: RenderType): void;
+    unregister(): void;
 }
 
 // java.util.PrimitiveIterator$OfInt
@@ -9062,17 +9079,36 @@ declare interface AbstractList extends AbstractCollection, List {
     add(i: number, object: any): void;
 }
 
-// org.bukkit.scoreboard.DisplaySlot
-declare enum DisplaySlot {
-    BELOW_NAME,
-    PLAYER_LIST,
-    SIDEBAR,
-}
-
-// org.bukkit.util.VoxelShape
-declare interface VoxelShape {
-    overlaps(boundingBox: BoundingBox): boolean;
-    getBoundingBoxes(): Collection;
+// org.bukkit.scoreboard.Team
+declare interface Team {
+    allowFriendlyFire(): boolean;
+    canSeeFriendlyInvisibles(): boolean;
+    hasEntry(s: string): boolean;
+    hasPlayer(offlinePlayer: OfflinePlayer): boolean;
+    removeEntry(s: string): boolean;
+    removePlayer(offlinePlayer: OfflinePlayer): boolean;
+    getSize(): number;
+    getDisplayName(): string;
+    getName(): string;
+    getPrefix(): string;
+    getSuffix(): string;
+    getEntries(): Set;
+    getPlayers(): Set;
+    getColor(): ChatColor;
+    getNameTagVisibility(): NameTagVisibility;
+    getScoreboard(): Scoreboard;
+    getOption(option: Option): OptionStatus;
+    addEntry(s: string): void;
+    addPlayer(offlinePlayer: OfflinePlayer): void;
+    setAllowFriendlyFire(b: boolean): void;
+    setCanSeeFriendlyInvisibles(b: boolean): void;
+    setColor(chatColor: ChatColor): void;
+    setDisplayName(s: string): void;
+    setNameTagVisibility(nameTagVisibility: NameTagVisibility): void;
+    setOption(option: Option, optionStatus: OptionStatus): void;
+    setPrefix(s: string): void;
+    setSuffix(s: string): void;
+    unregister(): void;
 }
 
 // org.bukkit.inventory.InventoryView$Property
@@ -9100,15 +9136,37 @@ declare enum Property {
     BOOK_PAGE,
 }
 
-// org.bukkit.event.entity.EntityDamageEvent$DamageModifier
-declare enum DamageModifier {
-    BASE,
-    HARD_HAT,
-    BLOCKING,
-    ARMOR,
-    RESISTANCE,
+// org.bukkit.event.entity.EntityDamageEvent$DamageCause
+declare enum DamageCause {
+    CONTACT,
+    ENTITY_ATTACK,
+    ENTITY_SWEEP_ATTACK,
+    PROJECTILE,
+    SUFFOCATION,
+    FALL,
+    FIRE,
+    FIRE_TICK,
+    MELTING,
+    LAVA,
+    DROWNING,
+    BLOCK_EXPLOSION,
+    ENTITY_EXPLOSION,
+    VOID,
+    LIGHTNING,
+    SUICIDE,
+    STARVATION,
+    POISON,
     MAGIC,
-    ABSORPTION,
+    WITHER,
+    FALLING_BLOCK,
+    THORNS,
+    DRAGON_BREATH,
+    CUSTOM,
+    FLY_INTO_WALL,
+    HOT_FLOOR,
+    CRAMMING,
+    DRYOUT,
+    FREEZE,
 }
 
 // java.util.Properties
@@ -9403,14 +9461,25 @@ declare enum PickupStatus {
     CREATIVE_ONLY,
 }
 
-// java.net.SocketAddress
-declare interface SocketAddress extends Serializable {
-}
-
 // java.util.function.IntConsumer
 declare interface IntConsumer {
     accept(i: number): void;
     andThen(intConsumer: IntConsumer): IntConsumer;
+}
+
+// java.nio.charset.CoderResult
+declare interface CoderResult {
+    isError(): boolean;
+    isMalformed(): boolean;
+    isOverflow(): boolean;
+    isUnderflow(): boolean;
+    isUnmappable(): boolean;
+    length(): number;
+    malformedForLength(i: number): CoderResult;
+    unmappableForLength(i: number): CoderResult;
+    throwException(): void;
+    OVERFLOW: CoderResult;
+    UNDERFLOW: CoderResult;
 }
 
 // java.time.Clock
@@ -9434,55 +9503,32 @@ declare interface Clock {
 declare interface Exception extends Throwable {
 }
 
-// java.util.stream.DoubleStream
-declare interface DoubleStream extends BaseStream {
-    allMatch(doublePredicate: DoublePredicate): boolean;
-    anyMatch(doublePredicate: DoublePredicate): boolean;
-    noneMatch(doublePredicate: DoublePredicate): boolean;
-    reduce(d: number, doubleBinaryOperator: DoubleBinaryOperator): number;
-    sum(): number;
-    toArray(): number[];
-    collect(supplier: Supplier, objDoubleConsumer: ObjDoubleConsumer, biConsumer: BiConsumer): any;
-    summaryStatistics(): DoubleSummaryStatistics;
-    average(): OptionalDouble;
-    findAny(): OptionalDouble;
-    findFirst(): OptionalDouble;
-    max(): OptionalDouble;
-    min(): OptionalDouble;
-    reduce(doubleBinaryOperator: DoubleBinaryOperator): OptionalDouble;
-    iterator(): OfDouble;
-    spliterator(): OfDouble;
-    distinct(): DoubleStream;
-    filter(doublePredicate: DoublePredicate): DoubleStream;
-    flatMap(doubleFunction: DoubleFunction): DoubleStream;
-    limit(l: number): DoubleStream;
-    map(doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
-    parallel(): DoubleStream;
-    peek(doubleConsumer: DoubleConsumer): DoubleStream;
-    sequential(): DoubleStream;
-    skip(l: number): DoubleStream;
-    sorted(): DoubleStream;
-    mapToInt(doubleToIntFunction: DoubleToIntFunction): IntStream;
-    mapToLong(doubleToLongFunction: DoubleToLongFunction): LongStream;
-    boxed(): Stream;
-    mapToObj(doubleFunction: DoubleFunction): Stream;
-    count(): number;
-    forEach(doubleConsumer: DoubleConsumer): void;
-    forEachOrdered(doubleConsumer: DoubleConsumer): void;
+// java.util.OptionalLong
+declare interface OptionalLong {
+    isEmpty(): boolean;
+    isPresent(): boolean;
+    stream(): LongStream;
+    getAsLong(): number;
+    orElse(l: number): number;
+    orElseGet(longSupplier: LongSupplier): number;
+    orElseThrow(): number;
+    orElseThrow(supplier: Supplier): number;
+    empty(): OptionalLong;
+    of(l: number): OptionalLong;
+    ifPresent(longConsumer: LongConsumer): void;
+    ifPresentOrElse(longConsumer: LongConsumer, runnable: Runnable): void;
+}
+
+// java.util.stream.BaseStream
+declare interface BaseStream extends AutoCloseable {
+    isParallel(): boolean;
     iterator(): Iterator;
     spliterator(): Spliterator;
+    onClose(runnable: Runnable): BaseStream;
     parallel(): BaseStream;
     sequential(): BaseStream;
-    dropWhile(doublePredicate: DoublePredicate): DoubleStream;
-    takeWhile(doublePredicate: DoublePredicate): DoubleStream;
-    concat(doubleStream: DoubleStream, doubleStream: DoubleStream): DoubleStream;
-    empty(): DoubleStream;
-    generate(doubleSupplier: DoubleSupplier): DoubleStream;
-    iterate(d: number, doublePredicate: DoublePredicate, doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
-    iterate(d: number, doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
-    of(d: number): DoubleStream;
-    of(d: number): DoubleStream;
-    builder(): Builder;
+    unordered(): BaseStream;
+    close(): void;
 }
 
 // java.awt.image.renderable.RenderableImage
@@ -9501,30 +9547,10 @@ declare interface RenderableImage {
     HINTS_OBSERVED: string;
 }
 
-// java.net.InetAddress
-declare interface InetAddress extends Serializable {
-    isAnyLocalAddress(): boolean;
-    isLinkLocalAddress(): boolean;
-    isLoopbackAddress(): boolean;
-    isMCGlobal(): boolean;
-    isMCLinkLocal(): boolean;
-    isMCNodeLocal(): boolean;
-    isMCOrgLocal(): boolean;
-    isMCSiteLocal(): boolean;
-    isMulticastAddress(): boolean;
-    isReachable(i: number): boolean;
-    isReachable(networkInterface: NetworkInterface, i: number, i: number): boolean;
-    isSiteLocalAddress(): boolean;
-    getAddress(): number[];
-    getCanonicalHostName(): string;
-    getHostAddress(): string;
-    getHostName(): string;
-    getByAddress(b: number): InetAddress;
-    getByAddress(s: string, b: number): InetAddress;
-    getByName(s: string): InetAddress;
-    getLocalHost(): InetAddress;
-    getLoopbackAddress(): InetAddress;
-    getAllByName(s: string): InetAddress[];
+// java.net.PasswordAuthentication
+declare interface PasswordAuthentication {
+    getPassword(): string[];
+    getUserName(): string;
 }
 
 // org.bukkit.block.structure.StructureRotation
@@ -9533,11 +9559,6 @@ declare enum StructureRotation {
     CLOCKWISE_90,
     CLOCKWISE_180,
     COUNTERCLOCKWISE_90,
-}
-
-// java.lang.Readable
-declare interface Readable {
-    read(s: string): number;
 }
 
 // java.awt.font.GlyphVector
@@ -9596,25 +9617,6 @@ declare interface Executable extends AccessibleObject, Member, GenericDeclaratio
     getParameters(): Parameter[];
     getGenericExceptionTypes(): Type[];
     getGenericParameterTypes(): Type[];
-}
-
-// org.bukkit.conversations.Conversation
-declare interface Conversation {
-    isLocalEchoEnabled(): boolean;
-    isModal(): boolean;
-    getCancellers(): List;
-    getForWhom(): Conversable;
-    getState(): ConversationState;
-    getContext(): ConversationContext;
-    getPrefix(): ConversationPrefix;
-    abandon(conversationAbandonedEvent: ConversationAbandonedEvent): void;
-    addConversationAbandonedListener(conversationAbandonedListener: ConversationAbandonedListener): void;
-    removeConversationAbandonedListener(conversationAbandonedListener: ConversationAbandonedListener): void;
-    abandon(): void;
-    acceptInput(s: string): void;
-    begin(): void;
-    outputNextPrompt(): void;
-    setLocalEchoEnabled(b: boolean): void;
 }
 
 // java.lang.Integer
@@ -9678,12 +9680,6 @@ declare interface IntPredicate {
     or(intPredicate: IntPredicate): IntPredicate;
 }
 
-// java.util.function.BinaryOperator
-declare interface BinaryOperator extends BiFunction {
-    maxBy(comparator: Comparator): BinaryOperator;
-    minBy(comparator: Comparator): BinaryOperator;
-}
-
 // java.util.OptionalInt
 declare interface OptionalInt {
     isEmpty(): boolean;
@@ -9710,19 +9706,16 @@ declare enum EquipmentSlot {
     HEAD,
 }
 
-// org.bukkit.metadata.MetadataValue
-declare interface MetadataValue {
-    asBoolean(): boolean;
-    asByte(): number;
-    asDouble(): number;
-    asFloat(): number;
-    asInt(): number;
-    value(): any;
-    asString(): string;
-    asLong(): number;
-    getOwningPlugin(): Plugin;
-    asShort(): number;
-    invalidate(): void;
+// java.time.temporal.TemporalUnit
+declare interface TemporalUnit {
+    isDateBased(): boolean;
+    isDurationEstimated(): boolean;
+    isTimeBased(): boolean;
+    toString(): string;
+    getDuration(): Duration;
+    addTo(temporal: Temporal, l: number): Temporal;
+    between(temporal: Temporal, temporal: Temporal): number;
+    isSupportedBy(temporal: Temporal): boolean;
 }
 
 // java.lang.ModuleLayer
@@ -9758,17 +9751,12 @@ declare interface ByteOrder {
     LITTLE_ENDIAN: ByteOrder;
 }
 
-// java.util.Spliterator$OfInt
-declare interface OfInt extends OfPrimitive {
-    tryAdvance(intConsumer: IntConsumer): boolean;
-    trySplit(): OfInt;
-    tryAdvance(object: any): boolean;
-    tryAdvance(consumer: Consumer): boolean;
-    trySplit(): Spliterator;
-    trySplit(): OfPrimitive;
-    forEachRemaining(object: any): void;
-    forEachRemaining(consumer: Consumer): void;
-    forEachRemaining(intConsumer: IntConsumer): void;
+// java.time.temporal.TemporalAmount
+declare interface TemporalAmount {
+    addTo(temporal: Temporal): Temporal;
+    subtractFrom(temporal: Temporal): Temporal;
+    getUnits(): List;
+    get(temporalUnit: TemporalUnit): number;
 }
 
 // java.security.Permission
@@ -9778,35 +9766,6 @@ declare interface Permission extends Guard, Serializable {
     getName(): string;
     newPermissionCollection(): PermissionCollection;
     checkGuard(object: any): void;
-}
-
-// java.awt.image.DataBuffer
-declare interface DataBuffer {
-    getElem(i: number, i: number): number;
-    setElem(i: number, i: number, i: number): void;
-    getElemDouble(i: number): number;
-    getElemDouble(i: number, i: number): number;
-    getElemFloat(i: number): number;
-    getElemFloat(i: number, i: number): number;
-    getDataType(): number;
-    getElem(i: number): number;
-    getNumBanks(): number;
-    getOffset(): number;
-    getSize(): number;
-    getOffsets(): number[];
-    getDataTypeSize(i: number): number;
-    setElem(i: number, i: number): void;
-    setElemDouble(i: number, d: number): void;
-    setElemDouble(i: number, i: number, d: number): void;
-    setElemFloat(i: number, f: number): void;
-    setElemFloat(i: number, i: number, f: number): void;
-    TYPE_BYTE: number;
-    TYPE_DOUBLE: number;
-    TYPE_FLOAT: number;
-    TYPE_INT: number;
-    TYPE_SHORT: number;
-    TYPE_UNDEFINED: number;
-    TYPE_USHORT: number;
 }
 
 // org.bukkit.entity.Projectile
@@ -9850,11 +9809,6 @@ declare interface AttributedCharacterIterator extends CharacterIterator {
     getAllAttributeKeys(): Set;
 }
 
-// java.util.function.ToLongFunction
-declare interface ToLongFunction {
-    applyAsLong(object: any): number;
-}
-
 // java.nio.FloatBuffer
 declare interface FloatBuffer extends Buffer, Comparable {
     get(): number;
@@ -9880,16 +9834,8 @@ declare interface FloatBuffer extends Buffer, Comparable {
     wrap(f: number, i: number, i: number): FloatBuffer;
 }
 
-// java.util.stream.BaseStream
-declare interface BaseStream extends AutoCloseable {
-    isParallel(): boolean;
-    iterator(): Iterator;
-    spliterator(): Spliterator;
-    onClose(runnable: Runnable): BaseStream;
-    parallel(): BaseStream;
-    sequential(): BaseStream;
-    unordered(): BaseStream;
-    close(): void;
+// java.net.SocketAddress
+declare interface SocketAddress extends Serializable {
 }
 
 // java.util.function.IntToLongFunction
@@ -9920,14 +9866,6 @@ declare interface AbstractMap extends Map {
     putAll(map: Map): void;
 }
 
-// java.time.temporal.TemporalAmount
-declare interface TemporalAmount {
-    addTo(temporal: Temporal): Temporal;
-    subtractFrom(temporal: Temporal): Temporal;
-    getUnits(): List;
-    get(temporalUnit: TemporalUnit): number;
-}
-
 // java.time.ZoneOffset
 declare interface ZoneOffset extends ZoneId, TemporalAccessor, TemporalAdjuster, Comparable, Serializable {
     isSupported(temporalField: TemporalField): boolean;
@@ -9946,18 +9884,6 @@ declare interface ZoneOffset extends ZoneId, TemporalAccessor, TemporalAdjuster,
     MAX: ZoneOffset;
     MIN: ZoneOffset;
     UTC: ZoneOffset;
-}
-
-// java.time.temporal.TemporalUnit
-declare interface TemporalUnit {
-    isDateBased(): boolean;
-    isDurationEstimated(): boolean;
-    isTimeBased(): boolean;
-    toString(): string;
-    getDuration(): Duration;
-    addTo(temporal: Temporal, l: number): Temporal;
-    between(temporal: Temporal, temporal: Temporal): number;
-    isSupportedBy(temporal: Temporal): boolean;
 }
 
 // java.time.ZoneId
@@ -9990,22 +9916,12 @@ declare enum IsoCountryCode {
     PART3,
 }
 
-// org.bukkit.scoreboard.RenderType
-declare enum RenderType {
-    INTEGER,
-    HEARTS,
-}
-
-// java.util.function.ToDoubleFunction
-declare interface ToDoubleFunction {
-    applyAsDouble(object: any): number;
-}
-
-// org.bukkit.conversations.ConversationAbandonedEvent
-declare interface ConversationAbandonedEvent extends EventObject {
-    gracefulExit(): boolean;
-    getCanceller(): ConversationCanceller;
-    getContext(): ConversationContext;
+// java.util.function.BiPredicate
+declare interface BiPredicate {
+    test(object: any, object: any): boolean;
+    and(biPredicate: BiPredicate): BiPredicate;
+    negate(): BiPredicate;
+    or(biPredicate: BiPredicate): BiPredicate;
 }
 
 // org.bukkit.configuration.ConfigurationOptions
@@ -10017,8 +9933,16 @@ declare interface ConfigurationOptions {
     pathSeparator(c: string): ConfigurationOptions;
 }
 
-// org.bukkit.util.BlockVector
-declare interface BlockVector extends Vector {
+// net.md_5.bungee.api.ChatMessageType
+declare enum ChatMessageType {
+    CHAT,
+    SYSTEM,
+    ACTION_BAR,
+}
+
+// java.net.http.HttpRequest$BodyPublisher
+declare interface BodyPublisher extends Publisher {
+    contentLength(): number;
 }
 
 // java.awt.Stroke
@@ -10026,20 +9950,29 @@ declare interface Stroke {
     createStrokedShape(shape: Shape): Shape;
 }
 
-// java.util.OptionalLong
-declare interface OptionalLong {
-    isEmpty(): boolean;
-    isPresent(): boolean;
-    stream(): LongStream;
-    getAsLong(): number;
-    orElse(l: number): number;
-    orElseGet(longSupplier: LongSupplier): number;
-    orElseThrow(): number;
-    orElseThrow(supplier: Supplier): number;
-    empty(): OptionalLong;
-    of(l: number): OptionalLong;
-    ifPresent(longConsumer: LongConsumer): void;
-    ifPresentOrElse(longConsumer: LongConsumer, runnable: Runnable): void;
+// java.nio.ShortBuffer
+declare interface ShortBuffer extends Buffer, Comparable {
+    order(): ByteOrder;
+    asReadOnlyBuffer(): ShortBuffer;
+    compact(): ShortBuffer;
+    put(i: number, s: number): ShortBuffer;
+    put(s: number): ShortBuffer;
+    get(): number;
+    get(i: number): number;
+    equals(object: any): boolean;
+    put(s: number): ShortBuffer;
+    compareTo(object: any): number;
+    compareTo(shortBuffer: ShortBuffer): number;
+    hashCode(): number;
+    mismatch(shortBuffer: ShortBuffer): number;
+    toString(): string;
+    get(s: number): ShortBuffer;
+    get(s: number, i: number, i: number): ShortBuffer;
+    put(shortBuffer: ShortBuffer): ShortBuffer;
+    put(s: number, i: number, i: number): ShortBuffer;
+    allocate(i: number): ShortBuffer;
+    wrap(s: number): ShortBuffer;
+    wrap(s: number, i: number, i: number): ShortBuffer;
 }
 
 // java.lang.Appendable
@@ -10139,21 +10072,26 @@ declare interface MemorySection extends ConfigurationSection {
     set(s: string, object: any): void;
 }
 
-// java.util.stream.Collector
-declare interface Collector {
-    characteristics(): Set;
-    accumulator(): BiConsumer;
-    combiner(): BinaryOperator;
-    finisher(): Function;
-    supplier(): Supplier;
-    of(supplier: Supplier, biConsumer: BiConsumer, binaryOperator: BinaryOperator, func: Function, characteristics: Characteristics): Collector;
-    of(supplier: Supplier, biConsumer: BiConsumer, binaryOperator: BinaryOperator, characteristics: Characteristics): Collector;
+// org.bukkit.conversations.ConversationAbandonedEvent
+declare interface ConversationAbandonedEvent extends EventObject {
+    gracefulExit(): boolean;
+    getCanceller(): ConversationCanceller;
+    getContext(): ConversationContext;
 }
 
-// java.net.Authenticator$RequestorType
-declare enum RequestorType {
-    PROXY,
-    SERVER,
+// org.bukkit.util.BlockVector
+declare interface BlockVector extends Vector {
+}
+
+// java.security.Provider$Service
+declare interface Service {
+    supportsParameter(object: any): boolean;
+    getAlgorithm(): string;
+    getAttribute(s: string): string;
+    getClassName(): string;
+    getType(): string;
+    getProvider(): Provider;
+    newInstance(object: any): any;
 }
 
 // java.time.temporal.TemporalQuery
@@ -10176,10 +10114,36 @@ declare interface AlgorithmParameters {
     getInstance(s: string, provider: Provider): AlgorithmParameters;
 }
 
+// org.bukkit.scoreboard.DisplaySlot
+declare enum DisplaySlot {
+    BELOW_NAME,
+    PLAYER_LIST,
+    SIDEBAR,
+}
+
 // java.util.Locale$Category
 declare enum Category {
     DISPLAY,
     FORMAT,
+}
+
+// org.bukkit.conversations.Conversation
+declare interface Conversation {
+    isLocalEchoEnabled(): boolean;
+    isModal(): boolean;
+    getCancellers(): List;
+    getForWhom(): Conversable;
+    getState(): ConversationState;
+    getContext(): ConversationContext;
+    getPrefix(): ConversationPrefix;
+    abandon(conversationAbandonedEvent: ConversationAbandonedEvent): void;
+    addConversationAbandonedListener(conversationAbandonedListener: ConversationAbandonedListener): void;
+    removeConversationAbandonedListener(conversationAbandonedListener: ConversationAbandonedListener): void;
+    abandon(): void;
+    acceptInput(s: string): void;
+    begin(): void;
+    outputNextPrompt(): void;
+    setLocalEchoEnabled(b: boolean): void;
 }
 
 // org.bukkit.permissions.PermissionAttachment
@@ -10223,44 +10187,6 @@ declare interface TemporalAdjuster {
     adjustInto(temporal: Temporal): Temporal;
 }
 
-// org.bukkit.scoreboard.Team
-declare interface Team {
-    allowFriendlyFire(): boolean;
-    canSeeFriendlyInvisibles(): boolean;
-    hasEntry(s: string): boolean;
-    hasPlayer(offlinePlayer: OfflinePlayer): boolean;
-    removeEntry(s: string): boolean;
-    removePlayer(offlinePlayer: OfflinePlayer): boolean;
-    getSize(): number;
-    getDisplayName(): string;
-    getName(): string;
-    getPrefix(): string;
-    getSuffix(): string;
-    getEntries(): Set;
-    getPlayers(): Set;
-    getColor(): ChatColor;
-    getNameTagVisibility(): NameTagVisibility;
-    getScoreboard(): Scoreboard;
-    getOption(option: Option): OptionStatus;
-    addEntry(s: string): void;
-    addPlayer(offlinePlayer: OfflinePlayer): void;
-    setAllowFriendlyFire(b: boolean): void;
-    setCanSeeFriendlyInvisibles(b: boolean): void;
-    setColor(chatColor: ChatColor): void;
-    setDisplayName(s: string): void;
-    setNameTagVisibility(nameTagVisibility: NameTagVisibility): void;
-    setOption(option: Option, optionStatus: OptionStatus): void;
-    setPrefix(s: string): void;
-    setSuffix(s: string): void;
-    unregister(): void;
-}
-
-// java.net.PasswordAuthentication
-declare interface PasswordAuthentication {
-    getPassword(): string[];
-    getUserName(): string;
-}
-
 // java.lang.module.ModuleDescriptor
 declare interface ModuleDescriptor extends Comparable {
     isAutomatic(): boolean;
@@ -10292,6 +10218,35 @@ declare interface ModuleDescriptor extends Comparable {
 // java.awt.Paint
 declare interface Paint extends Transparency {
     createContext(colorModel: ColorModel, rectangle: Rectangle, rectangle2D: Rectangle2D, affineTransform: AffineTransform, renderingHints: RenderingHints): PaintContext;
+}
+
+// java.awt.image.DataBuffer
+declare interface DataBuffer {
+    getElem(i: number, i: number): number;
+    setElem(i: number, i: number, i: number): void;
+    getElemDouble(i: number): number;
+    getElemDouble(i: number, i: number): number;
+    getElemFloat(i: number): number;
+    getElemFloat(i: number, i: number): number;
+    getDataType(): number;
+    getElem(i: number): number;
+    getNumBanks(): number;
+    getOffset(): number;
+    getSize(): number;
+    getOffsets(): number[];
+    getDataTypeSize(i: number): number;
+    setElem(i: number, i: number): void;
+    setElemDouble(i: number, d: number): void;
+    setElemDouble(i: number, i: number, d: number): void;
+    setElemFloat(i: number, f: number): void;
+    setElemFloat(i: number, i: number, f: number): void;
+    TYPE_BYTE: number;
+    TYPE_DOUBLE: number;
+    TYPE_FLOAT: number;
+    TYPE_INT: number;
+    TYPE_SHORT: number;
+    TYPE_UNDEFINED: number;
+    TYPE_USHORT: number;
 }
 
 // net.md_5.bungee.api.chat.ComponentBuilder$FormatRetention
@@ -10330,12 +10285,6 @@ declare interface Rectangle2D extends RectangularShape {
     OUT_TOP: number;
 }
 
-// org.bukkit.event.Cancellable
-declare interface Cancellable {
-    isCancelled(): boolean;
-    setCancelled(b: boolean): void;
-}
-
 // java.time.temporal.ValueRange
 declare interface ValueRange extends Serializable {
     isFixed(): boolean;
@@ -10351,6 +10300,11 @@ declare interface ValueRange extends Serializable {
     of(l: number, l: number): ValueRange;
     of(l: number, l: number, l: number): ValueRange;
     of(l: number, l: number, l: number, l: number): ValueRange;
+}
+
+// java.util.function.ToDoubleFunction
+declare interface ToDoubleFunction {
+    applyAsDouble(object: any): number;
 }
 
 // java.util.RandomAccess
@@ -10376,32 +10330,41 @@ declare interface PathMatcher {
     matches(path: Path): boolean;
 }
 
-// org.bukkit.event.HandlerList
-declare interface HandlerList {
-    getRegisteredListeners(): RegisteredListener[];
-    getHandlerLists(): ArrayList;
-    getRegisteredListeners(plugin: Plugin): ArrayList;
-    bakeAll(): void;
-    unregisterAll(): void;
-    unregisterAll(listener: Listener): void;
-    unregisterAll(plugin: Plugin): void;
-    bake(): void;
-    register(registeredListener: RegisteredListener): void;
-    unregister(listener: Listener): void;
-    unregister(plugin: Plugin): void;
-    unregister(registeredListener: RegisteredListener): void;
-    registerAll(collection: Collection): void;
+// org.bukkit.event.entity.EntityDamageEvent$DamageModifier
+declare enum DamageModifier {
+    BASE,
+    HARD_HAT,
+    BLOCKING,
+    ARMOR,
+    RESISTANCE,
+    MAGIC,
+    ABSORPTION,
 }
 
-// java.security.Provider$Service
-declare interface Service {
-    supportsParameter(object: any): boolean;
-    getAlgorithm(): string;
-    getAttribute(s: string): string;
-    getClassName(): string;
-    getType(): string;
-    getProvider(): Provider;
-    newInstance(object: any): any;
+// java.net.InetAddress
+declare interface InetAddress extends Serializable {
+    isAnyLocalAddress(): boolean;
+    isLinkLocalAddress(): boolean;
+    isLoopbackAddress(): boolean;
+    isMCGlobal(): boolean;
+    isMCLinkLocal(): boolean;
+    isMCNodeLocal(): boolean;
+    isMCOrgLocal(): boolean;
+    isMCSiteLocal(): boolean;
+    isMulticastAddress(): boolean;
+    isReachable(i: number): boolean;
+    isReachable(networkInterface: NetworkInterface, i: number, i: number): boolean;
+    isSiteLocalAddress(): boolean;
+    getAddress(): number[];
+    getCanonicalHostName(): string;
+    getHostAddress(): string;
+    getHostName(): string;
+    getByAddress(b: number): InetAddress;
+    getByAddress(s: string, b: number): InetAddress;
+    getByName(s: string): InetAddress;
+    getLocalHost(): InetAddress;
+    getLoopbackAddress(): InetAddress;
+    getAllByName(s: string): InetAddress[];
 }
 
 // java.lang.AutoCloseable
@@ -10429,99 +10392,15 @@ declare interface IntBinaryOperator {
     applyAsInt(i: number, i: number): number;
 }
 
-// java.nio.charset.CoderResult
-declare interface CoderResult {
-    isError(): boolean;
-    isMalformed(): boolean;
-    isOverflow(): boolean;
-    isUnderflow(): boolean;
-    isUnmappable(): boolean;
-    length(): number;
-    malformedForLength(i: number): CoderResult;
-    unmappableForLength(i: number): CoderResult;
-    throwException(): void;
-    OVERFLOW: CoderResult;
-    UNDERFLOW: CoderResult;
-}
-
 // java.awt.Composite
 declare interface Composite {
     createContext(colorModel: ColorModel, colorModel: ColorModel, renderingHints: RenderingHints): CompositeContext;
 }
 
-// org.bukkit.event.entity.EntityDamageEvent$DamageCause
-declare enum DamageCause {
-    CONTACT,
-    ENTITY_ATTACK,
-    ENTITY_SWEEP_ATTACK,
-    PROJECTILE,
-    SUFFOCATION,
-    FALL,
-    FIRE,
-    FIRE_TICK,
-    MELTING,
-    LAVA,
-    DROWNING,
-    BLOCK_EXPLOSION,
-    ENTITY_EXPLOSION,
-    VOID,
-    LIGHTNING,
-    SUICIDE,
-    STARVATION,
-    POISON,
-    MAGIC,
-    WITHER,
-    FALLING_BLOCK,
-    THORNS,
-    DRAGON_BREATH,
-    CUSTOM,
-    FLY_INTO_WALL,
-    HOT_FLOOR,
-    CRAMMING,
-    DRYOUT,
-    FREEZE,
-}
-
-// java.util.regex.Matcher
-declare interface Matcher extends MatchResult {
-    find(): boolean;
-    find(i: number): boolean;
-    hasAnchoringBounds(): boolean;
-    hasTransparentBounds(): boolean;
-    hitEnd(): boolean;
-    lookingAt(): boolean;
-    matches(): boolean;
-    requireEnd(): boolean;
-    end(): number;
-    end(i: number): number;
-    end(s: string): number;
-    groupCount(): number;
-    regionEnd(): number;
-    regionStart(): number;
-    start(): number;
-    start(i: number): number;
-    start(s: string): number;
-    group(): string;
-    group(i: number): string;
-    group(s: string): string;
-    replaceAll(s: string): string;
-    replaceAll(func: Function): string;
-    replaceFirst(s: string): string;
-    replaceFirst(func: Function): string;
-    appendTail(s: string): string;
-    appendTail(s: string): string;
-    toMatchResult(): MatchResult;
-    appendReplacement(s: string, s: string): Matcher;
-    appendReplacement(s: string, s: string): Matcher;
-    region(i: number, i: number): Matcher;
-    reset(): Matcher;
-    reset(s: string): Matcher;
-    useAnchoringBounds(b: boolean): Matcher;
-    usePattern(pattern: Pattern): Matcher;
-    useTransparentBounds(b: boolean): Matcher;
-    pattern(): Pattern;
-    results(): Stream;
-    quoteReplacement(s: string): string;
+// java.net.Authenticator$RequestorType
+declare enum RequestorType {
+    PROXY,
+    SERVER,
 }
 
 // java.awt.Dimension
@@ -10553,9 +10432,10 @@ declare interface IntUnaryOperator {
     identity(): IntUnaryOperator;
 }
 
-// java.net.http.HttpRequest$BodyPublisher
-declare interface BodyPublisher extends Publisher {
-    contentLength(): number;
+// org.bukkit.event.Cancellable
+declare interface Cancellable {
+    isCancelled(): boolean;
+    setCancelled(b: boolean): void;
 }
 
 // java.awt.GraphicsConfiguration
@@ -10650,6 +10530,48 @@ declare interface PotionEffect extends ConfigurationSerializable {
 declare interface IOException extends Exception {
 }
 
+// java.util.regex.Matcher
+declare interface Matcher extends MatchResult {
+    find(): boolean;
+    find(i: number): boolean;
+    hasAnchoringBounds(): boolean;
+    hasTransparentBounds(): boolean;
+    hitEnd(): boolean;
+    lookingAt(): boolean;
+    matches(): boolean;
+    requireEnd(): boolean;
+    end(): number;
+    end(i: number): number;
+    end(s: string): number;
+    groupCount(): number;
+    regionEnd(): number;
+    regionStart(): number;
+    start(): number;
+    start(i: number): number;
+    start(s: string): number;
+    group(): string;
+    group(i: number): string;
+    group(s: string): string;
+    replaceAll(s: string): string;
+    replaceAll(func: Function): string;
+    replaceFirst(s: string): string;
+    replaceFirst(func: Function): string;
+    appendTail(s: string): string;
+    appendTail(s: string): string;
+    toMatchResult(): MatchResult;
+    appendReplacement(s: string, s: string): Matcher;
+    appendReplacement(s: string, s: string): Matcher;
+    region(i: number, i: number): Matcher;
+    reset(): Matcher;
+    reset(s: string): Matcher;
+    useAnchoringBounds(b: boolean): Matcher;
+    usePattern(pattern: Pattern): Matcher;
+    useTransparentBounds(b: boolean): Matcher;
+    pattern(): Pattern;
+    results(): Stream;
+    quoteReplacement(s: string): string;
+}
+
 // java.lang.Boolean
 declare interface Boolean extends Serializable, Comparable {
     booleanValue(): boolean;
@@ -10668,40 +10590,6 @@ declare interface Boolean extends Serializable, Comparable {
     FALSE: Boolean;
     TRUE: Boolean;
     TYPE: Class;
-}
-
-// java.nio.ShortBuffer
-declare interface ShortBuffer extends Buffer, Comparable {
-    order(): ByteOrder;
-    asReadOnlyBuffer(): ShortBuffer;
-    compact(): ShortBuffer;
-    put(i: number, s: number): ShortBuffer;
-    put(s: number): ShortBuffer;
-    get(): number;
-    get(i: number): number;
-    equals(object: any): boolean;
-    put(s: number): ShortBuffer;
-    compareTo(object: any): number;
-    compareTo(shortBuffer: ShortBuffer): number;
-    hashCode(): number;
-    mismatch(shortBuffer: ShortBuffer): number;
-    toString(): string;
-    get(s: number): ShortBuffer;
-    get(s: number, i: number, i: number): ShortBuffer;
-    put(shortBuffer: ShortBuffer): ShortBuffer;
-    put(s: number, i: number, i: number): ShortBuffer;
-    allocate(i: number): ShortBuffer;
-    wrap(s: number): ShortBuffer;
-    wrap(s: number, i: number, i: number): ShortBuffer;
-}
-
-// javax.net.ServerSocketFactory
-declare interface ServerSocketFactory {
-    createServerSocket(i: number): ServerSocket;
-    createServerSocket(i: number, i: number): ServerSocket;
-    createServerSocket(i: number, i: number, inetAddress: InetAddress): ServerSocket;
-    createServerSocket(): ServerSocket;
-    getDefault(): ServerSocketFactory;
 }
 
 // java.awt.image.BufferedImageOp
@@ -10768,6 +10656,12 @@ declare interface PersistentDataContainer {
     getAdapterContext(): PersistentDataAdapterContext;
     remove(namespacedKey: NamespacedKey): void;
     set(namespacedKey: NamespacedKey, persistentDataType: PersistentDataType, object: any): void;
+}
+
+// org.bukkit.util.VoxelShape
+declare interface VoxelShape {
+    overlaps(boundingBox: BoundingBox): boolean;
+    getBoundingBoxes(): Collection;
 }
 
 // java.nio.LongBuffer
@@ -10841,18 +10735,55 @@ declare interface SSLSession {
     removeValue(s: string): void;
 }
 
-// java.util.function.BiPredicate
-declare interface BiPredicate {
-    test(object: any, object: any): boolean;
-    and(biPredicate: BiPredicate): BiPredicate;
-    negate(): BiPredicate;
-    or(biPredicate: BiPredicate): BiPredicate;
-}
-
-// org.bukkit.event.entity.EntityEvent
-declare interface EntityEvent extends Event {
-    getEntity(): Entity;
-    getEntityType(): EntityType;
+// java.util.stream.DoubleStream
+declare interface DoubleStream extends BaseStream {
+    allMatch(doublePredicate: DoublePredicate): boolean;
+    anyMatch(doublePredicate: DoublePredicate): boolean;
+    noneMatch(doublePredicate: DoublePredicate): boolean;
+    reduce(d: number, doubleBinaryOperator: DoubleBinaryOperator): number;
+    sum(): number;
+    toArray(): number[];
+    collect(supplier: Supplier, objDoubleConsumer: ObjDoubleConsumer, biConsumer: BiConsumer): any;
+    summaryStatistics(): DoubleSummaryStatistics;
+    average(): OptionalDouble;
+    findAny(): OptionalDouble;
+    findFirst(): OptionalDouble;
+    max(): OptionalDouble;
+    min(): OptionalDouble;
+    reduce(doubleBinaryOperator: DoubleBinaryOperator): OptionalDouble;
+    iterator(): OfDouble;
+    spliterator(): OfDouble;
+    distinct(): DoubleStream;
+    filter(doublePredicate: DoublePredicate): DoubleStream;
+    flatMap(doubleFunction: DoubleFunction): DoubleStream;
+    limit(l: number): DoubleStream;
+    map(doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
+    parallel(): DoubleStream;
+    peek(doubleConsumer: DoubleConsumer): DoubleStream;
+    sequential(): DoubleStream;
+    skip(l: number): DoubleStream;
+    sorted(): DoubleStream;
+    mapToInt(doubleToIntFunction: DoubleToIntFunction): IntStream;
+    mapToLong(doubleToLongFunction: DoubleToLongFunction): LongStream;
+    boxed(): Stream;
+    mapToObj(doubleFunction: DoubleFunction): Stream;
+    count(): number;
+    forEach(doubleConsumer: DoubleConsumer): void;
+    forEachOrdered(doubleConsumer: DoubleConsumer): void;
+    iterator(): Iterator;
+    spliterator(): Spliterator;
+    parallel(): BaseStream;
+    sequential(): BaseStream;
+    dropWhile(doublePredicate: DoublePredicate): DoubleStream;
+    takeWhile(doublePredicate: DoublePredicate): DoubleStream;
+    concat(doubleStream: DoubleStream, doubleStream: DoubleStream): DoubleStream;
+    empty(): DoubleStream;
+    generate(doubleSupplier: DoubleSupplier): DoubleStream;
+    iterate(d: number, doublePredicate: DoublePredicate, doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
+    iterate(d: number, doubleUnaryOperator: DoubleUnaryOperator): DoubleStream;
+    of(d: number): DoubleStream;
+    of(d: number): DoubleStream;
+    builder(): Builder;
 }
 
 // org.bukkit.inventory.meta.tags.CustomItemTagContainer
@@ -10872,6 +10803,21 @@ declare interface SSLEngineResult {
     getHandshakeStatus(): HandshakeStatus;
     getStatus(): Status;
     sequenceNumber(): number;
+}
+
+// org.bukkit.metadata.MetadataValue
+declare interface MetadataValue {
+    asBoolean(): boolean;
+    asByte(): number;
+    asDouble(): number;
+    asFloat(): number;
+    asInt(): number;
+    value(): any;
+    asString(): string;
+    asLong(): number;
+    getOwningPlugin(): Plugin;
+    asShort(): number;
+    invalidate(): void;
 }
 
 // java.io.FilterOutputStream
@@ -11006,6 +10952,12 @@ declare interface RenderedImage {
     getSources(): Vector;
 }
 
+// java.util.function.BinaryOperator
+declare interface BinaryOperator extends BiFunction {
+    maxBy(comparator: Comparator): BinaryOperator;
+    minBy(comparator: Comparator): BinaryOperator;
+}
+
 // java.util.OptionalDouble
 declare interface OptionalDouble {
     isEmpty(): boolean;
@@ -11022,58 +10974,34 @@ declare interface OptionalDouble {
     ifPresentOrElse(doubleConsumer: DoubleConsumer, runnable: Runnable): void;
 }
 
-// java.util.stream.LongStream
-declare interface LongStream extends BaseStream {
-    allMatch(longPredicate: LongPredicate): boolean;
-    anyMatch(longPredicate: LongPredicate): boolean;
-    noneMatch(longPredicate: LongPredicate): boolean;
-    collect(supplier: Supplier, objLongConsumer: ObjLongConsumer, biConsumer: BiConsumer): any;
-    summaryStatistics(): LongSummaryStatistics;
-    average(): OptionalDouble;
-    findAny(): OptionalLong;
-    findFirst(): OptionalLong;
-    max(): OptionalLong;
-    min(): OptionalLong;
-    reduce(longBinaryOperator: LongBinaryOperator): OptionalLong;
-    iterator(): OfLong;
-    spliterator(): OfLong;
-    asDoubleStream(): DoubleStream;
-    mapToDouble(longToDoubleFunction: LongToDoubleFunction): DoubleStream;
-    mapToInt(longToIntFunction: LongToIntFunction): IntStream;
-    distinct(): LongStream;
-    filter(longPredicate: LongPredicate): LongStream;
-    flatMap(longFunction: LongFunction): LongStream;
-    limit(l: number): LongStream;
-    map(longUnaryOperator: LongUnaryOperator): LongStream;
-    parallel(): LongStream;
-    peek(longConsumer: LongConsumer): LongStream;
-    sequential(): LongStream;
-    skip(l: number): LongStream;
-    sorted(): LongStream;
-    boxed(): Stream;
-    mapToObj(longFunction: LongFunction): Stream;
-    count(): number;
-    reduce(l: number, longBinaryOperator: LongBinaryOperator): number;
-    sum(): number;
-    toArray(): number[];
-    forEach(longConsumer: LongConsumer): void;
-    forEachOrdered(longConsumer: LongConsumer): void;
-    iterator(): Iterator;
-    spliterator(): Spliterator;
-    parallel(): BaseStream;
-    sequential(): BaseStream;
-    dropWhile(longPredicate: LongPredicate): LongStream;
-    takeWhile(longPredicate: LongPredicate): LongStream;
-    concat(longStream: LongStream, longStream: LongStream): LongStream;
-    empty(): LongStream;
-    generate(longSupplier: LongSupplier): LongStream;
-    iterate(l: number, longPredicate: LongPredicate, longUnaryOperator: LongUnaryOperator): LongStream;
-    iterate(l: number, longUnaryOperator: LongUnaryOperator): LongStream;
-    of(l: number): LongStream;
-    of(l: number): LongStream;
-    range(l: number, l: number): LongStream;
-    rangeClosed(l: number, l: number): LongStream;
-    builder(): Builder;
+// java.lang.Readable
+declare interface Readable {
+    read(s: string): number;
+}
+
+// java.nio.DoubleBuffer
+declare interface DoubleBuffer extends Buffer, Comparable {
+    get(): number;
+    get(i: number): number;
+    order(): ByteOrder;
+    asReadOnlyBuffer(): DoubleBuffer;
+    compact(): DoubleBuffer;
+    put(d: number): DoubleBuffer;
+    put(i: number, d: number): DoubleBuffer;
+    equals(object: any): boolean;
+    put(d: number): DoubleBuffer;
+    compareTo(object: any): number;
+    compareTo(doubleBuffer: DoubleBuffer): number;
+    hashCode(): number;
+    mismatch(doubleBuffer: DoubleBuffer): number;
+    toString(): string;
+    get(d: number): DoubleBuffer;
+    get(d: number, i: number, i: number): DoubleBuffer;
+    put(d: number, i: number, i: number): DoubleBuffer;
+    put(doubleBuffer: DoubleBuffer): DoubleBuffer;
+    allocate(i: number): DoubleBuffer;
+    wrap(d: number): DoubleBuffer;
+    wrap(d: number, i: number, i: number): DoubleBuffer;
 }
 
 // java.security.PermissionCollection
@@ -11084,6 +11012,11 @@ declare interface PermissionCollection extends Serializable {
     isReadOnly(): boolean;
     elementsAsStream(): Stream;
     setReadOnly(): void;
+}
+
+// java.util.function.ToLongFunction
+declare interface ToLongFunction {
+    applyAsLong(object: any): number;
 }
 
 // java.util.function.ObjIntConsumer
@@ -11290,6 +11223,17 @@ declare enum Tone {
     F,
 }
 
+// java.util.stream.Collector
+declare interface Collector {
+    characteristics(): Set;
+    accumulator(): BiConsumer;
+    combiner(): BinaryOperator;
+    finisher(): Function;
+    supplier(): Supplier;
+    of(supplier: Supplier, biConsumer: BiConsumer, binaryOperator: BinaryOperator, func: Function, characteristics: Characteristics): Collector;
+    of(supplier: Supplier, biConsumer: BiConsumer, binaryOperator: BinaryOperator, characteristics: Characteristics): Collector;
+}
+
 // java.time.ZonedDateTime
 declare interface ZonedDateTime extends Temporal, ChronoZonedDateTime, Serializable {
     isSupported(temporalField: TemporalField): boolean;
@@ -11383,6 +11327,23 @@ declare interface ZonedDateTime extends Temporal, ChronoZonedDateTime, Serializa
     ofStrict(localDateTime: LocalDateTime, zoneOffset: ZoneOffset, zoneId: ZoneId): ZonedDateTime;
     parse(s: string): ZonedDateTime;
     parse(s: string, dateTimeFormatter: DateTimeFormatter): ZonedDateTime;
+}
+
+// org.bukkit.event.HandlerList
+declare interface HandlerList {
+    getRegisteredListeners(): RegisteredListener[];
+    getHandlerLists(): ArrayList;
+    getRegisteredListeners(plugin: Plugin): ArrayList;
+    bakeAll(): void;
+    unregisterAll(): void;
+    unregisterAll(listener: Listener): void;
+    unregisterAll(plugin: Plugin): void;
+    bake(): void;
+    register(registeredListener: RegisteredListener): void;
+    unregister(listener: Listener): void;
+    unregister(plugin: Plugin): void;
+    unregister(registeredListener: RegisteredListener): void;
+    registerAll(collection: Collection): void;
 }
 
 // java.lang.reflect.AccessibleObject
@@ -11595,12 +11556,34 @@ declare interface FileSystemProvider {
     createSymbolicLink(path: Path, path: Path, fileAttribute: FileAttribute): void;
 }
 
+// javax.net.ServerSocketFactory
+declare interface ServerSocketFactory {
+    createServerSocket(i: number): ServerSocket;
+    createServerSocket(i: number, i: number): ServerSocket;
+    createServerSocket(i: number, i: number, inetAddress: InetAddress): ServerSocket;
+    createServerSocket(): ServerSocket;
+    getDefault(): ServerSocketFactory;
+}
+
 // org.bukkit.Raid$RaidStatus
 declare enum RaidStatus {
     ONGOING,
     VICTORY,
     LOSS,
     STOPPED,
+}
+
+// java.util.Spliterator$OfInt
+declare interface OfInt extends OfPrimitive {
+    tryAdvance(intConsumer: IntConsumer): boolean;
+    trySplit(): OfInt;
+    tryAdvance(object: any): boolean;
+    tryAdvance(consumer: Consumer): boolean;
+    trySplit(): Spliterator;
+    trySplit(): OfPrimitive;
+    forEachRemaining(object: any): void;
+    forEachRemaining(consumer: Consumer): void;
+    forEachRemaining(intConsumer: IntConsumer): void;
 }
 
 // java.awt.geom.AffineTransform
@@ -11696,11 +11679,10 @@ declare interface Proxy {
     NO_PROXY: Proxy;
 }
 
-// net.md_5.bungee.api.ChatMessageType
-declare enum ChatMessageType {
-    CHAT,
-    SYSTEM,
-    ACTION_BAR,
+// org.bukkit.event.entity.EntityEvent
+declare interface EntityEvent extends Event {
+    getEntity(): Entity;
+    getEntityType(): EntityType;
 }
 
 // java.net.URLStreamHandlerFactory
@@ -11708,29 +11690,58 @@ declare interface URLStreamHandlerFactory {
     createURLStreamHandler(s: string): URLStreamHandler;
 }
 
-// java.nio.DoubleBuffer
-declare interface DoubleBuffer extends Buffer, Comparable {
-    get(): number;
-    get(i: number): number;
-    order(): ByteOrder;
-    asReadOnlyBuffer(): DoubleBuffer;
-    compact(): DoubleBuffer;
-    put(d: number): DoubleBuffer;
-    put(i: number, d: number): DoubleBuffer;
-    equals(object: any): boolean;
-    put(d: number): DoubleBuffer;
-    compareTo(object: any): number;
-    compareTo(doubleBuffer: DoubleBuffer): number;
-    hashCode(): number;
-    mismatch(doubleBuffer: DoubleBuffer): number;
-    toString(): string;
-    get(d: number): DoubleBuffer;
-    get(d: number, i: number, i: number): DoubleBuffer;
-    put(d: number, i: number, i: number): DoubleBuffer;
-    put(doubleBuffer: DoubleBuffer): DoubleBuffer;
-    allocate(i: number): DoubleBuffer;
-    wrap(d: number): DoubleBuffer;
-    wrap(d: number, i: number, i: number): DoubleBuffer;
+// java.util.stream.LongStream
+declare interface LongStream extends BaseStream {
+    allMatch(longPredicate: LongPredicate): boolean;
+    anyMatch(longPredicate: LongPredicate): boolean;
+    noneMatch(longPredicate: LongPredicate): boolean;
+    collect(supplier: Supplier, objLongConsumer: ObjLongConsumer, biConsumer: BiConsumer): any;
+    summaryStatistics(): LongSummaryStatistics;
+    average(): OptionalDouble;
+    findAny(): OptionalLong;
+    findFirst(): OptionalLong;
+    max(): OptionalLong;
+    min(): OptionalLong;
+    reduce(longBinaryOperator: LongBinaryOperator): OptionalLong;
+    iterator(): OfLong;
+    spliterator(): OfLong;
+    asDoubleStream(): DoubleStream;
+    mapToDouble(longToDoubleFunction: LongToDoubleFunction): DoubleStream;
+    mapToInt(longToIntFunction: LongToIntFunction): IntStream;
+    distinct(): LongStream;
+    filter(longPredicate: LongPredicate): LongStream;
+    flatMap(longFunction: LongFunction): LongStream;
+    limit(l: number): LongStream;
+    map(longUnaryOperator: LongUnaryOperator): LongStream;
+    parallel(): LongStream;
+    peek(longConsumer: LongConsumer): LongStream;
+    sequential(): LongStream;
+    skip(l: number): LongStream;
+    sorted(): LongStream;
+    boxed(): Stream;
+    mapToObj(longFunction: LongFunction): Stream;
+    count(): number;
+    reduce(l: number, longBinaryOperator: LongBinaryOperator): number;
+    sum(): number;
+    toArray(): number[];
+    forEach(longConsumer: LongConsumer): void;
+    forEachOrdered(longConsumer: LongConsumer): void;
+    iterator(): Iterator;
+    spliterator(): Spliterator;
+    parallel(): BaseStream;
+    sequential(): BaseStream;
+    dropWhile(longPredicate: LongPredicate): LongStream;
+    takeWhile(longPredicate: LongPredicate): LongStream;
+    concat(longStream: LongStream, longStream: LongStream): LongStream;
+    empty(): LongStream;
+    generate(longSupplier: LongSupplier): LongStream;
+    iterate(l: number, longPredicate: LongPredicate, longUnaryOperator: LongUnaryOperator): LongStream;
+    iterate(l: number, longUnaryOperator: LongUnaryOperator): LongStream;
+    of(l: number): LongStream;
+    of(l: number): LongStream;
+    range(l: number, l: number): LongStream;
+    rangeClosed(l: number, l: number): LongStream;
+    builder(): Builder;
 }
 
 // java.time.OffsetDateTime
@@ -11921,26 +11932,38 @@ declare interface Key {
     isCompatibleValue(object: any): boolean;
 }
 
-// org.bukkit.scoreboard.Objective
-declare interface Objective {
-    isModifiable(): boolean;
-    getCriteria(): string;
-    getDisplayName(): string;
-    getName(): string;
-    getDisplaySlot(): DisplaySlot;
-    getRenderType(): RenderType;
-    getScore(s: string): Score;
-    getScore(offlinePlayer: OfflinePlayer): Score;
-    getScoreboard(): Scoreboard;
-    setDisplayName(s: string): void;
-    setDisplaySlot(displaySlot: DisplaySlot): void;
-    setRenderType(renderType: RenderType): void;
-    unregister(): void;
+// org.bukkit.scoreboard.RenderType
+declare enum RenderType {
+    INTEGER,
+    HEARTS,
 }
 
-// java.net.SocketImplFactory
-declare interface SocketImplFactory {
-    createSocketImpl(): SocketImpl;
+// java.nio.channels.FileChannel
+declare interface FileChannel extends AbstractInterruptibleChannel, SeekableByteChannel, GatheringByteChannel, ScatteringByteChannel {
+    read(byteBuffer: ByteBuffer): number;
+    read(byteBuffer: ByteBuffer, l: number): number;
+    write(byteBuffer: ByteBuffer): number;
+    write(byteBuffer: ByteBuffer, l: number): number;
+    map(mapMode: MapMode, l: number, l: number): MappedByteBuffer;
+    position(l: number): FileChannel;
+    truncate(l: number): FileChannel;
+    lock(l: number, l: number, b: boolean): FileLock;
+    tryLock(l: number, l: number, b: boolean): FileLock;
+    position(): number;
+    read(byteBuffer: ByteBuffer, i: number, i: number): number;
+    size(): number;
+    transferFrom(readableByteChannel: ReadableByteChannel, l: number, l: number): number;
+    transferTo(l: number, l: number, writableByteChannel: WritableByteChannel): number;
+    write(byteBuffer: ByteBuffer, i: number, i: number): number;
+    force(b: boolean): void;
+    lock(): FileLock;
+    tryLock(): FileLock;
+    read(byteBuffer: ByteBuffer): number;
+    write(byteBuffer: ByteBuffer): number;
+    position(l: number): SeekableByteChannel;
+    truncate(l: number): SeekableByteChannel;
+    open(path: Path, openOption: OpenOption): FileChannel;
+    open(path: Path, set: Set, fileAttribute: FileAttribute): FileChannel;
 }
 
 // java.lang.Number
@@ -11953,17 +11976,96 @@ declare interface Number extends Serializable {
     shortValue(): number;
 }
 
-// java.util.function.DoubleUnaryOperator
-declare interface DoubleUnaryOperator {
-    applyAsDouble(d: number): number;
-    andThen(doubleUnaryOperator: DoubleUnaryOperator): DoubleUnaryOperator;
-    compose(doubleUnaryOperator: DoubleUnaryOperator): DoubleUnaryOperator;
-    identity(): DoubleUnaryOperator;
+// org.bukkit.ChatColor
+declare enum ChatColor {
+    BLACK,
+    DARK_BLUE,
+    DARK_GREEN,
+    DARK_AQUA,
+    DARK_RED,
+    DARK_PURPLE,
+    GOLD,
+    GRAY,
+    DARK_GRAY,
+    BLUE,
+    GREEN,
+    AQUA,
+    RED,
+    LIGHT_PURPLE,
+    YELLOW,
+    WHITE,
+    MAGIC,
+    BOLD,
+    STRIKETHROUGH,
+    UNDERLINE,
+    ITALIC,
+    RESET,
 }
 
-// java.util.function.ObjLongConsumer
-declare interface ObjLongConsumer {
-    accept(object: any, l: number): void;
+// net.md_5.bungee.api.chat.ClickEvent$Action
+declare enum Action {
+    OPEN_URL,
+    OPEN_FILE,
+    RUN_COMMAND,
+    SUGGEST_COMMAND,
+    CHANGE_PAGE,
+    COPY_TO_CLIPBOARD,
+}
+
+// java.time.format.DateTimeFormatter
+declare interface DateTimeFormatter {
+    parse(s: string, temporalQuery: TemporalQuery): any;
+    format(temporalAccessor: TemporalAccessor): string;
+    toFormat(): Format;
+    toFormat(temporalQuery: TemporalQuery): Format;
+    getZone(): ZoneId;
+    getChronology(): Chronology;
+    localizedBy(locale: Locale): DateTimeFormatter;
+    withChronology(chronology: Chronology): DateTimeFormatter;
+    withDecimalStyle(decimalStyle: DecimalStyle): DateTimeFormatter;
+    withLocale(locale: Locale): DateTimeFormatter;
+    withResolverFields(temporalField: TemporalField): DateTimeFormatter;
+    withResolverFields(set: Set): DateTimeFormatter;
+    withResolverStyle(resolverStyle: ResolverStyle): DateTimeFormatter;
+    withZone(zoneId: ZoneId): DateTimeFormatter;
+    getDecimalStyle(): DecimalStyle;
+    getResolverStyle(): ResolverStyle;
+    parse(s: string): TemporalAccessor;
+    parse(s: string, parsePosition: ParsePosition): TemporalAccessor;
+    parseBest(s: string, temporalQuery: TemporalQuery): TemporalAccessor;
+    parseUnresolved(s: string, parsePosition: ParsePosition): TemporalAccessor;
+    getLocale(): Locale;
+    getResolverFields(): Set;
+    parsedExcessDays(): TemporalQuery;
+    parsedLeapSecond(): TemporalQuery;
+    ofLocalizedDate(formatStyle: FormatStyle): DateTimeFormatter;
+    ofLocalizedDateTime(formatStyle: FormatStyle): DateTimeFormatter;
+    ofLocalizedDateTime(formatStyle: FormatStyle, formatStyle: FormatStyle): DateTimeFormatter;
+    ofLocalizedTime(formatStyle: FormatStyle): DateTimeFormatter;
+    ofPattern(s: string): DateTimeFormatter;
+    ofPattern(s: string, locale: Locale): DateTimeFormatter;
+    formatTo(temporalAccessor: TemporalAccessor, appendable: Appendable): void;
+    BASIC_ISO_DATE: DateTimeFormatter;
+    ISO_DATE: DateTimeFormatter;
+    ISO_DATE_TIME: DateTimeFormatter;
+    ISO_INSTANT: DateTimeFormatter;
+    ISO_LOCAL_DATE: DateTimeFormatter;
+    ISO_LOCAL_DATE_TIME: DateTimeFormatter;
+    ISO_LOCAL_TIME: DateTimeFormatter;
+    ISO_OFFSET_DATE: DateTimeFormatter;
+    ISO_OFFSET_DATE_TIME: DateTimeFormatter;
+    ISO_OFFSET_TIME: DateTimeFormatter;
+    ISO_ORDINAL_DATE: DateTimeFormatter;
+    ISO_TIME: DateTimeFormatter;
+    ISO_WEEK_DATE: DateTimeFormatter;
+    ISO_ZONED_DATE_TIME: DateTimeFormatter;
+    RFC_1123_DATE_TIME: DateTimeFormatter;
+}
+
+// net.md_5.bungee.api.chat.hover.content.Content
+declare interface Content {
+    requiredAction(): Action;
+    assertAction(action: Action): void;
 }
 
 // org.bukkit.map.MapFont
@@ -11973,17 +12075,6 @@ declare interface MapFont {
     getWidth(s: string): number;
     getChar(c: string): CharacterSprite;
     setChar(c: string, characterSprite: CharacterSprite): void;
-}
-
-// java.awt.CompositeContext
-declare interface CompositeContext {
-    compose(raster: Raster, raster: Raster, writableRaster: WritableRaster): void;
-    dispose(): void;
-}
-
-// java.util.concurrent.Flow$Publisher
-declare interface Publisher {
-    subscribe(subscriber: Subscriber): void;
 }
 
 // org.bukkit.entity.Damageable
@@ -11999,167 +12090,116 @@ declare interface Damageable extends Entity {
     setMaxHealth(d: number): void;
 }
 
-// java.awt.geom.PathIterator
-declare interface PathIterator {
-    isDone(): boolean;
-    currentSegment(d: number): number;
-    currentSegment(f: number): number;
-    getWindingRule(): number;
-    next(): void;
-    SEG_CLOSE: number;
-    SEG_CUBICTO: number;
-    SEG_LINETO: number;
-    SEG_MOVETO: number;
-    SEG_QUADTO: number;
-    WIND_EVEN_ODD: number;
-    WIND_NON_ZERO: number;
+// java.util.stream.DoubleStream$Builder
+declare interface Builder extends DoubleConsumer {
+    build(): DoubleStream;
+    accept(d: number): void;
+    add(d: number): Builder;
 }
 
-// java.time.LocalDate
-declare interface LocalDate extends Temporal, TemporalAdjuster, ChronoLocalDate, Serializable {
-    isAfter(chronoLocalDate: ChronoLocalDate): boolean;
-    isBefore(chronoLocalDate: ChronoLocalDate): boolean;
-    isEqual(chronoLocalDate: ChronoLocalDate): boolean;
-    isLeapYear(): boolean;
-    isSupported(temporalField: TemporalField): boolean;
-    isSupported(temporalUnit: TemporalUnit): boolean;
-    compareTo(object: any): number;
-    compareTo(chronoLocalDate: ChronoLocalDate): number;
-    get(temporalField: TemporalField): number;
-    getDayOfMonth(): number;
-    getDayOfYear(): number;
-    getMonthValue(): number;
-    getYear(): number;
-    lengthOfMonth(): number;
-    lengthOfYear(): number;
-    query(temporalQuery: TemporalQuery): any;
-    format(dateTimeFormatter: DateTimeFormatter): string;
-    getDayOfWeek(): DayOfWeek;
-    minus(temporalAmount: TemporalAmount): LocalDate;
-    minus(l: number, temporalUnit: TemporalUnit): LocalDate;
-    minusDays(l: number): LocalDate;
-    minusMonths(l: number): LocalDate;
-    minusWeeks(l: number): LocalDate;
-    minusYears(l: number): LocalDate;
-    plus(temporalAmount: TemporalAmount): LocalDate;
-    plus(l: number, temporalUnit: TemporalUnit): LocalDate;
-    plusDays(l: number): LocalDate;
-    plusMonths(l: number): LocalDate;
-    plusWeeks(l: number): LocalDate;
-    plusYears(l: number): LocalDate;
-    with(temporalAdjuster: TemporalAdjuster): LocalDate;
-    with(temporalField: TemporalField, l: number): LocalDate;
-    withDayOfMonth(i: number): LocalDate;
-    withDayOfYear(i: number): LocalDate;
-    withMonth(i: number): LocalDate;
-    withYear(i: number): LocalDate;
-    atStartOfDay(): LocalDateTime;
-    atTime(i: number, i: number): LocalDateTime;
-    atTime(i: number, i: number, i: number): LocalDateTime;
-    atTime(i: number, i: number, i: number, i: number): LocalDateTime;
-    atTime(localTime: LocalTime): LocalDateTime;
-    getMonth(): Month;
-    atTime(offsetTime: OffsetTime): OffsetDateTime;
-    until(chronoLocalDate: ChronoLocalDate): Period;
-    atStartOfDay(zoneId: ZoneId): ZonedDateTime;
-    minus(temporalAmount: TemporalAmount): ChronoLocalDate;
-    minus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
-    plus(temporalAmount: TemporalAmount): ChronoLocalDate;
-    plus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
-    with(temporalAdjuster: TemporalAdjuster): ChronoLocalDate;
-    with(temporalField: TemporalField, l: number): ChronoLocalDate;
-    atTime(localTime: LocalTime): ChronoLocalDateTime;
-    until(chronoLocalDate: ChronoLocalDate): ChronoPeriod;
-    getChronology(): Chronology;
-    getEra(): Era;
-    getChronology(): IsoChronology;
-    getEra(): IsoEra;
-    adjustInto(temporal: Temporal): Temporal;
-    minus(temporalAmount: TemporalAmount): Temporal;
-    minus(l: number, temporalUnit: TemporalUnit): Temporal;
-    plus(temporalAmount: TemporalAmount): Temporal;
-    plus(l: number, temporalUnit: TemporalUnit): Temporal;
-    with(temporalAdjuster: TemporalAdjuster): Temporal;
-    with(temporalField: TemporalField, l: number): Temporal;
-    range(temporalField: TemporalField): ValueRange;
-    datesUntil(localDate: LocalDate): Stream;
-    datesUntil(localDate: LocalDate, period: Period): Stream;
-    getLong(temporalField: TemporalField): number;
-    toEpochDay(): number;
-    toEpochSecond(localTime: LocalTime, zoneOffset: ZoneOffset): number;
-    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
-    from(temporalAccessor: TemporalAccessor): LocalDate;
-    now(): LocalDate;
-    now(clock: Clock): LocalDate;
-    now(zoneId: ZoneId): LocalDate;
-    of(i: number, i: number, i: number): LocalDate;
-    of(i: number, month: Month, i: number): LocalDate;
-    ofEpochDay(l: number): LocalDate;
-    ofInstant(instant: Instant, zoneId: ZoneId): LocalDate;
-    ofYearDay(i: number, i: number): LocalDate;
-    parse(s: string): LocalDate;
-    parse(s: string, dateTimeFormatter: DateTimeFormatter): LocalDate;
-    EPOCH: LocalDate;
-    MAX: LocalDate;
-    MIN: LocalDate;
+// java.util.DoubleSummaryStatistics
+declare interface DoubleSummaryStatistics extends DoubleConsumer {
+    getAverage(): number;
+    getMax(): number;
+    getMin(): number;
+    getSum(): number;
+    getCount(): number;
+    accept(d: number): void;
+    combine(doubleSummaryStatistics: DoubleSummaryStatistics): void;
 }
 
-// net.md_5.bungee.api.chat.hover.content.Content
-declare interface Content {
-    requiredAction(): Action;
-    assertAction(action: Action): void;
+// java.util.LongSummaryStatistics
+declare interface LongSummaryStatistics extends LongConsumer, IntConsumer {
+    getAverage(): number;
+    getCount(): number;
+    getMax(): number;
+    getMin(): number;
+    getSum(): number;
+    accept(i: number): void;
+    accept(l: number): void;
+    combine(longSummaryStatistics: LongSummaryStatistics): void;
 }
 
-// java.nio.file.FileStore
-declare interface FileStore {
-    isReadOnly(): boolean;
-    supportsFileAttributeView(clazz: Class): boolean;
-    supportsFileAttributeView(s: string): boolean;
-    getAttribute(s: string): any;
-    name(): string;
-    type(): string;
-    getFileStoreAttributeView(clazz: Class): FileStoreAttributeView;
-    getTotalSpace(): number;
-    getUnallocatedSpace(): number;
-    getUsableSpace(): number;
-    getBlockSize(): number;
+// org.bukkit.inventory.meta.tags.ItemTagAdapterContext
+declare interface ItemTagAdapterContext {
+    newTagContainer(): CustomItemTagContainer;
 }
 
-// java.awt.geom.Dimension2D
-declare interface Dimension2D extends Cloneable {
-    getHeight(): number;
-    getWidth(): number;
-    setSize(d: number, d: number): void;
-    setSize(dimension2D: Dimension2D): void;
-}
-
-// java.util.PrimitiveIterator
-declare interface PrimitiveIterator extends Iterator {
-    forEachRemaining(object: any): void;
-}
-
-// org.bukkit.inventory.meta.tags.ItemTagType
-declare interface ItemTagType {
-    getComplexType(): Class;
-    getPrimitiveType(): Class;
-    fromPrimitive(object: any, itemTagAdapterContext: ItemTagAdapterContext): any;
-    toPrimitive(object: any, itemTagAdapterContext: ItemTagAdapterContext): any;
-    BYTE: ItemTagType;
-    BYTE_ARRAY: ItemTagType;
-    DOUBLE: ItemTagType;
-    FLOAT: ItemTagType;
-    INTEGER: ItemTagType;
-    INTEGER_ARRAY: ItemTagType;
-    LONG: ItemTagType;
-    LONG_ARRAY: ItemTagType;
-    SHORT: ItemTagType;
-    STRING: ItemTagType;
-    TAG_CONTAINER: ItemTagType;
-}
-
-// java.util.function.DoubleFunction
-declare interface DoubleFunction {
-    apply(d: number): any;
+// java.awt.Font
+declare interface Font extends Serializable {
+    canDisplay(c: string): boolean;
+    canDisplay(i: number): boolean;
+    hasLayoutAttributes(): boolean;
+    hasUniformLineMetrics(): boolean;
+    isBold(): boolean;
+    isItalic(): boolean;
+    isPlain(): boolean;
+    isTransformed(): boolean;
+    getBaselineFor(c: string): number;
+    getItalicAngle(): number;
+    getSize2D(): number;
+    canDisplayUpTo(c: string, i: number, i: number): number;
+    canDisplayUpTo(s: string): number;
+    canDisplayUpTo(characterIterator: CharacterIterator, i: number, i: number): number;
+    getMissingGlyphCode(): number;
+    getNumGlyphs(): number;
+    getSize(): number;
+    getStyle(): number;
+    deriveFont(f: number): Font;
+    deriveFont(i: number): Font;
+    deriveFont(i: number, f: number): Font;
+    deriveFont(i: number, affineTransform: AffineTransform): Font;
+    deriveFont(affineTransform: AffineTransform): Font;
+    deriveFont(map: Map): Font;
+    createGlyphVector(fontRenderContext: FontRenderContext, c: string): GlyphVector;
+    createGlyphVector(fontRenderContext: FontRenderContext, i: number): GlyphVector;
+    createGlyphVector(fontRenderContext: FontRenderContext, s: string): GlyphVector;
+    createGlyphVector(fontRenderContext: FontRenderContext, characterIterator: CharacterIterator): GlyphVector;
+    layoutGlyphVector(fontRenderContext: FontRenderContext, c: string, i: number, i: number, i: number): GlyphVector;
+    getLineMetrics(c: string, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
+    getLineMetrics(s: string, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
+    getLineMetrics(s: string, fontRenderContext: FontRenderContext): LineMetrics;
+    getLineMetrics(characterIterator: CharacterIterator, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
+    getTransform(): AffineTransform;
+    getMaxCharBounds(fontRenderContext: FontRenderContext): Rectangle2D;
+    getStringBounds(c: string, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
+    getStringBounds(s: string, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
+    getStringBounds(s: string, fontRenderContext: FontRenderContext): Rectangle2D;
+    getStringBounds(characterIterator: CharacterIterator, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
+    getFamily(): string;
+    getFamily(locale: Locale): string;
+    getFontName(): string;
+    getFontName(locale: Locale): string;
+    getName(): string;
+    getPSName(): string;
+    getAvailableAttributes(): Attribute[];
+    getAttributes(): Map;
+    textRequiresLayout(c: string, i: number, i: number): boolean;
+    createFont(i: number, file: File): Font;
+    createFont(i: number, inputStream: InputStream): Font;
+    decode(s: string): Font;
+    getFont(s: string): Font;
+    getFont(s: string, font: Font): Font;
+    getFont(map: Map): Font;
+    createFonts(file: File): Font[];
+    createFonts(inputStream: InputStream): Font[];
+    BOLD: number;
+    CENTER_BASELINE: number;
+    HANGING_BASELINE: number;
+    ITALIC: number;
+    LAYOUT_LEFT_TO_RIGHT: number;
+    LAYOUT_NO_LIMIT_CONTEXT: number;
+    LAYOUT_NO_START_CONTEXT: number;
+    LAYOUT_RIGHT_TO_LEFT: number;
+    PLAIN: number;
+    ROMAN_BASELINE: number;
+    TRUETYPE_FONT: number;
+    TYPE1_FONT: number;
+    DIALOG: string;
+    DIALOG_INPUT: string;
+    MONOSPACED: string;
+    SANS_SERIF: string;
+    SERIF: string;
 }
 
 // java.lang.reflect.Parameter
@@ -12182,620 +12222,39 @@ declare interface Parameter extends AnnotatedElement {
     getParameterizedType(): Type;
 }
 
-// java.time.format.TextStyle
-declare enum TextStyle {
-    FULL,
-    FULL_STANDALONE,
-    SHORT,
-    SHORT_STANDALONE,
-    NARROW,
-    NARROW_STANDALONE,
+// java.nio.file.attribute.UserPrincipal
+declare interface UserPrincipal extends Principal {
 }
 
-// java.time.OffsetTime
-declare interface OffsetTime extends Temporal, TemporalAdjuster, Comparable, Serializable {
-    isAfter(offsetTime: OffsetTime): boolean;
-    isBefore(offsetTime: OffsetTime): boolean;
-    isEqual(offsetTime: OffsetTime): boolean;
-    isSupported(temporalField: TemporalField): boolean;
-    isSupported(temporalUnit: TemporalUnit): boolean;
-    compareTo(object: any): number;
-    compareTo(offsetTime: OffsetTime): number;
-    get(temporalField: TemporalField): number;
-    getHour(): number;
-    getMinute(): number;
-    getNano(): number;
-    getSecond(): number;
-    query(temporalQuery: TemporalQuery): any;
-    format(dateTimeFormatter: DateTimeFormatter): string;
-    toLocalTime(): LocalTime;
-    atDate(localDate: LocalDate): OffsetDateTime;
-    minus(temporalAmount: TemporalAmount): OffsetTime;
-    minus(l: number, temporalUnit: TemporalUnit): OffsetTime;
-    minusHours(l: number): OffsetTime;
-    minusMinutes(l: number): OffsetTime;
-    minusNanos(l: number): OffsetTime;
-    minusSeconds(l: number): OffsetTime;
-    plus(temporalAmount: TemporalAmount): OffsetTime;
-    plus(l: number, temporalUnit: TemporalUnit): OffsetTime;
-    plusHours(l: number): OffsetTime;
-    plusMinutes(l: number): OffsetTime;
-    plusNanos(l: number): OffsetTime;
-    plusSeconds(l: number): OffsetTime;
-    truncatedTo(temporalUnit: TemporalUnit): OffsetTime;
-    with(temporalAdjuster: TemporalAdjuster): OffsetTime;
-    with(temporalField: TemporalField, l: number): OffsetTime;
-    withHour(i: number): OffsetTime;
-    withMinute(i: number): OffsetTime;
-    withNano(i: number): OffsetTime;
-    withOffsetSameInstant(zoneOffset: ZoneOffset): OffsetTime;
-    withOffsetSameLocal(zoneOffset: ZoneOffset): OffsetTime;
-    withSecond(i: number): OffsetTime;
-    getOffset(): ZoneOffset;
-    adjustInto(temporal: Temporal): Temporal;
-    minus(temporalAmount: TemporalAmount): Temporal;
-    minus(l: number, temporalUnit: TemporalUnit): Temporal;
-    plus(temporalAmount: TemporalAmount): Temporal;
-    plus(l: number, temporalUnit: TemporalUnit): Temporal;
-    with(temporalAdjuster: TemporalAdjuster): Temporal;
-    with(temporalField: TemporalField, l: number): Temporal;
-    range(temporalField: TemporalField): ValueRange;
-    getLong(temporalField: TemporalField): number;
-    toEpochSecond(localDate: LocalDate): number;
-    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
-    from(temporalAccessor: TemporalAccessor): OffsetTime;
-    now(): OffsetTime;
-    now(clock: Clock): OffsetTime;
-    now(zoneId: ZoneId): OffsetTime;
-    of(i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): OffsetTime;
-    of(localTime: LocalTime, zoneOffset: ZoneOffset): OffsetTime;
-    ofInstant(instant: Instant, zoneId: ZoneId): OffsetTime;
-    parse(s: string): OffsetTime;
-    parse(s: string, dateTimeFormatter: DateTimeFormatter): OffsetTime;
-    MAX: OffsetTime;
-    MIN: OffsetTime;
-}
-
-// java.util.AbstractCollection
-declare interface AbstractCollection extends Collection {
-    size(): number;
-    iterator(): Iterator;
-    add(object: any): boolean;
-    addAll(collection: Collection): boolean;
-    contains(object: any): boolean;
-    containsAll(collection: Collection): boolean;
-    isEmpty(): boolean;
-    remove(object: any): boolean;
-    removeAll(collection: Collection): boolean;
-    retainAll(collection: Collection): boolean;
-    toArray(): any[];
-    toArray(object: any): any[];
-    clear(): void;
-}
-
-// java.nio.file.attribute.GroupPrincipal
-declare interface GroupPrincipal extends UserPrincipal {
-}
-
-// java.util.function.DoublePredicate
-declare interface DoublePredicate {
-    test(d: number): boolean;
-    and(doublePredicate: DoublePredicate): DoublePredicate;
-    negate(): DoublePredicate;
-    or(doublePredicate: DoublePredicate): DoublePredicate;
-}
-
-// java.util.PrimitiveIterator$OfLong
-declare interface OfLong extends PrimitiveIterator {
-    nextLong(): number;
-    next(): Long;
-    next(): any;
-    forEachRemaining(object: any): void;
-    forEachRemaining(consumer: Consumer): void;
-    forEachRemaining(longConsumer: LongConsumer): void;
-}
-
-// java.util.Hashtable
-declare interface Hashtable extends Dictionary, Map, Cloneable, Serializable {
-    containsValue(object: any): boolean;
-    values(): Collection;
-    entrySet(): Set;
-    keySet(): Set;
-    contains(object: any): boolean;
-    containsKey(object: any): boolean;
-    equals(object: any): boolean;
-    remove(object: any, object: any): boolean;
-    replace(object: any, object: any, object: any): boolean;
-    hashCode(): number;
-    clone(): any;
-    compute(object: any, biFunction: BiFunction): any;
-    computeIfAbsent(object: any, func: Function): any;
-    computeIfPresent(object: any, biFunction: BiFunction): any;
-    getOrDefault(object: any, object: any): any;
-    merge(object: any, object: any, biFunction: BiFunction): any;
-    putIfAbsent(object: any, object: any): any;
-    replace(object: any, object: any): any;
-    toString(): string;
-    clear(): void;
-    forEach(biConsumer: BiConsumer): void;
-    putAll(map: Map): void;
-    replaceAll(biFunction: BiFunction): void;
-}
-
-// org.bukkit.entity.EntityCategory
-declare enum EntityCategory {
-    NONE,
-    UNDEAD,
-    ARTHROPOD,
-    ILLAGER,
-    WATER,
-}
-
-// java.nio.file.AccessMode
-declare enum AccessMode {
-    READ,
-    WRITE,
-    EXECUTE,
-}
-
-// java.util.Spliterator$OfDouble
-declare interface OfDouble extends OfPrimitive {
-    tryAdvance(doubleConsumer: DoubleConsumer): boolean;
-    trySplit(): OfDouble;
-    tryAdvance(object: any): boolean;
-    tryAdvance(consumer: Consumer): boolean;
-    trySplit(): Spliterator;
-    trySplit(): OfPrimitive;
-    forEachRemaining(object: any): void;
-    forEachRemaining(consumer: Consumer): void;
-    forEachRemaining(doubleConsumer: DoubleConsumer): void;
-}
-
-// java.util.function.LongUnaryOperator
-declare interface LongUnaryOperator {
-    applyAsLong(l: number): number;
-    andThen(longUnaryOperator: LongUnaryOperator): LongUnaryOperator;
-    compose(longUnaryOperator: LongUnaryOperator): LongUnaryOperator;
-    identity(): LongUnaryOperator;
-}
-
-// java.awt.image.renderable.RenderContext
-declare interface RenderContext extends Cloneable {
-    getRenderingHints(): RenderingHints;
-    getAreaOfInterest(): Shape;
-    getTransform(): AffineTransform;
-    concatenateTransform(affineTransform: AffineTransform): void;
-    concetenateTransform(affineTransform: AffineTransform): void;
-    preConcatenateTransform(affineTransform: AffineTransform): void;
-    preConcetenateTransform(affineTransform: AffineTransform): void;
-    setAreaOfInterest(shape: Shape): void;
-    setRenderingHints(renderingHints: RenderingHints): void;
-    setTransform(affineTransform: AffineTransform): void;
-}
-
-// java.util.LongSummaryStatistics
-declare interface LongSummaryStatistics extends LongConsumer, IntConsumer {
-    getAverage(): number;
-    getCount(): number;
-    getMax(): number;
-    getMin(): number;
-    getSum(): number;
-    accept(i: number): void;
-    accept(l: number): void;
-    combine(longSummaryStatistics: LongSummaryStatistics): void;
-}
-
-// org.bukkit.conversations.Conversation$ConversationState
-declare enum ConversationState {
-    UNSTARTED,
-    STARTED,
-    ABANDONED,
-}
-
-// java.util.function.LongSupplier
-declare interface LongSupplier {
-    getAsLong(): number;
-}
-
-// java.time.chrono.ChronoZonedDateTime
-declare interface ChronoZonedDateTime extends Temporal, Comparable {
-    equals(object: any): boolean;
-    isSupported(temporalField: TemporalField): boolean;
-    hashCode(): number;
-    toString(): string;
-    getZone(): ZoneId;
-    getOffset(): ZoneOffset;
-    toLocalDateTime(): ChronoLocalDateTime;
-    plus(l: number, temporalUnit: TemporalUnit): ChronoZonedDateTime;
-    with(temporalField: TemporalField, l: number): ChronoZonedDateTime;
-    withEarlierOffsetAtOverlap(): ChronoZonedDateTime;
-    withLaterOffsetAtOverlap(): ChronoZonedDateTime;
-    withZoneSameInstant(zoneId: ZoneId): ChronoZonedDateTime;
-    withZoneSameLocal(zoneId: ZoneId): ChronoZonedDateTime;
-    isAfter(chronoZonedDateTime: ChronoZonedDateTime): boolean;
-    isBefore(chronoZonedDateTime: ChronoZonedDateTime): boolean;
-    isEqual(chronoZonedDateTime: ChronoZonedDateTime): boolean;
-    isSupported(temporalUnit: TemporalUnit): boolean;
-    compareTo(object: any): number;
-    compareTo(chronoZonedDateTime: ChronoZonedDateTime): number;
-    get(temporalField: TemporalField): number;
-    query(temporalQuery: TemporalQuery): any;
-    format(dateTimeFormatter: DateTimeFormatter): string;
-    toInstant(): Instant;
-    toLocalTime(): LocalTime;
-    toLocalDate(): ChronoLocalDate;
-    minus(temporalAmount: TemporalAmount): ChronoZonedDateTime;
-    minus(l: number, temporalUnit: TemporalUnit): ChronoZonedDateTime;
-    plus(temporalAmount: TemporalAmount): ChronoZonedDateTime;
-    with(temporalAdjuster: TemporalAdjuster): ChronoZonedDateTime;
-    getChronology(): Chronology;
-    minus(temporalAmount: TemporalAmount): Temporal;
-    minus(l: number, temporalUnit: TemporalUnit): Temporal;
-    plus(temporalAmount: TemporalAmount): Temporal;
-    plus(l: number, temporalUnit: TemporalUnit): Temporal;
-    with(temporalAdjuster: TemporalAdjuster): Temporal;
-    with(temporalField: TemporalField, l: number): Temporal;
-    range(temporalField: TemporalField): ValueRange;
-    getLong(temporalField: TemporalField): number;
-    toEpochSecond(): number;
-    from(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
-    timeLineOrder(): Comparator;
+// java.nio.channels.SocketChannel
+declare interface SocketChannel extends AbstractSelectableChannel, ByteChannel, ScatteringByteChannel, GatheringByteChannel, NetworkChannel {
+    connect(socketAddress: SocketAddress): boolean;
+    finishConnect(): boolean;
+    isConnected(): boolean;
+    isConnectionPending(): boolean;
+    read(byteBuffer: ByteBuffer): number;
+    write(byteBuffer: ByteBuffer): number;
+    socket(): Socket;
+    getLocalAddress(): SocketAddress;
+    getRemoteAddress(): SocketAddress;
+    bind(socketAddress: SocketAddress): SocketChannel;
+    setOption(socketOption: SocketOption, object: any): SocketChannel;
+    shutdownInput(): SocketChannel;
+    shutdownOutput(): SocketChannel;
+    read(byteBuffer: ByteBuffer, i: number, i: number): number;
+    write(byteBuffer: ByteBuffer, i: number, i: number): number;
+    validOps(): number;
+    read(byteBuffer: ByteBuffer): number;
+    write(byteBuffer: ByteBuffer): number;
+    bind(socketAddress: SocketAddress): NetworkChannel;
+    setOption(socketOption: SocketOption, object: any): NetworkChannel;
+    open(): SocketChannel;
+    open(socketAddress: SocketAddress): SocketChannel;
 }
 
 // org.bukkit.entity.ComplexLivingEntity
 declare interface ComplexLivingEntity extends LivingEntity {
     getParts(): Set;
-}
-
-// java.util.EventObject
-declare interface EventObject extends Serializable {
-    getSource(): any;
-}
-
-// org.bukkit.event.inventory.InventoryType$SlotType
-declare enum SlotType {
-    RESULT,
-    CRAFTING,
-    ARMOR,
-    CONTAINER,
-    QUICKBAR,
-    OUTSIDE,
-    FUEL,
-}
-
-// org.bukkit.conversations.ConversationPrefix
-declare interface ConversationPrefix {
-    getPrefix(conversationContext: ConversationContext): string;
-}
-
-// net.md_5.bungee.api.chat.ClickEvent$Action
-declare enum Action {
-    OPEN_URL,
-    OPEN_FILE,
-    RUN_COMMAND,
-    SUGGEST_COMMAND,
-    CHANGE_PAGE,
-    COPY_TO_CLIPBOARD,
-}
-
-// java.util.function.DoubleSupplier
-declare interface DoubleSupplier {
-    getAsDouble(): number;
-}
-
-// org.bukkit.potion.PotionType
-declare enum PotionType {
-    UNCRAFTABLE,
-    WATER,
-    MUNDANE,
-    THICK,
-    AWKWARD,
-    NIGHT_VISION,
-    INVISIBILITY,
-    JUMP,
-    FIRE_RESISTANCE,
-    SPEED,
-    SLOWNESS,
-    WATER_BREATHING,
-    INSTANT_HEAL,
-    INSTANT_DAMAGE,
-    POISON,
-    REGEN,
-    STRENGTH,
-    WEAKNESS,
-    LUCK,
-    TURTLE_MASTER,
-    SLOW_FALLING,
-}
-
-// org.bukkit.entity.memory.MemoryKey
-declare interface MemoryKey extends Keyed {
-    getMemoryClass(): Class;
-    getKey(): NamespacedKey;
-    values(): Set;
-    getByKey(namespacedKey: NamespacedKey): MemoryKey;
-    ADMIRING_DISABLED: MemoryKey;
-    ADMIRING_ITEM: MemoryKey;
-    ANGRY_AT: MemoryKey;
-    GOLEM_DETECTED_RECENTLY: MemoryKey;
-    HAS_HUNTING_COOLDOWN: MemoryKey;
-    HOME: MemoryKey;
-    HUNTED_RECENTLY: MemoryKey;
-    IS_TEMPTED: MemoryKey;
-    JOB_SITE: MemoryKey;
-    LAST_SLEPT: MemoryKey;
-    LAST_WOKEN: MemoryKey;
-    LAST_WORKED_AT_POI: MemoryKey;
-    LONG_JUMP_COOLING_DOWN: MemoryKey;
-    MEETING_POINT: MemoryKey;
-    PLAY_DEAD_TICKS: MemoryKey;
-    POTENTIAL_JOB_SITE: MemoryKey;
-    RAM_COOLDOWN_TICKS: MemoryKey;
-    TEMPTATION_COOLDOWN_TICKS: MemoryKey;
-    UNIVERSAL_ANGER: MemoryKey;
-}
-
-// java.time.LocalTime
-declare interface LocalTime extends Temporal, TemporalAdjuster, Comparable, Serializable {
-    isAfter(localTime: LocalTime): boolean;
-    isBefore(localTime: LocalTime): boolean;
-    isSupported(temporalField: TemporalField): boolean;
-    isSupported(temporalUnit: TemporalUnit): boolean;
-    compareTo(object: any): number;
-    compareTo(localTime: LocalTime): number;
-    get(temporalField: TemporalField): number;
-    getHour(): number;
-    getMinute(): number;
-    getNano(): number;
-    getSecond(): number;
-    toSecondOfDay(): number;
-    query(temporalQuery: TemporalQuery): any;
-    format(dateTimeFormatter: DateTimeFormatter): string;
-    atDate(localDate: LocalDate): LocalDateTime;
-    minus(temporalAmount: TemporalAmount): LocalTime;
-    minus(l: number, temporalUnit: TemporalUnit): LocalTime;
-    minusHours(l: number): LocalTime;
-    minusMinutes(l: number): LocalTime;
-    minusNanos(l: number): LocalTime;
-    minusSeconds(l: number): LocalTime;
-    plus(temporalAmount: TemporalAmount): LocalTime;
-    plus(l: number, temporalUnit: TemporalUnit): LocalTime;
-    plusHours(l: number): LocalTime;
-    plusMinutes(l: number): LocalTime;
-    plusNanos(l: number): LocalTime;
-    plusSeconds(l: number): LocalTime;
-    truncatedTo(temporalUnit: TemporalUnit): LocalTime;
-    with(temporalAdjuster: TemporalAdjuster): LocalTime;
-    with(temporalField: TemporalField, l: number): LocalTime;
-    withHour(i: number): LocalTime;
-    withMinute(i: number): LocalTime;
-    withNano(i: number): LocalTime;
-    withSecond(i: number): LocalTime;
-    atOffset(zoneOffset: ZoneOffset): OffsetTime;
-    adjustInto(temporal: Temporal): Temporal;
-    minus(temporalAmount: TemporalAmount): Temporal;
-    minus(l: number, temporalUnit: TemporalUnit): Temporal;
-    plus(temporalAmount: TemporalAmount): Temporal;
-    plus(l: number, temporalUnit: TemporalUnit): Temporal;
-    with(temporalAdjuster: TemporalAdjuster): Temporal;
-    with(temporalField: TemporalField, l: number): Temporal;
-    range(temporalField: TemporalField): ValueRange;
-    getLong(temporalField: TemporalField): number;
-    toEpochSecond(localDate: LocalDate, zoneOffset: ZoneOffset): number;
-    toNanoOfDay(): number;
-    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
-    from(temporalAccessor: TemporalAccessor): LocalTime;
-    now(): LocalTime;
-    now(clock: Clock): LocalTime;
-    now(zoneId: ZoneId): LocalTime;
-    of(i: number, i: number): LocalTime;
-    of(i: number, i: number, i: number): LocalTime;
-    of(i: number, i: number, i: number, i: number): LocalTime;
-    ofInstant(instant: Instant, zoneId: ZoneId): LocalTime;
-    ofNanoOfDay(l: number): LocalTime;
-    ofSecondOfDay(l: number): LocalTime;
-    parse(s: string): LocalTime;
-    parse(s: string, dateTimeFormatter: DateTimeFormatter): LocalTime;
-    MAX: LocalTime;
-    MIDNIGHT: LocalTime;
-    MIN: LocalTime;
-    NOON: LocalTime;
-}
-
-// java.util.function.LongToDoubleFunction
-declare interface LongToDoubleFunction {
-    applyAsDouble(l: number): number;
-}
-
-// org.bukkit.inventory.meta.tags.ItemTagAdapterContext
-declare interface ItemTagAdapterContext {
-    newTagContainer(): CustomItemTagContainer;
-}
-
-// java.net.SocketOption
-declare interface SocketOption {
-    type(): Class;
-    name(): string;
-}
-
-// java.security.Guard
-declare interface Guard {
-    checkGuard(object: any): void;
-}
-
-// java.util.concurrent.ExecutorService
-declare interface ExecutorService extends Executor {
-    awaitTermination(l: number, timeUnit: TimeUnit): boolean;
-    isShutdown(): boolean;
-    isTerminated(): boolean;
-    invokeAny(collection: Collection): any;
-    invokeAny(collection: Collection, l: number, timeUnit: TimeUnit): any;
-    invokeAll(collection: Collection): List;
-    invokeAll(collection: Collection, l: number, timeUnit: TimeUnit): List;
-    shutdownNow(): List;
-    submit(runnable: Runnable): Future;
-    submit(runnable: Runnable, object: any): Future;
-    submit(callable: Callable): Future;
-    shutdown(): void;
-}
-
-// java.util.ArrayList
-declare interface ArrayList extends AbstractList, List, RandomAccess, Cloneable, Serializable {
-    addAll(collection: Collection): boolean;
-    contains(object: any): boolean;
-    isEmpty(): boolean;
-    remove(object: any): boolean;
-    removeAll(collection: Collection): boolean;
-    removeIf(predicate: Predicate): boolean;
-    retainAll(collection: Collection): boolean;
-    size(): number;
-    clone(): any;
-    toArray(): any[];
-    toArray(object: any): any[];
-    spliterator(): Spliterator;
-    ensureCapacity(i: number): void;
-    forEach(consumer: Consumer): void;
-    replaceAll(func: UnaryOperator): void;
-    sort(comparator: Comparator): void;
-    trimToSize(): void;
-}
-
-// java.util.function.LongConsumer
-declare interface LongConsumer {
-    accept(l: number): void;
-    andThen(longConsumer: LongConsumer): LongConsumer;
-}
-
-// java.awt.geom.Line2D
-declare interface Line2D extends Shape, Cloneable {
-    getX1(): number;
-    getX2(): number;
-    getY1(): number;
-    getY2(): number;
-    getP1(): Point2D;
-    getP2(): Point2D;
-    setLine(d: number, d: number, d: number, d: number): void;
-    contains(d: number, d: number): boolean;
-    contains(d: number, d: number, d: number, d: number): boolean;
-    contains(point2D: Point2D): boolean;
-    contains(rectangle2D: Rectangle2D): boolean;
-    intersects(d: number, d: number, d: number, d: number): boolean;
-    intersects(rectangle2D: Rectangle2D): boolean;
-    intersectsLine(d: number, d: number, d: number, d: number): boolean;
-    intersectsLine(line2D: Line2D): boolean;
-    ptLineDist(d: number, d: number): number;
-    ptLineDist(point2D: Point2D): number;
-    ptLineDistSq(d: number, d: number): number;
-    ptLineDistSq(point2D: Point2D): number;
-    ptSegDist(d: number, d: number): number;
-    ptSegDist(point2D: Point2D): number;
-    ptSegDistSq(d: number, d: number): number;
-    ptSegDistSq(point2D: Point2D): number;
-    relativeCCW(d: number, d: number): number;
-    relativeCCW(point2D: Point2D): number;
-    getBounds(): Rectangle;
-    getPathIterator(affineTransform: AffineTransform): PathIterator;
-    getPathIterator(affineTransform: AffineTransform, d: number): PathIterator;
-    linesIntersect(d: number, d: number, d: number, d: number, d: number, d: number, d: number, d: number): boolean;
-    ptLineDist(d: number, d: number, d: number, d: number, d: number, d: number): number;
-    ptLineDistSq(d: number, d: number, d: number, d: number, d: number, d: number): number;
-    ptSegDist(d: number, d: number, d: number, d: number, d: number, d: number): number;
-    ptSegDistSq(d: number, d: number, d: number, d: number, d: number, d: number): number;
-    relativeCCW(d: number, d: number, d: number, d: number, d: number, d: number): number;
-    setLine(line2D: Line2D): void;
-    setLine(point2D: Point2D, point2D: Point2D): void;
-}
-
-// java.net.FileNameMap
-declare interface FileNameMap {
-    getContentTypeFor(s: string): string;
-}
-
-// java.time.chrono.ChronoLocalDate
-declare interface ChronoLocalDate extends Temporal, TemporalAdjuster, Comparable {
-    equals(object: any): boolean;
-    hashCode(): number;
-    lengthOfMonth(): number;
-    toString(): string;
-    until(chronoLocalDate: ChronoLocalDate): ChronoPeriod;
-    getChronology(): Chronology;
-    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
-    isAfter(chronoLocalDate: ChronoLocalDate): boolean;
-    isBefore(chronoLocalDate: ChronoLocalDate): boolean;
-    isEqual(chronoLocalDate: ChronoLocalDate): boolean;
-    isLeapYear(): boolean;
-    isSupported(temporalField: TemporalField): boolean;
-    isSupported(temporalUnit: TemporalUnit): boolean;
-    compareTo(object: any): number;
-    compareTo(chronoLocalDate: ChronoLocalDate): number;
-    lengthOfYear(): number;
-    query(temporalQuery: TemporalQuery): any;
-    format(dateTimeFormatter: DateTimeFormatter): string;
-    minus(temporalAmount: TemporalAmount): ChronoLocalDate;
-    minus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
-    plus(temporalAmount: TemporalAmount): ChronoLocalDate;
-    plus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
-    with(temporalAdjuster: TemporalAdjuster): ChronoLocalDate;
-    with(temporalField: TemporalField, l: number): ChronoLocalDate;
-    atTime(localTime: LocalTime): ChronoLocalDateTime;
-    getEra(): Era;
-    adjustInto(temporal: Temporal): Temporal;
-    minus(temporalAmount: TemporalAmount): Temporal;
-    minus(l: number, temporalUnit: TemporalUnit): Temporal;
-    plus(temporalAmount: TemporalAmount): Temporal;
-    plus(l: number, temporalUnit: TemporalUnit): Temporal;
-    with(temporalAdjuster: TemporalAdjuster): Temporal;
-    with(temporalField: TemporalField, l: number): Temporal;
-    toEpochDay(): number;
-    from(temporalAccessor: TemporalAccessor): ChronoLocalDate;
-    timeLineOrder(): Comparator;
-}
-
-// java.awt.font.GlyphMetrics
-declare interface GlyphMetrics {
-    isCombining(): boolean;
-    isComponent(): boolean;
-    isLigature(): boolean;
-    isStandard(): boolean;
-    isWhitespace(): boolean;
-    getAdvance(): number;
-    getAdvanceX(): number;
-    getAdvanceY(): number;
-    getLSB(): number;
-    getRSB(): number;
-    getType(): number;
-    getBounds2D(): Rectangle2D;
-    COMBINING: number;
-    COMPONENT: number;
-    LIGATURE: number;
-    STANDARD: number;
-    WHITESPACE: number;
-}
-
-// org.bukkit.scoreboard.Team$Option
-declare enum Option {
-    NAME_TAG_VISIBILITY,
-    DEATH_MESSAGE_VISIBILITY,
-    COLLISION_RULE,
-}
-
-// org.bukkit.persistence.PersistentDataAdapterContext
-declare interface PersistentDataAdapterContext {
-    newPersistentDataContainer(): PersistentDataContainer;
-}
-
-// org.bukkit.conversations.ConversationContext
-declare interface ConversationContext {
-    getSessionData(object: any): any;
-    getAllSessionData(): Map;
-    getForWhom(): Conversable;
-    getPlugin(): Plugin;
-    setSessionData(object: any, object: any): void;
-}
-
-// java.util.function.ObjDoubleConsumer
-declare interface ObjDoubleConsumer {
-    accept(object: any, d: number): void;
 }
 
 // java.awt.FontMetrics
@@ -12828,275 +12287,31 @@ declare interface FontMetrics extends Serializable {
     getStringBounds(characterIterator: CharacterIterator, i: number, i: number, graphics: Graphics): Rectangle2D;
 }
 
-// org.bukkit.persistence.PersistentDataType
-declare interface PersistentDataType {
-    getComplexType(): Class;
-    getPrimitiveType(): Class;
-    fromPrimitive(object: any, persistentDataAdapterContext: PersistentDataAdapterContext): any;
-    toPrimitive(object: any, persistentDataAdapterContext: PersistentDataAdapterContext): any;
-    BYTE: PersistentDataType;
-    BYTE_ARRAY: PersistentDataType;
-    DOUBLE: PersistentDataType;
-    FLOAT: PersistentDataType;
-    INTEGER: PersistentDataType;
-    INTEGER_ARRAY: PersistentDataType;
-    LONG: PersistentDataType;
-    LONG_ARRAY: PersistentDataType;
-    SHORT: PersistentDataType;
-    STRING: PersistentDataType;
-    TAG_CONTAINER: PersistentDataType;
-    TAG_CONTAINER_ARRAY: PersistentDataType;
+// java.util.function.LongFunction
+declare interface LongFunction {
+    apply(l: number): any;
 }
 
-// java.util.function.LongPredicate
-declare interface LongPredicate {
-    test(l: number): boolean;
-    and(longPredicate: LongPredicate): LongPredicate;
-    negate(): LongPredicate;
-    or(longPredicate: LongPredicate): LongPredicate;
-}
-
-// java.nio.file.CopyOption
-declare interface CopyOption {
-}
-
-// java.awt.geom.RectangularShape
-declare interface RectangularShape extends Shape, Cloneable {
+// java.util.AbstractCollection
+declare interface AbstractCollection extends Collection {
+    size(): number;
+    iterator(): Iterator;
+    add(object: any): boolean;
+    addAll(collection: Collection): boolean;
+    contains(object: any): boolean;
+    containsAll(collection: Collection): boolean;
     isEmpty(): boolean;
-    getHeight(): number;
-    getWidth(): number;
-    getX(): number;
-    getY(): number;
-    setFrame(d: number, d: number, d: number, d: number): void;
-    contains(point2D: Point2D): boolean;
-    contains(rectangle2D: Rectangle2D): boolean;
-    intersects(rectangle2D: Rectangle2D): boolean;
-    getCenterX(): number;
-    getCenterY(): number;
-    getMaxX(): number;
-    getMaxY(): number;
-    getMinX(): number;
-    getMinY(): number;
-    getBounds(): Rectangle;
-    getPathIterator(affineTransform: AffineTransform, d: number): PathIterator;
-    getFrame(): Rectangle2D;
-    setFrame(point2D: Point2D, dimension2D: Dimension2D): void;
-    setFrame(rectangle2D: Rectangle2D): void;
-    setFrameFromCenter(d: number, d: number, d: number, d: number): void;
-    setFrameFromCenter(point2D: Point2D, point2D: Point2D): void;
-    setFrameFromDiagonal(d: number, d: number, d: number, d: number): void;
-    setFrameFromDiagonal(point2D: Point2D, point2D: Point2D): void;
+    remove(object: any): boolean;
+    removeAll(collection: Collection): boolean;
+    retainAll(collection: Collection): boolean;
+    toArray(): any[];
+    toArray(object: any): any[];
+    clear(): void;
 }
 
-// javax.security.auth.Subject
-declare interface Subject extends Serializable {
-    isReadOnly(): boolean;
-    getPrincipals(): Set;
-    getPrincipals(clazz: Class): Set;
-    getPrivateCredentials(): Set;
-    getPrivateCredentials(clazz: Class): Set;
-    getPublicCredentials(): Set;
-    getPublicCredentials(clazz: Class): Set;
-    doAs(subject: Subject, privilegedAction: PrivilegedAction): any;
-    doAs(subject: Subject, privilegedExceptionAction: PrivilegedExceptionAction): any;
-    doAsPrivileged(subject: Subject, privilegedAction: PrivilegedAction, accessControlContext: AccessControlContext): any;
-    doAsPrivileged(subject: Subject, privilegedExceptionAction: PrivilegedExceptionAction, accessControlContext: AccessControlContext): any;
-    getSubject(accessControlContext: AccessControlContext): Subject;
-    setReadOnly(): void;
-}
-
-// org.bukkit.scoreboard.NameTagVisibility
-declare enum NameTagVisibility {
-    ALWAYS,
-    NEVER,
-    HIDE_FOR_OTHER_TEAMS,
-    HIDE_FOR_OWN_TEAM,
-}
-
-// java.nio.file.attribute.FileAttribute
-declare interface FileAttribute {
-    value(): any;
-    name(): string;
-}
-
-// java.util.DoubleSummaryStatistics
-declare interface DoubleSummaryStatistics extends DoubleConsumer {
-    getAverage(): number;
-    getMax(): number;
-    getMin(): number;
-    getSum(): number;
-    getCount(): number;
-    accept(d: number): void;
-    combine(doubleSummaryStatistics: DoubleSummaryStatistics): void;
-}
-
-// java.util.stream.DoubleStream$Builder
-declare interface Builder extends DoubleConsumer {
-    build(): DoubleStream;
-    accept(d: number): void;
-    add(d: number): Builder;
-}
-
-// java.security.cert.Certificate
-declare interface Certificate extends Serializable {
-    getEncoded(): number[];
-    getPublicKey(): PublicKey;
-    verify(publicKey: PublicKey): void;
-    verify(publicKey: PublicKey, s: string): void;
-    getType(): string;
-    verify(publicKey: PublicKey, provider: Provider): void;
-}
-
-// java.util.function.DoubleConsumer
-declare interface DoubleConsumer {
-    accept(d: number): void;
-    andThen(doubleConsumer: DoubleConsumer): DoubleConsumer;
-}
-
-// org.bukkit.entity.AbstractVillager
-declare interface AbstractVillager extends Breedable, NPC, InventoryHolder, Merchant {
-    getInventory(): Inventory;
-}
-
-// java.nio.file.DirectoryStream$Filter
-declare interface Filter {
-    accept(object: any): boolean;
-}
-
-// java.net.ContentHandlerFactory
-declare interface ContentHandlerFactory {
-    createContentHandler(s: string): ContentHandler;
-}
-
-// org.bukkit.configuration.ConfigurationSection
-declare interface ConfigurationSection {
-    contains(s: string): boolean;
-    contains(s: string, b: boolean): boolean;
-    getBoolean(s: string): boolean;
-    getBoolean(s: string, b: boolean): boolean;
-    isBoolean(s: string): boolean;
-    isColor(s: string): boolean;
-    isConfigurationSection(s: string): boolean;
-    isDouble(s: string): boolean;
-    isInt(s: string): boolean;
-    isItemStack(s: string): boolean;
-    isList(s: string): boolean;
-    isLocation(s: string): boolean;
-    isLong(s: string): boolean;
-    isOfflinePlayer(s: string): boolean;
-    isSet(s: string): boolean;
-    isString(s: string): boolean;
-    isVector(s: string): boolean;
-    getDouble(s: string): number;
-    getDouble(s: string, d: number): number;
-    getInt(s: string): number;
-    getInt(s: string, i: number): number;
-    get(s: string): any;
-    get(s: string, object: any): any;
-    getObject(s: string, clazz: Class): any;
-    getObject(s: string, clazz: Class, object: any): any;
-    getCurrentPath(): string;
-    getName(): string;
-    getString(s: string): string;
-    getString(s: string, s: string): string;
-    getBooleanList(s: string): List;
-    getByteList(s: string): List;
-    getCharacterList(s: string): List;
-    getDoubleList(s: string): List;
-    getFloatList(s: string): List;
-    getIntegerList(s: string): List;
-    getList(s: string): List;
-    getList(s: string, list: List): List;
-    getLongList(s: string): List;
-    getMapList(s: string): List;
-    getShortList(s: string): List;
-    getStringList(s: string): List;
-    getValues(b: boolean): Map;
-    getKeys(b: boolean): Set;
-    getLong(s: string): number;
-    getLong(s: string, l: number): number;
-    getColor(s: string): Color;
-    getColor(s: string, color: Color): Color;
-    getLocation(s: string): Location;
-    getLocation(s: string, location: Location): Location;
-    getOfflinePlayer(s: string): OfflinePlayer;
-    getOfflinePlayer(s: string, offlinePlayer: OfflinePlayer): OfflinePlayer;
-    getRoot(): Configuration;
-    createSection(s: string): ConfigurationSection;
-    createSection(s: string, map: Map): ConfigurationSection;
-    getConfigurationSection(s: string): ConfigurationSection;
-    getDefaultSection(): ConfigurationSection;
-    getParent(): ConfigurationSection;
-    getSerializable(s: string, clazz: Class): ConfigurationSerializable;
-    getSerializable(s: string, clazz: Class, configurationSerializable: ConfigurationSerializable): ConfigurationSerializable;
-    getItemStack(s: string): ItemStack;
-    getItemStack(s: string, itemStack: ItemStack): ItemStack;
-    getVector(s: string): Vector;
-    getVector(s: string, vector: Vector): Vector;
-    addDefault(s: string, object: any): void;
-    set(s: string, object: any): void;
-}
-
-// java.time.zone.ZoneRules
-declare interface ZoneRules extends Serializable {
-    isDaylightSavings(instant: Instant): boolean;
-    isFixedOffset(): boolean;
-    isValidOffset(localDateTime: LocalDateTime, zoneOffset: ZoneOffset): boolean;
-    getDaylightSavings(instant: Instant): Duration;
-    getOffset(instant: Instant): ZoneOffset;
-    getOffset(localDateTime: LocalDateTime): ZoneOffset;
-    getStandardOffset(instant: Instant): ZoneOffset;
-    getTransition(localDateTime: LocalDateTime): ZoneOffsetTransition;
-    nextTransition(instant: Instant): ZoneOffsetTransition;
-    previousTransition(instant: Instant): ZoneOffsetTransition;
-    getTransitionRules(): List;
-    getTransitions(): List;
-    getValidOffsets(localDateTime: LocalDateTime): List;
-    of(zoneOffset: ZoneOffset): ZoneRules;
-    of(zoneOffset: ZoneOffset, zoneOffset: ZoneOffset, list: List, list: List, list: List): ZoneRules;
-}
-
-// java.security.spec.AlgorithmParameterSpec
-declare interface AlgorithmParameterSpec {
-}
-
-// org.bukkit.attribute.AttributeModifier$Operation
-declare enum Operation {
-    ADD_NUMBER,
-    ADD_SCALAR,
-    MULTIPLY_SCALAR_1,
-}
-
-// java.nio.file.attribute.UserPrincipal
-declare interface UserPrincipal extends Principal {
-}
-
-// java.time.format.ResolverStyle
-declare enum ResolverStyle {
-    STRICT,
-    SMART,
-    LENIENT,
-}
-
-// java.util.function.DoubleToLongFunction
-declare interface DoubleToLongFunction {
-    applyAsLong(d: number): number;
-}
-
-// java.util.function.DoubleBinaryOperator
-declare interface DoubleBinaryOperator {
-    applyAsDouble(d: number, d: number): number;
-}
-
-// java.util.function.DoubleToIntFunction
-declare interface DoubleToIntFunction {
-    applyAsInt(d: number): number;
-}
-
-// org.bukkit.projectiles.ProjectileSource
-declare interface ProjectileSource {
-    launchProjectile(clazz: Class): Projectile;
-    launchProjectile(clazz: Class, vector: Vector): Projectile;
+// java.util.concurrent.Flow$Publisher
+declare interface Publisher {
+    subscribe(subscriber: Subscriber): void;
 }
 
 // java.time.LocalDateTime
@@ -13193,242 +12408,37 @@ declare interface LocalDateTime extends Temporal, TemporalAdjuster, ChronoLocalD
     MIN: LocalDateTime;
 }
 
-// org.bukkit.ChatColor
-declare enum ChatColor {
-    BLACK,
-    DARK_BLUE,
-    DARK_GREEN,
-    DARK_AQUA,
-    DARK_RED,
-    DARK_PURPLE,
-    GOLD,
-    GRAY,
-    DARK_GRAY,
-    BLUE,
-    GREEN,
-    AQUA,
-    RED,
-    LIGHT_PURPLE,
-    YELLOW,
-    WHITE,
-    MAGIC,
-    BOLD,
-    STRIKETHROUGH,
-    UNDERLINE,
-    ITALIC,
-    RESET,
+// java.net.SocketOption
+declare interface SocketOption {
+    type(): Class;
+    name(): string;
 }
 
-// java.awt.Font
-declare interface Font extends Serializable {
-    canDisplay(c: string): boolean;
-    canDisplay(i: number): boolean;
-    hasLayoutAttributes(): boolean;
-    hasUniformLineMetrics(): boolean;
-    isBold(): boolean;
-    isItalic(): boolean;
-    isPlain(): boolean;
-    isTransformed(): boolean;
-    getBaselineFor(c: string): number;
-    getItalicAngle(): number;
-    getSize2D(): number;
-    canDisplayUpTo(c: string, i: number, i: number): number;
-    canDisplayUpTo(s: string): number;
-    canDisplayUpTo(characterIterator: CharacterIterator, i: number, i: number): number;
-    getMissingGlyphCode(): number;
-    getNumGlyphs(): number;
-    getSize(): number;
-    getStyle(): number;
-    deriveFont(f: number): Font;
-    deriveFont(i: number): Font;
-    deriveFont(i: number, f: number): Font;
-    deriveFont(i: number, affineTransform: AffineTransform): Font;
-    deriveFont(affineTransform: AffineTransform): Font;
-    deriveFont(map: Map): Font;
-    createGlyphVector(fontRenderContext: FontRenderContext, c: string): GlyphVector;
-    createGlyphVector(fontRenderContext: FontRenderContext, i: number): GlyphVector;
-    createGlyphVector(fontRenderContext: FontRenderContext, s: string): GlyphVector;
-    createGlyphVector(fontRenderContext: FontRenderContext, characterIterator: CharacterIterator): GlyphVector;
-    layoutGlyphVector(fontRenderContext: FontRenderContext, c: string, i: number, i: number, i: number): GlyphVector;
-    getLineMetrics(c: string, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
-    getLineMetrics(s: string, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
-    getLineMetrics(s: string, fontRenderContext: FontRenderContext): LineMetrics;
-    getLineMetrics(characterIterator: CharacterIterator, i: number, i: number, fontRenderContext: FontRenderContext): LineMetrics;
-    getTransform(): AffineTransform;
-    getMaxCharBounds(fontRenderContext: FontRenderContext): Rectangle2D;
-    getStringBounds(c: string, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
-    getStringBounds(s: string, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
-    getStringBounds(s: string, fontRenderContext: FontRenderContext): Rectangle2D;
-    getStringBounds(characterIterator: CharacterIterator, i: number, i: number, fontRenderContext: FontRenderContext): Rectangle2D;
-    getFamily(): string;
-    getFamily(locale: Locale): string;
-    getFontName(): string;
-    getFontName(locale: Locale): string;
-    getName(): string;
-    getPSName(): string;
-    getAvailableAttributes(): Attribute[];
-    getAttributes(): Map;
-    textRequiresLayout(c: string, i: number, i: number): boolean;
-    createFont(i: number, file: File): Font;
-    createFont(i: number, inputStream: InputStream): Font;
-    decode(s: string): Font;
-    getFont(s: string): Font;
-    getFont(s: string, font: Font): Font;
-    getFont(map: Map): Font;
-    createFonts(file: File): Font[];
-    createFonts(inputStream: InputStream): Font[];
-    BOLD: number;
-    CENTER_BASELINE: number;
-    HANGING_BASELINE: number;
-    ITALIC: number;
-    LAYOUT_LEFT_TO_RIGHT: number;
-    LAYOUT_NO_LIMIT_CONTEXT: number;
-    LAYOUT_NO_START_CONTEXT: number;
-    LAYOUT_RIGHT_TO_LEFT: number;
-    PLAIN: number;
-    ROMAN_BASELINE: number;
-    TRUETYPE_FONT: number;
-    TYPE1_FONT: number;
-    DIALOG: string;
-    DIALOG_INPUT: string;
-    MONOSPACED: string;
-    SANS_SERIF: string;
-    SERIF: string;
-}
-
-// java.net.URLStreamHandler
-declare interface URLStreamHandler {
-}
-
-// java.nio.channels.AsynchronousFileChannel
-declare interface AsynchronousFileChannel extends AsynchronousChannel {
-    truncate(l: number): AsynchronousFileChannel;
-    tryLock(l: number, l: number, b: boolean): FileLock;
-    lock(l: number, l: number, b: boolean): Future;
-    read(byteBuffer: ByteBuffer, l: number): Future;
-    write(byteBuffer: ByteBuffer, l: number): Future;
-    size(): number;
-    force(b: boolean): void;
-    lock(l: number, l: number, b: boolean, object: any, completionHandler: CompletionHandler): void;
-    read(byteBuffer: ByteBuffer, l: number, object: any, completionHandler: CompletionHandler): void;
-    write(byteBuffer: ByteBuffer, l: number, object: any, completionHandler: CompletionHandler): void;
-    tryLock(): FileLock;
-    lock(): Future;
-    lock(object: any, completionHandler: CompletionHandler): void;
-    open(path: Path, openOption: OpenOption): AsynchronousFileChannel;
-    open(path: Path, set: Set, executorService: ExecutorService, fileAttribute: FileAttribute): AsynchronousFileChannel;
-}
-
-// org.bukkit.scoreboard.Score
-declare interface Score {
-    isScoreSet(): boolean;
-    getScore(): number;
-    getEntry(): string;
-    getPlayer(): OfflinePlayer;
-    getObjective(): Objective;
-    getScoreboard(): Scoreboard;
-    setScore(i: number): void;
-}
-
-// java.util.regex.MatchResult
-declare interface MatchResult {
-    end(): number;
-    end(i: number): number;
-    groupCount(): number;
-    start(): number;
-    start(i: number): number;
-    group(): string;
-    group(i: number): string;
-}
-
-// java.awt.image.VolatileImage
-declare interface VolatileImage extends Image, Transparency {
-    contentsLost(): boolean;
-    getHeight(): number;
-    getWidth(): number;
-    validate(graphicsConfiguration: GraphicsConfiguration): number;
-    createGraphics(): Graphics2D;
-    getCapabilities(): ImageCapabilities;
-    getSnapshot(): BufferedImage;
-    getTransparency(): number;
-    IMAGE_INCOMPATIBLE: number;
-    IMAGE_OK: number;
-    IMAGE_RESTORED: number;
-}
-
-// com.google.common.collect.Multiset
-declare interface Multiset extends Collection {
-    add(object: any): boolean;
-    contains(object: any): boolean;
-    containsAll(collection: Collection): boolean;
-    equals(object: any): boolean;
-    remove(object: any): boolean;
-    removeAll(collection: Collection): boolean;
-    retainAll(collection: Collection): boolean;
-    setCount(object: any, i: number, i: number): boolean;
-    add(object: any, i: number): number;
-    count(object: any): number;
-    hashCode(): number;
-    remove(object: any, i: number): number;
-    setCount(object: any, i: number): number;
-    size(): number;
-    toString(): string;
-    iterator(): Iterator;
-    elementSet(): Set;
+// java.util.Hashtable
+declare interface Hashtable extends Dictionary, Map, Cloneable, Serializable {
+    containsValue(object: any): boolean;
+    values(): Collection;
     entrySet(): Set;
-    spliterator(): Spliterator;
-    forEach(consumer: Consumer): void;
-    forEachEntry(objIntConsumer: ObjIntConsumer): void;
-}
-
-// java.lang.module.Configuration
-declare interface Configuration {
-    resolve(moduleFinder: ModuleFinder, moduleFinder: ModuleFinder, collection: Collection): Configuration;
-    resolveAndBind(moduleFinder: ModuleFinder, moduleFinder: ModuleFinder, collection: Collection): Configuration;
-    parents(): List;
-    findModule(s: string): Optional;
-    modules(): Set;
-    empty(): Configuration;
-    resolve(moduleFinder: ModuleFinder, list: List, moduleFinder: ModuleFinder, collection: Collection): Configuration;
-    resolveAndBind(moduleFinder: ModuleFinder, list: List, moduleFinder: ModuleFinder, collection: Collection): Configuration;
-}
-
-// org.bukkit.scoreboard.Team$OptionStatus
-declare enum OptionStatus {
-    ALWAYS,
-    NEVER,
-    FOR_OTHER_TEAMS,
-    FOR_OWN_TEAM,
-}
-
-// org.bukkit.entity.Villager$Type
-declare enum Type {
-    DESERT,
-    JUNGLE,
-    PLAINS,
-    SAVANNA,
-    SNOW,
-    SWAMP,
-    TAIGA,
-}
-
-// org.bukkit.attribute.Attributable
-declare interface Attributable {
-    getAttribute(attribute: Attribute): AttributeInstance;
-}
-
-// java.net.Proxy$Type
-declare enum Type {
-    DIRECT,
-    HTTP,
-    SOCKS,
-}
-
-// java.util.stream.Collector$Characteristics
-declare enum Characteristics {
-    CONCURRENT,
-    UNORDERED,
-    IDENTITY_FINISH,
+    keySet(): Set;
+    contains(object: any): boolean;
+    containsKey(object: any): boolean;
+    equals(object: any): boolean;
+    remove(object: any, object: any): boolean;
+    replace(object: any, object: any, object: any): boolean;
+    hashCode(): number;
+    clone(): any;
+    compute(object: any, biFunction: BiFunction): any;
+    computeIfAbsent(object: any, func: Function): any;
+    computeIfPresent(object: any, biFunction: BiFunction): any;
+    getOrDefault(object: any, object: any): any;
+    merge(object: any, object: any, biFunction: BiFunction): any;
+    putIfAbsent(object: any, object: any): any;
+    replace(object: any, object: any): any;
+    toString(): string;
+    clear(): void;
+    forEach(biConsumer: BiConsumer): void;
+    putAll(map: Map): void;
+    replaceAll(biFunction: BiFunction): void;
 }
 
 // org.bukkit.inventory.EntityEquipment
@@ -13476,354 +12486,12 @@ declare interface EntityEquipment {
     setLeggingsDropChance(f: number): void;
 }
 
-// java.nio.file.DirectoryStream
-declare interface DirectoryStream extends Closeable, Iterable {
-    iterator(): Iterator;
-}
-
-// java.text.AttributedCharacterIterator$Attribute
-declare interface Attribute extends Serializable {
-    INPUT_METHOD_SEGMENT: Attribute;
-    LANGUAGE: Attribute;
-    READING: Attribute;
-}
-
-// java.nio.channels.SocketChannel
-declare interface SocketChannel extends AbstractSelectableChannel, ByteChannel, ScatteringByteChannel, GatheringByteChannel, NetworkChannel {
-    connect(socketAddress: SocketAddress): boolean;
-    finishConnect(): boolean;
-    isConnected(): boolean;
-    isConnectionPending(): boolean;
-    read(byteBuffer: ByteBuffer): number;
-    write(byteBuffer: ByteBuffer): number;
-    socket(): Socket;
-    getLocalAddress(): SocketAddress;
-    getRemoteAddress(): SocketAddress;
-    bind(socketAddress: SocketAddress): SocketChannel;
-    setOption(socketOption: SocketOption, object: any): SocketChannel;
-    shutdownInput(): SocketChannel;
-    shutdownOutput(): SocketChannel;
-    read(byteBuffer: ByteBuffer, i: number, i: number): number;
-    write(byteBuffer: ByteBuffer, i: number, i: number): number;
-    validOps(): number;
-    read(byteBuffer: ByteBuffer): number;
-    write(byteBuffer: ByteBuffer): number;
-    bind(socketAddress: SocketAddress): NetworkChannel;
-    setOption(socketOption: SocketOption, object: any): NetworkChannel;
-    open(): SocketChannel;
-    open(socketAddress: SocketAddress): SocketChannel;
-}
-
-// javax.net.ssl.SSLEngineResult$Status
-declare enum Status {
-    BUFFER_UNDERFLOW,
-    BUFFER_OVERFLOW,
-    OK,
-    CLOSED,
-}
-
-// java.util.function.LongFunction
-declare interface LongFunction {
-    apply(l: number): any;
-}
-
-// org.bukkit.conversations.ConversationAbandonedListener
-declare interface ConversationAbandonedListener extends EventListener {
-    conversationAbandoned(conversationAbandonedEvent: ConversationAbandonedEvent): void;
-}
-
-// org.bukkit.plugin.RegisteredListener
-declare interface RegisteredListener {
-    isIgnoringCancelled(): boolean;
-    getPriority(): EventPriority;
-    getListener(): Listener;
-    getPlugin(): Plugin;
-    callEvent(event: Event): void;
-}
-
-// java.nio.file.attribute.FileAttributeView
-declare interface FileAttributeView extends AttributeView {
-}
-
-// org.bukkit.permissions.PermissionRemovedExecutor
-declare interface PermissionRemovedExecutor {
-    attachmentRemoved(permissionAttachment: PermissionAttachment): void;
-}
-
-// java.lang.StringBuilder
-declare interface StringBuilder extends AbstractStringBuilder, Serializable, Comparable, CharSequence {
-    compareTo(object: any): number;
-    compareTo(s: string): number;
-}
-
-// java.awt.GraphicsDevice
-declare interface GraphicsDevice {
-    getType(): number;
-    getDefaultConfiguration(): GraphicsConfiguration;
-    getConfigurations(): GraphicsConfiguration[];
-    getIDstring(): string;
-    isDisplayChangeSupported(): boolean;
-    isFullScreenSupported(): boolean;
-    isWindowTranslucencySupported(windowTranslucency: WindowTranslucency): boolean;
-    getAvailableAcceleratedMemory(): number;
-    getDisplayMode(): DisplayMode;
-    getDisplayModes(): DisplayMode[];
-    getBestConfiguration(graphicsConfigTemplate: GraphicsConfigTemplate): GraphicsConfiguration;
-    getFullScreenWindow(): Window;
-    setDisplayMode(displayMode: DisplayMode): void;
-    setFullScreenWindow(window: Window): void;
-    TYPE_IMAGE_BUFFER: number;
-    TYPE_PRINTER: number;
-    TYPE_RASTER_SCREEN: number;
-}
-
-// java.time.Month
-declare enum Month {
-    JANUARY,
-    FEBRUARY,
-    MARCH,
-    APRIL,
-    MAY,
-    JUNE,
-    JULY,
-    AUGUST,
-    SEPTEMBER,
-    OCTOBER,
-    NOVEMBER,
-    DECEMBER,
-}
-
-// java.awt.PaintContext
-declare interface PaintContext {
-    getColorModel(): ColorModel;
-    getRaster(i: number, i: number, i: number, i: number): Raster;
-    dispose(): void;
-}
-
-// java.security.CodeSigner
-declare interface CodeSigner extends Serializable {
-    getTimestamp(): Timestamp;
-    getSignerCertPath(): CertPath;
-}
-
-// java.awt.image.ImageConsumer
-declare interface ImageConsumer {
-    imageComplete(i: number): void;
-    setColorModel(colorModel: ColorModel): void;
-    setDimensions(i: number, i: number): void;
-    setHints(i: number): void;
-    setPixels(i: number, i: number, i: number, i: number, colorModel: ColorModel, b: number, i: number, i: number): void;
-    setPixels(i: number, i: number, i: number, i: number, colorModel: ColorModel, i: number, i: number, i: number): void;
-    setProperties(hashtable: Hashtable): void;
-    COMPLETESCANLINES: number;
-    IMAGEABORTED: number;
-    IMAGEERROR: number;
-    RANDOMPIXELORDER: number;
-    SINGLEFRAME: number;
-    SINGLEFRAMEDONE: number;
-    SINGLEPASS: number;
-    STATICIMAGEDONE: number;
-    TOPDOWNLEFTRIGHT: number;
-}
-
-// java.util.function.LongToIntFunction
-declare interface LongToIntFunction {
-    applyAsInt(l: number): number;
-}
-
-// org.bukkit.map.MapCursorCollection
-declare interface MapCursorCollection {
-    removeCursor(mapCursor: MapCursor): boolean;
-    size(): number;
-    addCursor(i: number, i: number, b: number): MapCursor;
-    addCursor(i: number, i: number, b: number, b: number): MapCursor;
-    addCursor(i: number, i: number, b: number, b: number, b: boolean): MapCursor;
-    addCursor(i: number, i: number, b: number, b: number, b: boolean, s: string): MapCursor;
-    addCursor(mapCursor: MapCursor): MapCursor;
-    getCursor(i: number): MapCursor;
-}
-
-// java.lang.ModuleLayer$Controller
-declare interface Controller {
-    layer(): ModuleLayer;
-    addExports(module: Module, s: string, module: Module): Controller;
-    addOpens(module: Module, s: string, module: Module): Controller;
-    addReads(module: Module, module: Module): Controller;
-}
-
-// org.bukkit.conversations.ConversationCanceller
-declare interface ConversationCanceller extends Cloneable {
-    cancelBasedOnInput(conversationContext: ConversationContext, s: string): boolean;
-    clone(): ConversationCanceller;
-    setConversation(conversation: Conversation): void;
-    clone(): any;
-}
-
-// java.time.format.DateTimeFormatter
-declare interface DateTimeFormatter {
-    parse(s: string, temporalQuery: TemporalQuery): any;
-    format(temporalAccessor: TemporalAccessor): string;
-    toFormat(): Format;
-    toFormat(temporalQuery: TemporalQuery): Format;
-    getZone(): ZoneId;
-    getChronology(): Chronology;
-    localizedBy(locale: Locale): DateTimeFormatter;
-    withChronology(chronology: Chronology): DateTimeFormatter;
-    withDecimalStyle(decimalStyle: DecimalStyle): DateTimeFormatter;
-    withLocale(locale: Locale): DateTimeFormatter;
-    withResolverFields(temporalField: TemporalField): DateTimeFormatter;
-    withResolverFields(set: Set): DateTimeFormatter;
-    withResolverStyle(resolverStyle: ResolverStyle): DateTimeFormatter;
-    withZone(zoneId: ZoneId): DateTimeFormatter;
-    getDecimalStyle(): DecimalStyle;
-    getResolverStyle(): ResolverStyle;
-    parse(s: string): TemporalAccessor;
-    parse(s: string, parsePosition: ParsePosition): TemporalAccessor;
-    parseBest(s: string, temporalQuery: TemporalQuery): TemporalAccessor;
-    parseUnresolved(s: string, parsePosition: ParsePosition): TemporalAccessor;
-    getLocale(): Locale;
-    getResolverFields(): Set;
-    parsedExcessDays(): TemporalQuery;
-    parsedLeapSecond(): TemporalQuery;
-    ofLocalizedDate(formatStyle: FormatStyle): DateTimeFormatter;
-    ofLocalizedDateTime(formatStyle: FormatStyle): DateTimeFormatter;
-    ofLocalizedDateTime(formatStyle: FormatStyle, formatStyle: FormatStyle): DateTimeFormatter;
-    ofLocalizedTime(formatStyle: FormatStyle): DateTimeFormatter;
-    ofPattern(s: string): DateTimeFormatter;
-    ofPattern(s: string, locale: Locale): DateTimeFormatter;
-    formatTo(temporalAccessor: TemporalAccessor, appendable: Appendable): void;
-    BASIC_ISO_DATE: DateTimeFormatter;
-    ISO_DATE: DateTimeFormatter;
-    ISO_DATE_TIME: DateTimeFormatter;
-    ISO_INSTANT: DateTimeFormatter;
-    ISO_LOCAL_DATE: DateTimeFormatter;
-    ISO_LOCAL_DATE_TIME: DateTimeFormatter;
-    ISO_LOCAL_TIME: DateTimeFormatter;
-    ISO_OFFSET_DATE: DateTimeFormatter;
-    ISO_OFFSET_DATE_TIME: DateTimeFormatter;
-    ISO_OFFSET_TIME: DateTimeFormatter;
-    ISO_ORDINAL_DATE: DateTimeFormatter;
-    ISO_TIME: DateTimeFormatter;
-    ISO_WEEK_DATE: DateTimeFormatter;
-    ISO_ZONED_DATE_TIME: DateTimeFormatter;
-    RFC_1123_DATE_TIME: DateTimeFormatter;
-}
-
-// java.net.NetworkInterface
-declare interface NetworkInterface {
-    isLoopback(): boolean;
-    isPointToPoint(): boolean;
-    isUp(): boolean;
-    isVirtual(): boolean;
-    supportsMulticast(): boolean;
-    getHardwareAddress(): number[];
-    getIndex(): number;
-    getMTU(): number;
-    getDisplayName(): string;
-    getName(): string;
-    getParent(): NetworkInterface;
-    getInetAddresses(): Enumeration;
-    getSubInterfaces(): Enumeration;
-    getInterfaceAddresses(): List;
-    inetAddresses(): Stream;
-    subInterfaces(): Stream;
-    getByIndex(i: number): NetworkInterface;
-    getByInetAddress(inetAddress: InetAddress): NetworkInterface;
-    getByName(s: string): NetworkInterface;
-    getNetworkInterfaces(): Enumeration;
-    networkInterfaces(): Stream;
-}
-
-// java.util.Spliterator$OfLong
-declare interface OfLong extends OfPrimitive {
-    tryAdvance(longConsumer: LongConsumer): boolean;
-    trySplit(): OfLong;
+// java.util.Spliterator$OfPrimitive
+declare interface OfPrimitive extends Spliterator {
     tryAdvance(object: any): boolean;
-    tryAdvance(consumer: Consumer): boolean;
-    trySplit(): Spliterator;
     trySplit(): OfPrimitive;
+    trySplit(): Spliterator;
     forEachRemaining(object: any): void;
-    forEachRemaining(consumer: Consumer): void;
-    forEachRemaining(longConsumer: LongConsumer): void;
-}
-
-// java.awt.font.GlyphJustificationInfo
-declare interface GlyphJustificationInfo {
-    growAbsorb: boolean;
-    shrinkAbsorb: boolean;
-    growLeftLimit: number;
-    growRightLimit: number;
-    shrinkLeftLimit: number;
-    shrinkRightLimit: number;
-    weight: number;
-    growPriority: number;
-    shrinkPriority: number;
-    PRIORITY_INTERCHAR: number;
-    PRIORITY_KASHIDA: number;
-    PRIORITY_NONE: number;
-    PRIORITY_WHITESPACE: number;
-}
-
-// java.time.DayOfWeek
-declare enum DayOfWeek {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY,
-}
-
-// java.awt.BufferCapabilities
-declare interface BufferCapabilities extends Cloneable {
-    isFullScreenRequired(): boolean;
-    isMultiBufferAvailable(): boolean;
-    isPageFlipping(): boolean;
-    getFlipContents(): FlipContents;
-    getBackBufferCapabilities(): ImageCapabilities;
-    getFrontBufferCapabilities(): ImageCapabilities;
-}
-
-// org.bukkit.entity.Villager$Profession
-declare enum Profession {
-    NONE,
-    ARMORER,
-    BUTCHER,
-    CARTOGRAPHER,
-    CLERIC,
-    FARMER,
-    FISHERMAN,
-    FLETCHER,
-    LEATHERWORKER,
-    LIBRARIAN,
-    MASON,
-    NITWIT,
-    SHEPHERD,
-    TOOLSMITH,
-    WEAPONSMITH,
-}
-
-// org.bukkit.entity.Boss
-declare interface Boss extends Entity {
-    getBossBar(): BossBar;
-}
-
-// javax.security.cert.X509Certificate
-declare interface X509Certificate extends Certificate {
-    getSigAlgParams(): number[];
-    getVersion(): number;
-    getSigAlgName(): string;
-    getSigAlgOID(): string;
-    getSerialNumber(): BigInteger;
-    getIssuerDN(): Principal;
-    getSubjectDN(): Principal;
-    getNotAfter(): Date;
-    getNotBefore(): Date;
-    checkValidity(): void;
-    checkValidity(date: Date): void;
-    getInstance(b: number): X509Certificate;
-    getInstance(inputStream: InputStream): X509Certificate;
 }
 
 // java.util.function.LongBinaryOperator
@@ -13868,111 +12536,541 @@ declare interface ChronoLocalDateTime extends Temporal, TemporalAdjuster, Compar
     timeLineOrder(): Comparator;
 }
 
-// java.lang.module.ModuleDescriptor$Builder
-declare interface Builder {
-    build(): ModuleDescriptor;
-    exports(s: string): Builder;
-    exports(s: string, set: Set): Builder;
-    exports(exports: Exports): Builder;
-    exports(set: Set, s: string): Builder;
-    exports(set: Set, s: string, set: Set): Builder;
-    mainClass(s: string): Builder;
-    opens(s: string): Builder;
-    opens(s: string, set: Set): Builder;
-    opens(opens: Opens): Builder;
-    opens(set: Set, s: string): Builder;
-    opens(set: Set, s: string, set: Set): Builder;
-    packages(set: Set): Builder;
-    provides(s: string, list: List): Builder;
-    provides(provides: Provides): Builder;
-    requires(s: string): Builder;
-    requires(requires: Requires): Builder;
-    requires(set: Set, s: string): Builder;
-    requires(set: Set, s: string, version: Version): Builder;
-    uses(s: string): Builder;
-    version(s: string): Builder;
-    version(version: Version): Builder;
+// java.net.ContentHandlerFactory
+declare interface ContentHandlerFactory {
+    createContentHandler(s: string): ContentHandler;
 }
 
-// java.awt.Polygon
-declare interface Polygon extends Shape, Serializable {
-    contains(d: number, d: number): boolean;
-    contains(d: number, d: number, d: number, d: number): boolean;
-    contains(i: number, i: number): boolean;
-    contains(point: Point): boolean;
+// java.time.DayOfWeek
+declare enum DayOfWeek {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY,
+}
+
+// java.security.CodeSigner
+declare interface CodeSigner extends Serializable {
+    getTimestamp(): Timestamp;
+    getSignerCertPath(): CertPath;
+}
+
+// java.util.Spliterator$OfLong
+declare interface OfLong extends OfPrimitive {
+    tryAdvance(longConsumer: LongConsumer): boolean;
+    trySplit(): OfLong;
+    tryAdvance(object: any): boolean;
+    tryAdvance(consumer: Consumer): boolean;
+    trySplit(): Spliterator;
+    trySplit(): OfPrimitive;
+    forEachRemaining(object: any): void;
+    forEachRemaining(consumer: Consumer): void;
+    forEachRemaining(longConsumer: LongConsumer): void;
+}
+
+// org.bukkit.plugin.RegisteredListener
+declare interface RegisteredListener {
+    isIgnoringCancelled(): boolean;
+    getPriority(): EventPriority;
+    getListener(): Listener;
+    getPlugin(): Plugin;
+    callEvent(event: Event): void;
+}
+
+// java.awt.BufferCapabilities
+declare interface BufferCapabilities extends Cloneable {
+    isFullScreenRequired(): boolean;
+    isMultiBufferAvailable(): boolean;
+    isPageFlipping(): boolean;
+    getFlipContents(): FlipContents;
+    getBackBufferCapabilities(): ImageCapabilities;
+    getFrontBufferCapabilities(): ImageCapabilities;
+}
+
+// java.time.OffsetTime
+declare interface OffsetTime extends Temporal, TemporalAdjuster, Comparable, Serializable {
+    isAfter(offsetTime: OffsetTime): boolean;
+    isBefore(offsetTime: OffsetTime): boolean;
+    isEqual(offsetTime: OffsetTime): boolean;
+    isSupported(temporalField: TemporalField): boolean;
+    isSupported(temporalUnit: TemporalUnit): boolean;
+    compareTo(object: any): number;
+    compareTo(offsetTime: OffsetTime): number;
+    get(temporalField: TemporalField): number;
+    getHour(): number;
+    getMinute(): number;
+    getNano(): number;
+    getSecond(): number;
+    query(temporalQuery: TemporalQuery): any;
+    format(dateTimeFormatter: DateTimeFormatter): string;
+    toLocalTime(): LocalTime;
+    atDate(localDate: LocalDate): OffsetDateTime;
+    minus(temporalAmount: TemporalAmount): OffsetTime;
+    minus(l: number, temporalUnit: TemporalUnit): OffsetTime;
+    minusHours(l: number): OffsetTime;
+    minusMinutes(l: number): OffsetTime;
+    minusNanos(l: number): OffsetTime;
+    minusSeconds(l: number): OffsetTime;
+    plus(temporalAmount: TemporalAmount): OffsetTime;
+    plus(l: number, temporalUnit: TemporalUnit): OffsetTime;
+    plusHours(l: number): OffsetTime;
+    plusMinutes(l: number): OffsetTime;
+    plusNanos(l: number): OffsetTime;
+    plusSeconds(l: number): OffsetTime;
+    truncatedTo(temporalUnit: TemporalUnit): OffsetTime;
+    with(temporalAdjuster: TemporalAdjuster): OffsetTime;
+    with(temporalField: TemporalField, l: number): OffsetTime;
+    withHour(i: number): OffsetTime;
+    withMinute(i: number): OffsetTime;
+    withNano(i: number): OffsetTime;
+    withOffsetSameInstant(zoneOffset: ZoneOffset): OffsetTime;
+    withOffsetSameLocal(zoneOffset: ZoneOffset): OffsetTime;
+    withSecond(i: number): OffsetTime;
+    getOffset(): ZoneOffset;
+    adjustInto(temporal: Temporal): Temporal;
+    minus(temporalAmount: TemporalAmount): Temporal;
+    minus(l: number, temporalUnit: TemporalUnit): Temporal;
+    plus(temporalAmount: TemporalAmount): Temporal;
+    plus(l: number, temporalUnit: TemporalUnit): Temporal;
+    with(temporalAdjuster: TemporalAdjuster): Temporal;
+    with(temporalField: TemporalField, l: number): Temporal;
+    range(temporalField: TemporalField): ValueRange;
+    getLong(temporalField: TemporalField): number;
+    toEpochSecond(localDate: LocalDate): number;
+    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
+    from(temporalAccessor: TemporalAccessor): OffsetTime;
+    now(): OffsetTime;
+    now(clock: Clock): OffsetTime;
+    now(zoneId: ZoneId): OffsetTime;
+    of(i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): OffsetTime;
+    of(localTime: LocalTime, zoneOffset: ZoneOffset): OffsetTime;
+    ofInstant(instant: Instant, zoneId: ZoneId): OffsetTime;
+    parse(s: string): OffsetTime;
+    parse(s: string, dateTimeFormatter: DateTimeFormatter): OffsetTime;
+    MAX: OffsetTime;
+    MIN: OffsetTime;
+}
+
+// org.bukkit.permissions.PermissionRemovedExecutor
+declare interface PermissionRemovedExecutor {
+    attachmentRemoved(permissionAttachment: PermissionAttachment): void;
+}
+
+// java.awt.geom.PathIterator
+declare interface PathIterator {
+    isDone(): boolean;
+    currentSegment(d: number): number;
+    currentSegment(f: number): number;
+    getWindingRule(): number;
+    next(): void;
+    SEG_CLOSE: number;
+    SEG_CUBICTO: number;
+    SEG_LINETO: number;
+    SEG_MOVETO: number;
+    SEG_QUADTO: number;
+    WIND_EVEN_ODD: number;
+    WIND_NON_ZERO: number;
+}
+
+// org.bukkit.entity.EntityCategory
+declare enum EntityCategory {
+    NONE,
+    UNDEAD,
+    ARTHROPOD,
+    ILLAGER,
+    WATER,
+}
+
+// java.nio.file.attribute.FileAttribute
+declare interface FileAttribute {
+    value(): any;
+    name(): string;
+}
+
+// java.time.LocalTime
+declare interface LocalTime extends Temporal, TemporalAdjuster, Comparable, Serializable {
+    isAfter(localTime: LocalTime): boolean;
+    isBefore(localTime: LocalTime): boolean;
+    isSupported(temporalField: TemporalField): boolean;
+    isSupported(temporalUnit: TemporalUnit): boolean;
+    compareTo(object: any): number;
+    compareTo(localTime: LocalTime): number;
+    get(temporalField: TemporalField): number;
+    getHour(): number;
+    getMinute(): number;
+    getNano(): number;
+    getSecond(): number;
+    toSecondOfDay(): number;
+    query(temporalQuery: TemporalQuery): any;
+    format(dateTimeFormatter: DateTimeFormatter): string;
+    atDate(localDate: LocalDate): LocalDateTime;
+    minus(temporalAmount: TemporalAmount): LocalTime;
+    minus(l: number, temporalUnit: TemporalUnit): LocalTime;
+    minusHours(l: number): LocalTime;
+    minusMinutes(l: number): LocalTime;
+    minusNanos(l: number): LocalTime;
+    minusSeconds(l: number): LocalTime;
+    plus(temporalAmount: TemporalAmount): LocalTime;
+    plus(l: number, temporalUnit: TemporalUnit): LocalTime;
+    plusHours(l: number): LocalTime;
+    plusMinutes(l: number): LocalTime;
+    plusNanos(l: number): LocalTime;
+    plusSeconds(l: number): LocalTime;
+    truncatedTo(temporalUnit: TemporalUnit): LocalTime;
+    with(temporalAdjuster: TemporalAdjuster): LocalTime;
+    with(temporalField: TemporalField, l: number): LocalTime;
+    withHour(i: number): LocalTime;
+    withMinute(i: number): LocalTime;
+    withNano(i: number): LocalTime;
+    withSecond(i: number): LocalTime;
+    atOffset(zoneOffset: ZoneOffset): OffsetTime;
+    adjustInto(temporal: Temporal): Temporal;
+    minus(temporalAmount: TemporalAmount): Temporal;
+    minus(l: number, temporalUnit: TemporalUnit): Temporal;
+    plus(temporalAmount: TemporalAmount): Temporal;
+    plus(l: number, temporalUnit: TemporalUnit): Temporal;
+    with(temporalAdjuster: TemporalAdjuster): Temporal;
+    with(temporalField: TemporalField, l: number): Temporal;
+    range(temporalField: TemporalField): ValueRange;
+    getLong(temporalField: TemporalField): number;
+    toEpochSecond(localDate: LocalDate, zoneOffset: ZoneOffset): number;
+    toNanoOfDay(): number;
+    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
+    from(temporalAccessor: TemporalAccessor): LocalTime;
+    now(): LocalTime;
+    now(clock: Clock): LocalTime;
+    now(zoneId: ZoneId): LocalTime;
+    of(i: number, i: number): LocalTime;
+    of(i: number, i: number, i: number): LocalTime;
+    of(i: number, i: number, i: number, i: number): LocalTime;
+    ofInstant(instant: Instant, zoneId: ZoneId): LocalTime;
+    ofNanoOfDay(l: number): LocalTime;
+    ofSecondOfDay(l: number): LocalTime;
+    parse(s: string): LocalTime;
+    parse(s: string, dateTimeFormatter: DateTimeFormatter): LocalTime;
+    MAX: LocalTime;
+    MIDNIGHT: LocalTime;
+    MIN: LocalTime;
+    NOON: LocalTime;
+}
+
+// org.bukkit.entity.EnderDragon$Phase
+declare enum Phase {
+    CIRCLING,
+    STRAFING,
+    FLY_TO_PORTAL,
+    LAND_ON_PORTAL,
+    LEAVE_PORTAL,
+    BREATH_ATTACK,
+    SEARCH_FOR_BREATH_ATTACK_TARGET,
+    ROAR_BEFORE_ATTACK,
+    CHARGE_PLAYER,
+    DYING,
+    HOVER,
+}
+
+// javax.net.ssl.SSLEngineResult$Status
+declare enum Status {
+    BUFFER_UNDERFLOW,
+    BUFFER_OVERFLOW,
+    OK,
+    CLOSED,
+}
+
+// java.nio.file.AccessMode
+declare enum AccessMode {
+    READ,
+    WRITE,
+    EXECUTE,
+}
+
+// java.awt.font.GlyphMetrics
+declare interface GlyphMetrics {
+    isCombining(): boolean;
+    isComponent(): boolean;
+    isLigature(): boolean;
+    isStandard(): boolean;
+    isWhitespace(): boolean;
+    getAdvance(): number;
+    getAdvanceX(): number;
+    getAdvanceY(): number;
+    getLSB(): number;
+    getRSB(): number;
+    getType(): number;
+    getBounds2D(): Rectangle2D;
+    COMBINING: number;
+    COMPONENT: number;
+    LIGATURE: number;
+    STANDARD: number;
+    WHITESPACE: number;
+}
+
+// java.security.Guard
+declare interface Guard {
+    checkGuard(object: any): void;
+}
+
+// java.util.concurrent.ExecutorService
+declare interface ExecutorService extends Executor {
+    awaitTermination(l: number, timeUnit: TimeUnit): boolean;
+    isShutdown(): boolean;
+    isTerminated(): boolean;
+    invokeAny(collection: Collection): any;
+    invokeAny(collection: Collection, l: number, timeUnit: TimeUnit): any;
+    invokeAll(collection: Collection): List;
+    invokeAll(collection: Collection, l: number, timeUnit: TimeUnit): List;
+    shutdownNow(): List;
+    submit(runnable: Runnable): Future;
+    submit(runnable: Runnable, object: any): Future;
+    submit(callable: Callable): Future;
+    shutdown(): void;
+}
+
+// java.util.ArrayList
+declare interface ArrayList extends AbstractList, List, RandomAccess, Cloneable, Serializable {
+    addAll(collection: Collection): boolean;
+    contains(object: any): boolean;
+    isEmpty(): boolean;
+    remove(object: any): boolean;
+    removeAll(collection: Collection): boolean;
+    removeIf(predicate: Predicate): boolean;
+    retainAll(collection: Collection): boolean;
+    size(): number;
+    clone(): any;
+    toArray(): any[];
+    toArray(object: any): any[];
+    spliterator(): Spliterator;
+    ensureCapacity(i: number): void;
+    forEach(consumer: Consumer): void;
+    replaceAll(func: UnaryOperator): void;
+    sort(comparator: Comparator): void;
+    trimToSize(): void;
+}
+
+// javax.security.auth.Subject
+declare interface Subject extends Serializable {
+    isReadOnly(): boolean;
+    getPrincipals(): Set;
+    getPrincipals(clazz: Class): Set;
+    getPrivateCredentials(): Set;
+    getPrivateCredentials(clazz: Class): Set;
+    getPublicCredentials(): Set;
+    getPublicCredentials(clazz: Class): Set;
+    doAs(subject: Subject, privilegedAction: PrivilegedAction): any;
+    doAs(subject: Subject, privilegedExceptionAction: PrivilegedExceptionAction): any;
+    doAsPrivileged(subject: Subject, privilegedAction: PrivilegedAction, accessControlContext: AccessControlContext): any;
+    doAsPrivileged(subject: Subject, privilegedExceptionAction: PrivilegedExceptionAction, accessControlContext: AccessControlContext): any;
+    getSubject(accessControlContext: AccessControlContext): Subject;
+    setReadOnly(): void;
+}
+
+// org.bukkit.conversations.ConversationCanceller
+declare interface ConversationCanceller extends Cloneable {
+    cancelBasedOnInput(conversationContext: ConversationContext, s: string): boolean;
+    clone(): ConversationCanceller;
+    setConversation(conversation: Conversation): void;
+    clone(): any;
+}
+
+// org.bukkit.scoreboard.Score
+declare interface Score {
+    isScoreSet(): boolean;
+    getScore(): number;
+    getEntry(): string;
+    getPlayer(): OfflinePlayer;
+    getObjective(): Objective;
+    getScoreboard(): Scoreboard;
+    setScore(i: number): void;
+}
+
+// java.util.function.LongConsumer
+declare interface LongConsumer {
+    accept(l: number): void;
+    andThen(longConsumer: LongConsumer): LongConsumer;
+}
+
+// org.bukkit.entity.AbstractVillager
+declare interface AbstractVillager extends Breedable, NPC, InventoryHolder, Merchant {
+    getInventory(): Inventory;
+}
+
+// java.util.function.DoubleFunction
+declare interface DoubleFunction {
+    apply(d: number): any;
+}
+
+// java.util.function.DoubleToLongFunction
+declare interface DoubleToLongFunction {
+    applyAsLong(d: number): number;
+}
+
+// java.net.SocketImplFactory
+declare interface SocketImplFactory {
+    createSocketImpl(): SocketImpl;
+}
+
+// java.security.cert.Certificate
+declare interface Certificate extends Serializable {
+    getEncoded(): number[];
+    getPublicKey(): PublicKey;
+    verify(publicKey: PublicKey): void;
+    verify(publicKey: PublicKey, s: string): void;
+    getType(): string;
+    verify(publicKey: PublicKey, provider: Provider): void;
+}
+
+// java.nio.file.DirectoryStream
+declare interface DirectoryStream extends Closeable, Iterable {
+    iterator(): Iterator;
+}
+
+// java.util.PrimitiveIterator$OfDouble
+declare interface OfDouble extends PrimitiveIterator {
+    nextDouble(): number;
+    next(): Double;
+    next(): any;
+    forEachRemaining(object: any): void;
+    forEachRemaining(consumer: Consumer): void;
+    forEachRemaining(doubleConsumer: DoubleConsumer): void;
+}
+
+// java.time.chrono.ChronoZonedDateTime
+declare interface ChronoZonedDateTime extends Temporal, Comparable {
+    equals(object: any): boolean;
+    isSupported(temporalField: TemporalField): boolean;
+    hashCode(): number;
+    toString(): string;
+    getZone(): ZoneId;
+    getOffset(): ZoneOffset;
+    toLocalDateTime(): ChronoLocalDateTime;
+    plus(l: number, temporalUnit: TemporalUnit): ChronoZonedDateTime;
+    with(temporalField: TemporalField, l: number): ChronoZonedDateTime;
+    withEarlierOffsetAtOverlap(): ChronoZonedDateTime;
+    withLaterOffsetAtOverlap(): ChronoZonedDateTime;
+    withZoneSameInstant(zoneId: ZoneId): ChronoZonedDateTime;
+    withZoneSameLocal(zoneId: ZoneId): ChronoZonedDateTime;
+    isAfter(chronoZonedDateTime: ChronoZonedDateTime): boolean;
+    isBefore(chronoZonedDateTime: ChronoZonedDateTime): boolean;
+    isEqual(chronoZonedDateTime: ChronoZonedDateTime): boolean;
+    isSupported(temporalUnit: TemporalUnit): boolean;
+    compareTo(object: any): number;
+    compareTo(chronoZonedDateTime: ChronoZonedDateTime): number;
+    get(temporalField: TemporalField): number;
+    query(temporalQuery: TemporalQuery): any;
+    format(dateTimeFormatter: DateTimeFormatter): string;
+    toInstant(): Instant;
+    toLocalTime(): LocalTime;
+    toLocalDate(): ChronoLocalDate;
+    minus(temporalAmount: TemporalAmount): ChronoZonedDateTime;
+    minus(l: number, temporalUnit: TemporalUnit): ChronoZonedDateTime;
+    plus(temporalAmount: TemporalAmount): ChronoZonedDateTime;
+    with(temporalAdjuster: TemporalAdjuster): ChronoZonedDateTime;
+    getChronology(): Chronology;
+    minus(temporalAmount: TemporalAmount): Temporal;
+    minus(l: number, temporalUnit: TemporalUnit): Temporal;
+    plus(temporalAmount: TemporalAmount): Temporal;
+    plus(l: number, temporalUnit: TemporalUnit): Temporal;
+    with(temporalAdjuster: TemporalAdjuster): Temporal;
+    with(temporalField: TemporalField, l: number): Temporal;
+    range(temporalField: TemporalField): ValueRange;
+    getLong(temporalField: TemporalField): number;
+    toEpochSecond(): number;
+    from(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
+    timeLineOrder(): Comparator;
+}
+
+// java.time.zone.ZoneRules
+declare interface ZoneRules extends Serializable {
+    isDaylightSavings(instant: Instant): boolean;
+    isFixedOffset(): boolean;
+    isValidOffset(localDateTime: LocalDateTime, zoneOffset: ZoneOffset): boolean;
+    getDaylightSavings(instant: Instant): Duration;
+    getOffset(instant: Instant): ZoneOffset;
+    getOffset(localDateTime: LocalDateTime): ZoneOffset;
+    getStandardOffset(instant: Instant): ZoneOffset;
+    getTransition(localDateTime: LocalDateTime): ZoneOffsetTransition;
+    nextTransition(instant: Instant): ZoneOffsetTransition;
+    previousTransition(instant: Instant): ZoneOffsetTransition;
+    getTransitionRules(): List;
+    getTransitions(): List;
+    getValidOffsets(localDateTime: LocalDateTime): List;
+    of(zoneOffset: ZoneOffset): ZoneRules;
+    of(zoneOffset: ZoneOffset, zoneOffset: ZoneOffset, list: List, list: List, list: List): ZoneRules;
+}
+
+// java.nio.file.CopyOption
+declare interface CopyOption {
+}
+
+// java.awt.geom.RectangularShape
+declare interface RectangularShape extends Shape, Cloneable {
+    isEmpty(): boolean;
+    getHeight(): number;
+    getWidth(): number;
+    getX(): number;
+    getY(): number;
+    setFrame(d: number, d: number, d: number, d: number): void;
     contains(point2D: Point2D): boolean;
     contains(rectangle2D: Rectangle2D): boolean;
-    inside(i: number, i: number): boolean;
-    intersects(d: number, d: number, d: number, d: number): boolean;
     intersects(rectangle2D: Rectangle2D): boolean;
-    getBoundingBox(): Rectangle;
+    getCenterX(): number;
+    getCenterY(): number;
+    getMaxX(): number;
+    getMaxY(): number;
+    getMinX(): number;
+    getMinY(): number;
     getBounds(): Rectangle;
-    getPathIterator(affineTransform: AffineTransform): PathIterator;
     getPathIterator(affineTransform: AffineTransform, d: number): PathIterator;
-    getBounds2D(): Rectangle2D;
-    addPoint(i: number, i: number): void;
-    invalidate(): void;
-    reset(): void;
-    translate(i: number, i: number): void;
-    npoints: number;
-    xpoints: number[];
-    ypoints: number[];
+    getFrame(): Rectangle2D;
+    setFrame(point2D: Point2D, dimension2D: Dimension2D): void;
+    setFrame(rectangle2D: Rectangle2D): void;
+    setFrameFromCenter(d: number, d: number, d: number, d: number): void;
+    setFrameFromCenter(point2D: Point2D, point2D: Point2D): void;
+    setFrameFromDiagonal(d: number, d: number, d: number, d: number): void;
+    setFrameFromDiagonal(point2D: Point2D, point2D: Point2D): void;
 }
 
-// java.nio.channels.FileChannel
-declare interface FileChannel extends AbstractInterruptibleChannel, SeekableByteChannel, GatheringByteChannel, ScatteringByteChannel {
-    read(byteBuffer: ByteBuffer): number;
-    read(byteBuffer: ByteBuffer, l: number): number;
-    write(byteBuffer: ByteBuffer): number;
-    write(byteBuffer: ByteBuffer, l: number): number;
-    map(mapMode: MapMode, l: number, l: number): MappedByteBuffer;
-    position(l: number): FileChannel;
-    truncate(l: number): FileChannel;
-    lock(l: number, l: number, b: boolean): FileLock;
-    tryLock(l: number, l: number, b: boolean): FileLock;
-    position(): number;
-    read(byteBuffer: ByteBuffer, i: number, i: number): number;
-    size(): number;
-    transferFrom(readableByteChannel: ReadableByteChannel, l: number, l: number): number;
-    transferTo(l: number, l: number, writableByteChannel: WritableByteChannel): number;
-    write(byteBuffer: ByteBuffer, i: number, i: number): number;
-    force(b: boolean): void;
-    lock(): FileLock;
-    tryLock(): FileLock;
-    read(byteBuffer: ByteBuffer): number;
-    write(byteBuffer: ByteBuffer): number;
-    position(l: number): SeekableByteChannel;
-    truncate(l: number): SeekableByteChannel;
-    open(path: Path, openOption: OpenOption): FileChannel;
-    open(path: Path, set: Set, fileAttribute: FileAttribute): FileChannel;
+// java.awt.image.VolatileImage
+declare interface VolatileImage extends Image, Transparency {
+    contentsLost(): boolean;
+    getHeight(): number;
+    getWidth(): number;
+    validate(graphicsConfiguration: GraphicsConfiguration): number;
+    createGraphics(): Graphics2D;
+    getCapabilities(): ImageCapabilities;
+    getSnapshot(): BufferedImage;
+    getTransparency(): number;
+    IMAGE_INCOMPATIBLE: number;
+    IMAGE_OK: number;
+    IMAGE_RESTORED: number;
 }
 
-// java.nio.file.attribute.BasicFileAttributes
-declare interface BasicFileAttributes {
-    isDirectory(): boolean;
-    isOther(): boolean;
-    isRegularFile(): boolean;
-    isSymbolicLink(): boolean;
-    fileKey(): any;
-    creationTime(): FileTime;
-    lastAccessTime(): FileTime;
-    lastModifiedTime(): FileTime;
-    size(): number;
-}
-
-// java.text.CharacterIterator
-declare interface CharacterIterator extends Cloneable {
-    current(): string;
-    first(): string;
-    last(): string;
-    next(): string;
-    previous(): string;
-    setIndex(i: number): string;
-    getBeginIndex(): number;
-    getEndIndex(): number;
+// java.net.NetworkInterface
+declare interface NetworkInterface {
+    isLoopback(): boolean;
+    isPointToPoint(): boolean;
+    isUp(): boolean;
+    isVirtual(): boolean;
+    supportsMulticast(): boolean;
+    getHardwareAddress(): number[];
     getIndex(): number;
-    clone(): any;
-    DONE: string;
+    getMTU(): number;
+    getDisplayName(): string;
+    getName(): string;
+    getParent(): NetworkInterface;
+    getInetAddresses(): Enumeration;
+    getSubInterfaces(): Enumeration;
+    getInterfaceAddresses(): List;
+    inetAddresses(): Stream;
+    subInterfaces(): Stream;
+    getByIndex(i: number): NetworkInterface;
+    getByInetAddress(inetAddress: InetAddress): NetworkInterface;
+    getByName(s: string): NetworkInterface;
+    getNetworkInterfaces(): Enumeration;
+    networkInterfaces(): Stream;
 }
 
 // java.net.ServerSocket
@@ -14000,45 +13098,610 @@ declare interface ServerSocket extends Closeable {
     setReuseAddress(b: boolean): void;
 }
 
-// net.md_5.bungee.api.chat.HoverEvent$Action
-declare enum Action {
-    SHOW_TEXT,
-    SHOW_ITEM,
-    SHOW_ENTITY,
-    SHOW_ACHIEVEMENT,
+// java.time.format.TextStyle
+declare enum TextStyle {
+    FULL,
+    FULL_STANDALONE,
+    SHORT,
+    SHORT_STANDALONE,
+    NARROW,
+    NARROW_STANDALONE,
 }
 
-// org.bukkit.entity.EnderDragon$Phase
-declare enum Phase {
-    CIRCLING,
-    STRAFING,
-    FLY_TO_PORTAL,
-    LAND_ON_PORTAL,
-    LEAVE_PORTAL,
-    BREATH_ATTACK,
-    SEARCH_FOR_BREATH_ATTACK_TARGET,
-    ROAR_BEFORE_ATTACK,
-    CHARGE_PLAYER,
-    DYING,
-    HOVER,
+// java.util.function.LongUnaryOperator
+declare interface LongUnaryOperator {
+    applyAsLong(l: number): number;
+    andThen(longUnaryOperator: LongUnaryOperator): LongUnaryOperator;
+    compose(longUnaryOperator: LongUnaryOperator): LongUnaryOperator;
+    identity(): LongUnaryOperator;
 }
 
-// java.util.PrimitiveIterator$OfDouble
-declare interface OfDouble extends PrimitiveIterator {
-    nextDouble(): number;
-    next(): Double;
-    next(): any;
+// java.net.FileNameMap
+declare interface FileNameMap {
+    getContentTypeFor(s: string): string;
+}
+
+// org.bukkit.scoreboard.NameTagVisibility
+declare enum NameTagVisibility {
+    ALWAYS,
+    NEVER,
+    HIDE_FOR_OTHER_TEAMS,
+    HIDE_FOR_OWN_TEAM,
+}
+
+// org.bukkit.entity.Villager$Profession
+declare enum Profession {
+    NONE,
+    ARMORER,
+    BUTCHER,
+    CARTOGRAPHER,
+    CLERIC,
+    FARMER,
+    FISHERMAN,
+    FLETCHER,
+    LEATHERWORKER,
+    LIBRARIAN,
+    MASON,
+    NITWIT,
+    SHEPHERD,
+    TOOLSMITH,
+    WEAPONSMITH,
+}
+
+// java.util.function.LongPredicate
+declare interface LongPredicate {
+    test(l: number): boolean;
+    and(longPredicate: LongPredicate): LongPredicate;
+    negate(): LongPredicate;
+    or(longPredicate: LongPredicate): LongPredicate;
+}
+
+// java.awt.geom.Dimension2D
+declare interface Dimension2D extends Cloneable {
+    getHeight(): number;
+    getWidth(): number;
+    setSize(d: number, d: number): void;
+    setSize(dimension2D: Dimension2D): void;
+}
+
+// java.awt.image.ImageConsumer
+declare interface ImageConsumer {
+    imageComplete(i: number): void;
+    setColorModel(colorModel: ColorModel): void;
+    setDimensions(i: number, i: number): void;
+    setHints(i: number): void;
+    setPixels(i: number, i: number, i: number, i: number, colorModel: ColorModel, b: number, i: number, i: number): void;
+    setPixels(i: number, i: number, i: number, i: number, colorModel: ColorModel, i: number, i: number, i: number): void;
+    setProperties(hashtable: Hashtable): void;
+    COMPLETESCANLINES: number;
+    IMAGEABORTED: number;
+    IMAGEERROR: number;
+    RANDOMPIXELORDER: number;
+    SINGLEFRAME: number;
+    SINGLEFRAMEDONE: number;
+    SINGLEPASS: number;
+    STATICIMAGEDONE: number;
+    TOPDOWNLEFTRIGHT: number;
+}
+
+// java.util.function.ObjDoubleConsumer
+declare interface ObjDoubleConsumer {
+    accept(object: any, d: number): void;
+}
+
+// java.awt.geom.Line2D
+declare interface Line2D extends Shape, Cloneable {
+    getX1(): number;
+    getX2(): number;
+    getY1(): number;
+    getY2(): number;
+    getP1(): Point2D;
+    getP2(): Point2D;
+    setLine(d: number, d: number, d: number, d: number): void;
+    contains(d: number, d: number): boolean;
+    contains(d: number, d: number, d: number, d: number): boolean;
+    contains(point2D: Point2D): boolean;
+    contains(rectangle2D: Rectangle2D): boolean;
+    intersects(d: number, d: number, d: number, d: number): boolean;
+    intersects(rectangle2D: Rectangle2D): boolean;
+    intersectsLine(d: number, d: number, d: number, d: number): boolean;
+    intersectsLine(line2D: Line2D): boolean;
+    ptLineDist(d: number, d: number): number;
+    ptLineDist(point2D: Point2D): number;
+    ptLineDistSq(d: number, d: number): number;
+    ptLineDistSq(point2D: Point2D): number;
+    ptSegDist(d: number, d: number): number;
+    ptSegDist(point2D: Point2D): number;
+    ptSegDistSq(d: number, d: number): number;
+    ptSegDistSq(point2D: Point2D): number;
+    relativeCCW(d: number, d: number): number;
+    relativeCCW(point2D: Point2D): number;
+    getBounds(): Rectangle;
+    getPathIterator(affineTransform: AffineTransform): PathIterator;
+    getPathIterator(affineTransform: AffineTransform, d: number): PathIterator;
+    linesIntersect(d: number, d: number, d: number, d: number, d: number, d: number, d: number, d: number): boolean;
+    ptLineDist(d: number, d: number, d: number, d: number, d: number, d: number): number;
+    ptLineDistSq(d: number, d: number, d: number, d: number, d: number, d: number): number;
+    ptSegDist(d: number, d: number, d: number, d: number, d: number, d: number): number;
+    ptSegDistSq(d: number, d: number, d: number, d: number, d: number, d: number): number;
+    relativeCCW(d: number, d: number, d: number, d: number, d: number, d: number): number;
+    setLine(line2D: Line2D): void;
+    setLine(point2D: Point2D, point2D: Point2D): void;
+}
+
+// org.bukkit.entity.Villager$Type
+declare enum Type {
+    DESERT,
+    JUNGLE,
+    PLAINS,
+    SAVANNA,
+    SNOW,
+    SWAMP,
+    TAIGA,
+}
+
+// java.util.PrimitiveIterator
+declare interface PrimitiveIterator extends Iterator {
+    forEachRemaining(object: any): void;
+}
+
+// org.bukkit.configuration.ConfigurationSection
+declare interface ConfigurationSection {
+    contains(s: string): boolean;
+    contains(s: string, b: boolean): boolean;
+    getBoolean(s: string): boolean;
+    getBoolean(s: string, b: boolean): boolean;
+    isBoolean(s: string): boolean;
+    isColor(s: string): boolean;
+    isConfigurationSection(s: string): boolean;
+    isDouble(s: string): boolean;
+    isInt(s: string): boolean;
+    isItemStack(s: string): boolean;
+    isList(s: string): boolean;
+    isLocation(s: string): boolean;
+    isLong(s: string): boolean;
+    isOfflinePlayer(s: string): boolean;
+    isSet(s: string): boolean;
+    isString(s: string): boolean;
+    isVector(s: string): boolean;
+    getDouble(s: string): number;
+    getDouble(s: string, d: number): number;
+    getInt(s: string): number;
+    getInt(s: string, i: number): number;
+    get(s: string): any;
+    get(s: string, object: any): any;
+    getObject(s: string, clazz: Class): any;
+    getObject(s: string, clazz: Class, object: any): any;
+    getCurrentPath(): string;
+    getName(): string;
+    getString(s: string): string;
+    getString(s: string, s: string): string;
+    getBooleanList(s: string): List;
+    getByteList(s: string): List;
+    getCharacterList(s: string): List;
+    getDoubleList(s: string): List;
+    getFloatList(s: string): List;
+    getIntegerList(s: string): List;
+    getList(s: string): List;
+    getList(s: string, list: List): List;
+    getLongList(s: string): List;
+    getMapList(s: string): List;
+    getShortList(s: string): List;
+    getStringList(s: string): List;
+    getValues(b: boolean): Map;
+    getKeys(b: boolean): Set;
+    getLong(s: string): number;
+    getLong(s: string, l: number): number;
+    getColor(s: string): Color;
+    getColor(s: string, color: Color): Color;
+    getLocation(s: string): Location;
+    getLocation(s: string, location: Location): Location;
+    getOfflinePlayer(s: string): OfflinePlayer;
+    getOfflinePlayer(s: string, offlinePlayer: OfflinePlayer): OfflinePlayer;
+    getRoot(): Configuration;
+    createSection(s: string): ConfigurationSection;
+    createSection(s: string, map: Map): ConfigurationSection;
+    getConfigurationSection(s: string): ConfigurationSection;
+    getDefaultSection(): ConfigurationSection;
+    getParent(): ConfigurationSection;
+    getSerializable(s: string, clazz: Class): ConfigurationSerializable;
+    getSerializable(s: string, clazz: Class, configurationSerializable: ConfigurationSerializable): ConfigurationSerializable;
+    getItemStack(s: string): ItemStack;
+    getItemStack(s: string, itemStack: ItemStack): ItemStack;
+    getVector(s: string): Vector;
+    getVector(s: string, vector: Vector): Vector;
+    addDefault(s: string, object: any): void;
+    set(s: string, object: any): void;
+}
+
+// org.bukkit.attribute.AttributeModifier$Operation
+declare enum Operation {
+    ADD_NUMBER,
+    ADD_SCALAR,
+    MULTIPLY_SCALAR_1,
+}
+
+// java.security.spec.AlgorithmParameterSpec
+declare interface AlgorithmParameterSpec {
+}
+
+// java.text.CharacterIterator
+declare interface CharacterIterator extends Cloneable {
+    current(): string;
+    first(): string;
+    last(): string;
+    next(): string;
+    previous(): string;
+    setIndex(i: number): string;
+    getBeginIndex(): number;
+    getEndIndex(): number;
+    getIndex(): number;
+    clone(): any;
+    DONE: string;
+}
+
+// org.bukkit.conversations.ConversationPrefix
+declare interface ConversationPrefix {
+    getPrefix(conversationContext: ConversationContext): string;
+}
+
+// java.lang.module.ModuleDescriptor$Builder
+declare interface Builder {
+    build(): ModuleDescriptor;
+    exports(s: string): Builder;
+    exports(s: string, set: Set): Builder;
+    exports(exports: Exports): Builder;
+    exports(set: Set, s: string): Builder;
+    exports(set: Set, s: string, set: Set): Builder;
+    mainClass(s: string): Builder;
+    opens(s: string): Builder;
+    opens(s: string, set: Set): Builder;
+    opens(opens: Opens): Builder;
+    opens(set: Set, s: string): Builder;
+    opens(set: Set, s: string, set: Set): Builder;
+    packages(set: Set): Builder;
+    provides(s: string, list: List): Builder;
+    provides(provides: Provides): Builder;
+    requires(s: string): Builder;
+    requires(requires: Requires): Builder;
+    requires(set: Set, s: string): Builder;
+    requires(set: Set, s: string, version: Version): Builder;
+    uses(s: string): Builder;
+    version(s: string): Builder;
+    version(version: Version): Builder;
+}
+
+// java.util.function.DoubleConsumer
+declare interface DoubleConsumer {
+    accept(d: number): void;
+    andThen(doubleConsumer: DoubleConsumer): DoubleConsumer;
+}
+
+// java.util.stream.Collector$Characteristics
+declare enum Characteristics {
+    CONCURRENT,
+    UNORDERED,
+    IDENTITY_FINISH,
+}
+
+// com.google.common.collect.Multiset
+declare interface Multiset extends Collection {
+    add(object: any): boolean;
+    contains(object: any): boolean;
+    containsAll(collection: Collection): boolean;
+    equals(object: any): boolean;
+    remove(object: any): boolean;
+    removeAll(collection: Collection): boolean;
+    retainAll(collection: Collection): boolean;
+    setCount(object: any, i: number, i: number): boolean;
+    add(object: any, i: number): number;
+    count(object: any): number;
+    hashCode(): number;
+    remove(object: any, i: number): number;
+    setCount(object: any, i: number): number;
+    size(): number;
+    toString(): string;
+    iterator(): Iterator;
+    elementSet(): Set;
+    entrySet(): Set;
+    spliterator(): Spliterator;
+    forEach(consumer: Consumer): void;
+    forEachEntry(objIntConsumer: ObjIntConsumer): void;
+}
+
+// org.bukkit.scoreboard.Team$OptionStatus
+declare enum OptionStatus {
+    ALWAYS,
+    NEVER,
+    FOR_OTHER_TEAMS,
+    FOR_OWN_TEAM,
+}
+
+// java.awt.font.GlyphJustificationInfo
+declare interface GlyphJustificationInfo {
+    growAbsorb: boolean;
+    shrinkAbsorb: boolean;
+    growLeftLimit: number;
+    growRightLimit: number;
+    shrinkLeftLimit: number;
+    shrinkRightLimit: number;
+    weight: number;
+    growPriority: number;
+    shrinkPriority: number;
+    PRIORITY_INTERCHAR: number;
+    PRIORITY_KASHIDA: number;
+    PRIORITY_NONE: number;
+    PRIORITY_WHITESPACE: number;
+}
+
+// java.util.Spliterator$OfDouble
+declare interface OfDouble extends OfPrimitive {
+    tryAdvance(doubleConsumer: DoubleConsumer): boolean;
+    trySplit(): OfDouble;
+    tryAdvance(object: any): boolean;
+    tryAdvance(consumer: Consumer): boolean;
+    trySplit(): Spliterator;
+    trySplit(): OfPrimitive;
     forEachRemaining(object: any): void;
     forEachRemaining(consumer: Consumer): void;
     forEachRemaining(doubleConsumer: DoubleConsumer): void;
 }
 
-// java.util.Spliterator$OfPrimitive
-declare interface OfPrimitive extends Spliterator {
-    tryAdvance(object: any): boolean;
-    trySplit(): OfPrimitive;
-    trySplit(): Spliterator;
+// org.bukkit.scoreboard.Team$Option
+declare enum Option {
+    NAME_TAG_VISIBILITY,
+    DEATH_MESSAGE_VISIBILITY,
+    COLLISION_RULE,
+}
+
+// org.bukkit.projectiles.ProjectileSource
+declare interface ProjectileSource {
+    launchProjectile(clazz: Class): Projectile;
+    launchProjectile(clazz: Class, vector: Vector): Projectile;
+}
+
+// org.bukkit.potion.PotionType
+declare enum PotionType {
+    UNCRAFTABLE,
+    WATER,
+    MUNDANE,
+    THICK,
+    AWKWARD,
+    NIGHT_VISION,
+    INVISIBILITY,
+    JUMP,
+    FIRE_RESISTANCE,
+    SPEED,
+    SLOWNESS,
+    WATER_BREATHING,
+    INSTANT_HEAL,
+    INSTANT_DAMAGE,
+    POISON,
+    REGEN,
+    STRENGTH,
+    WEAKNESS,
+    LUCK,
+    TURTLE_MASTER,
+    SLOW_FALLING,
+}
+
+// java.net.URLStreamHandler
+declare interface URLStreamHandler {
+}
+
+// java.util.PrimitiveIterator$OfLong
+declare interface OfLong extends PrimitiveIterator {
+    nextLong(): number;
+    next(): Long;
+    next(): any;
     forEachRemaining(object: any): void;
+    forEachRemaining(consumer: Consumer): void;
+    forEachRemaining(longConsumer: LongConsumer): void;
+}
+
+// org.bukkit.event.inventory.InventoryType$SlotType
+declare enum SlotType {
+    RESULT,
+    CRAFTING,
+    ARMOR,
+    CONTAINER,
+    QUICKBAR,
+    OUTSIDE,
+    FUEL,
+}
+
+// org.bukkit.persistence.PersistentDataAdapterContext
+declare interface PersistentDataAdapterContext {
+    newPersistentDataContainer(): PersistentDataContainer;
+}
+
+// org.bukkit.entity.memory.MemoryKey
+declare interface MemoryKey extends Keyed {
+    getMemoryClass(): Class;
+    getKey(): NamespacedKey;
+    values(): Set;
+    getByKey(namespacedKey: NamespacedKey): MemoryKey;
+    ADMIRING_DISABLED: MemoryKey;
+    ADMIRING_ITEM: MemoryKey;
+    ANGRY_AT: MemoryKey;
+    GOLEM_DETECTED_RECENTLY: MemoryKey;
+    HAS_HUNTING_COOLDOWN: MemoryKey;
+    HOME: MemoryKey;
+    HUNTED_RECENTLY: MemoryKey;
+    IS_TEMPTED: MemoryKey;
+    JOB_SITE: MemoryKey;
+    LAST_SLEPT: MemoryKey;
+    LAST_WOKEN: MemoryKey;
+    LAST_WORKED_AT_POI: MemoryKey;
+    LONG_JUMP_COOLING_DOWN: MemoryKey;
+    MEETING_POINT: MemoryKey;
+    PLAY_DEAD_TICKS: MemoryKey;
+    POTENTIAL_JOB_SITE: MemoryKey;
+    RAM_COOLDOWN_TICKS: MemoryKey;
+    TEMPTATION_COOLDOWN_TICKS: MemoryKey;
+    UNIVERSAL_ANGER: MemoryKey;
+}
+
+// org.bukkit.inventory.meta.tags.ItemTagType
+declare interface ItemTagType {
+    getComplexType(): Class;
+    getPrimitiveType(): Class;
+    fromPrimitive(object: any, itemTagAdapterContext: ItemTagAdapterContext): any;
+    toPrimitive(object: any, itemTagAdapterContext: ItemTagAdapterContext): any;
+    BYTE: ItemTagType;
+    BYTE_ARRAY: ItemTagType;
+    DOUBLE: ItemTagType;
+    FLOAT: ItemTagType;
+    INTEGER: ItemTagType;
+    INTEGER_ARRAY: ItemTagType;
+    LONG: ItemTagType;
+    LONG_ARRAY: ItemTagType;
+    SHORT: ItemTagType;
+    STRING: ItemTagType;
+    TAG_CONTAINER: ItemTagType;
+}
+
+// java.lang.module.Configuration
+declare interface Configuration {
+    resolve(moduleFinder: ModuleFinder, moduleFinder: ModuleFinder, collection: Collection): Configuration;
+    resolveAndBind(moduleFinder: ModuleFinder, moduleFinder: ModuleFinder, collection: Collection): Configuration;
+    parents(): List;
+    findModule(s: string): Optional;
+    modules(): Set;
+    empty(): Configuration;
+    resolve(moduleFinder: ModuleFinder, list: List, moduleFinder: ModuleFinder, collection: Collection): Configuration;
+    resolveAndBind(moduleFinder: ModuleFinder, list: List, moduleFinder: ModuleFinder, collection: Collection): Configuration;
+}
+
+// org.bukkit.conversations.ConversationContext
+declare interface ConversationContext {
+    getSessionData(object: any): any;
+    getAllSessionData(): Map;
+    getForWhom(): Conversable;
+    getPlugin(): Plugin;
+    setSessionData(object: any, object: any): void;
+}
+
+// java.nio.file.DirectoryStream$Filter
+declare interface Filter {
+    accept(object: any): boolean;
+}
+
+// org.bukkit.map.MapCursorCollection
+declare interface MapCursorCollection {
+    removeCursor(mapCursor: MapCursor): boolean;
+    size(): number;
+    addCursor(i: number, i: number, b: number): MapCursor;
+    addCursor(i: number, i: number, b: number, b: number): MapCursor;
+    addCursor(i: number, i: number, b: number, b: number, b: boolean): MapCursor;
+    addCursor(i: number, i: number, b: number, b: number, b: boolean, s: string): MapCursor;
+    addCursor(mapCursor: MapCursor): MapCursor;
+    getCursor(i: number): MapCursor;
+}
+
+// org.bukkit.attribute.Attributable
+declare interface Attributable {
+    getAttribute(attribute: Attribute): AttributeInstance;
+}
+
+// java.awt.image.renderable.RenderContext
+declare interface RenderContext extends Cloneable {
+    getRenderingHints(): RenderingHints;
+    getAreaOfInterest(): Shape;
+    getTransform(): AffineTransform;
+    concatenateTransform(affineTransform: AffineTransform): void;
+    concetenateTransform(affineTransform: AffineTransform): void;
+    preConcatenateTransform(affineTransform: AffineTransform): void;
+    preConcetenateTransform(affineTransform: AffineTransform): void;
+    setAreaOfInterest(shape: Shape): void;
+    setRenderingHints(renderingHints: RenderingHints): void;
+    setTransform(affineTransform: AffineTransform): void;
+}
+
+// java.util.function.LongToIntFunction
+declare interface LongToIntFunction {
+    applyAsInt(l: number): number;
+}
+
+// java.time.format.ResolverStyle
+declare enum ResolverStyle {
+    STRICT,
+    SMART,
+    LENIENT,
+}
+
+// java.util.function.ObjLongConsumer
+declare interface ObjLongConsumer {
+    accept(object: any, l: number): void;
+}
+
+// org.bukkit.conversations.Conversation$ConversationState
+declare enum ConversationState {
+    UNSTARTED,
+    STARTED,
+    ABANDONED,
+}
+
+// java.text.AttributedCharacterIterator$Attribute
+declare interface Attribute extends Serializable {
+    INPUT_METHOD_SEGMENT: Attribute;
+    LANGUAGE: Attribute;
+    READING: Attribute;
+}
+
+// java.awt.Polygon
+declare interface Polygon extends Shape, Serializable {
+    contains(d: number, d: number): boolean;
+    contains(d: number, d: number, d: number, d: number): boolean;
+    contains(i: number, i: number): boolean;
+    contains(point: Point): boolean;
+    contains(point2D: Point2D): boolean;
+    contains(rectangle2D: Rectangle2D): boolean;
+    inside(i: number, i: number): boolean;
+    intersects(d: number, d: number, d: number, d: number): boolean;
+    intersects(rectangle2D: Rectangle2D): boolean;
+    getBoundingBox(): Rectangle;
+    getBounds(): Rectangle;
+    getPathIterator(affineTransform: AffineTransform): PathIterator;
+    getPathIterator(affineTransform: AffineTransform, d: number): PathIterator;
+    getBounds2D(): Rectangle2D;
+    addPoint(i: number, i: number): void;
+    invalidate(): void;
+    reset(): void;
+    translate(i: number, i: number): void;
+    npoints: number;
+    xpoints: number[];
+    ypoints: number[];
+}
+
+// java.awt.PaintContext
+declare interface PaintContext {
+    getColorModel(): ColorModel;
+    getRaster(i: number, i: number, i: number, i: number): Raster;
+    dispose(): void;
+}
+
+// java.nio.file.attribute.GroupPrincipal
+declare interface GroupPrincipal extends UserPrincipal {
+}
+
+// java.nio.channels.AsynchronousFileChannel
+declare interface AsynchronousFileChannel extends AsynchronousChannel {
+    truncate(l: number): AsynchronousFileChannel;
+    tryLock(l: number, l: number, b: boolean): FileLock;
+    lock(l: number, l: number, b: boolean): Future;
+    read(byteBuffer: ByteBuffer, l: number): Future;
+    write(byteBuffer: ByteBuffer, l: number): Future;
+    size(): number;
+    force(b: boolean): void;
+    lock(l: number, l: number, b: boolean, object: any, completionHandler: CompletionHandler): void;
+    read(byteBuffer: ByteBuffer, l: number, object: any, completionHandler: CompletionHandler): void;
+    write(byteBuffer: ByteBuffer, l: number, object: any, completionHandler: CompletionHandler): void;
+    tryLock(): FileLock;
+    lock(): Future;
+    lock(object: any, completionHandler: CompletionHandler): void;
+    open(path: Path, openOption: OpenOption): AsynchronousFileChannel;
+    open(path: Path, set: Set, executorService: ExecutorService, fileAttribute: FileAttribute): AsynchronousFileChannel;
 }
 
 // java.util.stream.LongStream$Builder
@@ -14046,6 +13709,61 @@ declare interface Builder extends LongConsumer {
     build(): LongStream;
     accept(l: number): void;
     add(l: number): Builder;
+}
+
+// java.time.chrono.ChronoLocalDate
+declare interface ChronoLocalDate extends Temporal, TemporalAdjuster, Comparable {
+    equals(object: any): boolean;
+    hashCode(): number;
+    lengthOfMonth(): number;
+    toString(): string;
+    until(chronoLocalDate: ChronoLocalDate): ChronoPeriod;
+    getChronology(): Chronology;
+    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
+    isAfter(chronoLocalDate: ChronoLocalDate): boolean;
+    isBefore(chronoLocalDate: ChronoLocalDate): boolean;
+    isEqual(chronoLocalDate: ChronoLocalDate): boolean;
+    isLeapYear(): boolean;
+    isSupported(temporalField: TemporalField): boolean;
+    isSupported(temporalUnit: TemporalUnit): boolean;
+    compareTo(object: any): number;
+    compareTo(chronoLocalDate: ChronoLocalDate): number;
+    lengthOfYear(): number;
+    query(temporalQuery: TemporalQuery): any;
+    format(dateTimeFormatter: DateTimeFormatter): string;
+    minus(temporalAmount: TemporalAmount): ChronoLocalDate;
+    minus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
+    plus(temporalAmount: TemporalAmount): ChronoLocalDate;
+    plus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
+    with(temporalAdjuster: TemporalAdjuster): ChronoLocalDate;
+    with(temporalField: TemporalField, l: number): ChronoLocalDate;
+    atTime(localTime: LocalTime): ChronoLocalDateTime;
+    getEra(): Era;
+    adjustInto(temporal: Temporal): Temporal;
+    minus(temporalAmount: TemporalAmount): Temporal;
+    minus(l: number, temporalUnit: TemporalUnit): Temporal;
+    plus(temporalAmount: TemporalAmount): Temporal;
+    plus(l: number, temporalUnit: TemporalUnit): Temporal;
+    with(temporalAdjuster: TemporalAdjuster): Temporal;
+    with(temporalField: TemporalField, l: number): Temporal;
+    toEpochDay(): number;
+    from(temporalAccessor: TemporalAccessor): ChronoLocalDate;
+    timeLineOrder(): Comparator;
+}
+
+// java.nio.file.attribute.FileAttributeView
+declare interface FileAttributeView extends AttributeView {
+}
+
+// java.awt.CompositeContext
+declare interface CompositeContext {
+    compose(raster: Raster, raster: Raster, writableRaster: WritableRaster): void;
+    dispose(): void;
+}
+
+// org.bukkit.conversations.ConversationAbandonedListener
+declare interface ConversationAbandonedListener extends EventListener {
+    conversationAbandoned(conversationAbandonedEvent: ConversationAbandonedEvent): void;
 }
 
 // java.nio.channels.SeekableByteChannel
@@ -14058,26 +13776,338 @@ declare interface SeekableByteChannel extends ByteChannel {
     size(): number;
 }
 
-// java.nio.channels.AsynchronousChannel
-declare interface AsynchronousChannel extends Channel {
-    close(): void;
+// java.awt.GraphicsDevice
+declare interface GraphicsDevice {
+    getType(): number;
+    getDefaultConfiguration(): GraphicsConfiguration;
+    getConfigurations(): GraphicsConfiguration[];
+    getIDstring(): string;
+    isDisplayChangeSupported(): boolean;
+    isFullScreenSupported(): boolean;
+    isWindowTranslucencySupported(windowTranslucency: WindowTranslucency): boolean;
+    getAvailableAcceleratedMemory(): number;
+    getDisplayMode(): DisplayMode;
+    getDisplayModes(): DisplayMode[];
+    getBestConfiguration(graphicsConfigTemplate: GraphicsConfigTemplate): GraphicsConfiguration;
+    getFullScreenWindow(): Window;
+    setDisplayMode(displayMode: DisplayMode): void;
+    setFullScreenWindow(window: Window): void;
+    TYPE_IMAGE_BUFFER: number;
+    TYPE_PRINTER: number;
+    TYPE_RASTER_SCREEN: number;
 }
 
-// java.time.zone.ZoneOffsetTransition
-declare interface ZoneOffsetTransition extends Comparable, Serializable {
-    isGap(): boolean;
-    isOverlap(): boolean;
-    isValidOffset(zoneOffset: ZoneOffset): boolean;
+// java.lang.StringBuilder
+declare interface StringBuilder extends AbstractStringBuilder, Serializable, Comparable, CharSequence {
     compareTo(object: any): number;
-    compareTo(zoneOffsetTransition: ZoneOffsetTransition): number;
-    getDuration(): Duration;
-    getInstant(): Instant;
-    getDateTimeAfter(): LocalDateTime;
-    getDateTimeBefore(): LocalDateTime;
-    getOffsetAfter(): ZoneOffset;
-    getOffsetBefore(): ZoneOffset;
-    toEpochSecond(): number;
-    of(localDateTime: LocalDateTime, zoneOffset: ZoneOffset, zoneOffset: ZoneOffset): ZoneOffsetTransition;
+    compareTo(s: string): number;
+}
+
+// org.bukkit.entity.Boss
+declare interface Boss extends Entity {
+    getBossBar(): BossBar;
+}
+
+// java.time.Month
+declare enum Month {
+    JANUARY,
+    FEBRUARY,
+    MARCH,
+    APRIL,
+    MAY,
+    JUNE,
+    JULY,
+    AUGUST,
+    SEPTEMBER,
+    OCTOBER,
+    NOVEMBER,
+    DECEMBER,
+}
+
+// net.md_5.bungee.api.chat.HoverEvent$Action
+declare enum Action {
+    SHOW_TEXT,
+    SHOW_ITEM,
+    SHOW_ENTITY,
+    SHOW_ACHIEVEMENT,
+}
+
+// java.lang.ModuleLayer$Controller
+declare interface Controller {
+    layer(): ModuleLayer;
+    addExports(module: Module, s: string, module: Module): Controller;
+    addOpens(module: Module, s: string, module: Module): Controller;
+    addReads(module: Module, module: Module): Controller;
+}
+
+// java.util.regex.MatchResult
+declare interface MatchResult {
+    end(): number;
+    end(i: number): number;
+    groupCount(): number;
+    start(): number;
+    start(i: number): number;
+    group(): string;
+    group(i: number): string;
+}
+
+// java.util.function.DoubleUnaryOperator
+declare interface DoubleUnaryOperator {
+    applyAsDouble(d: number): number;
+    andThen(doubleUnaryOperator: DoubleUnaryOperator): DoubleUnaryOperator;
+    compose(doubleUnaryOperator: DoubleUnaryOperator): DoubleUnaryOperator;
+    identity(): DoubleUnaryOperator;
+}
+
+// java.util.function.DoubleToIntFunction
+declare interface DoubleToIntFunction {
+    applyAsInt(d: number): number;
+}
+
+// java.util.function.LongSupplier
+declare interface LongSupplier {
+    getAsLong(): number;
+}
+
+// java.util.function.DoubleBinaryOperator
+declare interface DoubleBinaryOperator {
+    applyAsDouble(d: number, d: number): number;
+}
+
+// org.bukkit.persistence.PersistentDataType
+declare interface PersistentDataType {
+    getComplexType(): Class;
+    getPrimitiveType(): Class;
+    fromPrimitive(object: any, persistentDataAdapterContext: PersistentDataAdapterContext): any;
+    toPrimitive(object: any, persistentDataAdapterContext: PersistentDataAdapterContext): any;
+    BYTE: PersistentDataType;
+    BYTE_ARRAY: PersistentDataType;
+    DOUBLE: PersistentDataType;
+    FLOAT: PersistentDataType;
+    INTEGER: PersistentDataType;
+    INTEGER_ARRAY: PersistentDataType;
+    LONG: PersistentDataType;
+    LONG_ARRAY: PersistentDataType;
+    SHORT: PersistentDataType;
+    STRING: PersistentDataType;
+    TAG_CONTAINER: PersistentDataType;
+    TAG_CONTAINER_ARRAY: PersistentDataType;
+}
+
+// java.util.function.DoublePredicate
+declare interface DoublePredicate {
+    test(d: number): boolean;
+    and(doublePredicate: DoublePredicate): DoublePredicate;
+    negate(): DoublePredicate;
+    or(doublePredicate: DoublePredicate): DoublePredicate;
+}
+
+// java.time.LocalDate
+declare interface LocalDate extends Temporal, TemporalAdjuster, ChronoLocalDate, Serializable {
+    isAfter(chronoLocalDate: ChronoLocalDate): boolean;
+    isBefore(chronoLocalDate: ChronoLocalDate): boolean;
+    isEqual(chronoLocalDate: ChronoLocalDate): boolean;
+    isLeapYear(): boolean;
+    isSupported(temporalField: TemporalField): boolean;
+    isSupported(temporalUnit: TemporalUnit): boolean;
+    compareTo(object: any): number;
+    compareTo(chronoLocalDate: ChronoLocalDate): number;
+    get(temporalField: TemporalField): number;
+    getDayOfMonth(): number;
+    getDayOfYear(): number;
+    getMonthValue(): number;
+    getYear(): number;
+    lengthOfMonth(): number;
+    lengthOfYear(): number;
+    query(temporalQuery: TemporalQuery): any;
+    format(dateTimeFormatter: DateTimeFormatter): string;
+    getDayOfWeek(): DayOfWeek;
+    minus(temporalAmount: TemporalAmount): LocalDate;
+    minus(l: number, temporalUnit: TemporalUnit): LocalDate;
+    minusDays(l: number): LocalDate;
+    minusMonths(l: number): LocalDate;
+    minusWeeks(l: number): LocalDate;
+    minusYears(l: number): LocalDate;
+    plus(temporalAmount: TemporalAmount): LocalDate;
+    plus(l: number, temporalUnit: TemporalUnit): LocalDate;
+    plusDays(l: number): LocalDate;
+    plusMonths(l: number): LocalDate;
+    plusWeeks(l: number): LocalDate;
+    plusYears(l: number): LocalDate;
+    with(temporalAdjuster: TemporalAdjuster): LocalDate;
+    with(temporalField: TemporalField, l: number): LocalDate;
+    withDayOfMonth(i: number): LocalDate;
+    withDayOfYear(i: number): LocalDate;
+    withMonth(i: number): LocalDate;
+    withYear(i: number): LocalDate;
+    atStartOfDay(): LocalDateTime;
+    atTime(i: number, i: number): LocalDateTime;
+    atTime(i: number, i: number, i: number): LocalDateTime;
+    atTime(i: number, i: number, i: number, i: number): LocalDateTime;
+    atTime(localTime: LocalTime): LocalDateTime;
+    getMonth(): Month;
+    atTime(offsetTime: OffsetTime): OffsetDateTime;
+    until(chronoLocalDate: ChronoLocalDate): Period;
+    atStartOfDay(zoneId: ZoneId): ZonedDateTime;
+    minus(temporalAmount: TemporalAmount): ChronoLocalDate;
+    minus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
+    plus(temporalAmount: TemporalAmount): ChronoLocalDate;
+    plus(l: number, temporalUnit: TemporalUnit): ChronoLocalDate;
+    with(temporalAdjuster: TemporalAdjuster): ChronoLocalDate;
+    with(temporalField: TemporalField, l: number): ChronoLocalDate;
+    atTime(localTime: LocalTime): ChronoLocalDateTime;
+    until(chronoLocalDate: ChronoLocalDate): ChronoPeriod;
+    getChronology(): Chronology;
+    getEra(): Era;
+    getChronology(): IsoChronology;
+    getEra(): IsoEra;
+    adjustInto(temporal: Temporal): Temporal;
+    minus(temporalAmount: TemporalAmount): Temporal;
+    minus(l: number, temporalUnit: TemporalUnit): Temporal;
+    plus(temporalAmount: TemporalAmount): Temporal;
+    plus(l: number, temporalUnit: TemporalUnit): Temporal;
+    with(temporalAdjuster: TemporalAdjuster): Temporal;
+    with(temporalField: TemporalField, l: number): Temporal;
+    range(temporalField: TemporalField): ValueRange;
+    datesUntil(localDate: LocalDate): Stream;
+    datesUntil(localDate: LocalDate, period: Period): Stream;
+    getLong(temporalField: TemporalField): number;
+    toEpochDay(): number;
+    toEpochSecond(localTime: LocalTime, zoneOffset: ZoneOffset): number;
+    until(temporal: Temporal, temporalUnit: TemporalUnit): number;
+    from(temporalAccessor: TemporalAccessor): LocalDate;
+    now(): LocalDate;
+    now(clock: Clock): LocalDate;
+    now(zoneId: ZoneId): LocalDate;
+    of(i: number, i: number, i: number): LocalDate;
+    of(i: number, month: Month, i: number): LocalDate;
+    ofEpochDay(l: number): LocalDate;
+    ofInstant(instant: Instant, zoneId: ZoneId): LocalDate;
+    ofYearDay(i: number, i: number): LocalDate;
+    parse(s: string): LocalDate;
+    parse(s: string, dateTimeFormatter: DateTimeFormatter): LocalDate;
+    EPOCH: LocalDate;
+    MAX: LocalDate;
+    MIN: LocalDate;
+}
+
+// java.util.EventObject
+declare interface EventObject extends Serializable {
+    getSource(): any;
+}
+
+// java.nio.file.FileStore
+declare interface FileStore {
+    isReadOnly(): boolean;
+    supportsFileAttributeView(clazz: Class): boolean;
+    supportsFileAttributeView(s: string): boolean;
+    getAttribute(s: string): any;
+    name(): string;
+    type(): string;
+    getFileStoreAttributeView(clazz: Class): FileStoreAttributeView;
+    getTotalSpace(): number;
+    getUnallocatedSpace(): number;
+    getUsableSpace(): number;
+    getBlockSize(): number;
+}
+
+// java.util.function.LongToDoubleFunction
+declare interface LongToDoubleFunction {
+    applyAsDouble(l: number): number;
+}
+
+// java.nio.file.attribute.BasicFileAttributes
+declare interface BasicFileAttributes {
+    isDirectory(): boolean;
+    isOther(): boolean;
+    isRegularFile(): boolean;
+    isSymbolicLink(): boolean;
+    fileKey(): any;
+    creationTime(): FileTime;
+    lastAccessTime(): FileTime;
+    lastModifiedTime(): FileTime;
+    size(): number;
+}
+
+// javax.security.cert.X509Certificate
+declare interface X509Certificate extends Certificate {
+    getSigAlgParams(): number[];
+    getVersion(): number;
+    getSigAlgName(): string;
+    getSigAlgOID(): string;
+    getSerialNumber(): BigInteger;
+    getIssuerDN(): Principal;
+    getSubjectDN(): Principal;
+    getNotAfter(): Date;
+    getNotBefore(): Date;
+    checkValidity(): void;
+    checkValidity(date: Date): void;
+    getInstance(b: number): X509Certificate;
+    getInstance(inputStream: InputStream): X509Certificate;
+}
+
+// java.util.function.DoubleSupplier
+declare interface DoubleSupplier {
+    getAsDouble(): number;
+}
+
+// java.net.Proxy$Type
+declare enum Type {
+    DIRECT,
+    HTTP,
+    SOCKS,
+}
+
+// java.awt.font.LineMetrics
+declare interface LineMetrics {
+    getAscent(): number;
+    getDescent(): number;
+    getHeight(): number;
+    getLeading(): number;
+    getStrikethroughOffset(): number;
+    getStrikethroughThickness(): number;
+    getUnderlineOffset(): number;
+    getUnderlineThickness(): number;
+    getBaselineOffsets(): number[];
+    getBaselineIndex(): number;
+    getNumChars(): number;
+}
+
+// java.time.chrono.Chronology
+declare interface Chronology extends Comparable {
+    equals(object: any): boolean;
+    isLeapYear(l: number): boolean;
+    compareTo(chronology: Chronology): number;
+    hashCode(): number;
+    prolepticYear(era: Era, i: number): number;
+    getCalendarType(): string;
+    getId(): string;
+    toString(): string;
+    date(i: number, i: number, i: number): ChronoLocalDate;
+    date(temporalAccessor: TemporalAccessor): ChronoLocalDate;
+    dateEpochDay(l: number): ChronoLocalDate;
+    dateYearDay(i: number, i: number): ChronoLocalDate;
+    resolveDate(map: Map, resolverStyle: ResolverStyle): ChronoLocalDate;
+    eraOf(i: number): Era;
+    range(chronoField: ChronoField): ValueRange;
+    eras(): List;
+    compareTo(object: any): number;
+    getDisplayName(textStyle: TextStyle, locale: Locale): string;
+    date(era: Era, i: number, i: number, i: number): ChronoLocalDate;
+    dateNow(): ChronoLocalDate;
+    dateNow(clock: Clock): ChronoLocalDate;
+    dateNow(zoneId: ZoneId): ChronoLocalDate;
+    dateYearDay(era: Era, i: number, i: number): ChronoLocalDate;
+    localDateTime(temporalAccessor: TemporalAccessor): ChronoLocalDateTime;
+    period(i: number, i: number, i: number): ChronoPeriod;
+    zonedDateTime(instant: Instant, zoneId: ZoneId): ChronoZonedDateTime;
+    zonedDateTime(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
+    epochSecond(i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
+    epochSecond(era: Era, i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
+    from(temporalAccessor: TemporalAccessor): Chronology;
+    of(s: string): Chronology;
+    ofLocale(locale: Locale): Chronology;
+    getAvailableChronologies(): Set;
 }
 
 // java.lang.module.ModuleDescriptor$Opens
@@ -14107,22 +14137,19 @@ declare interface MappedByteBuffer extends ByteBuffer {
     load(): MappedByteBuffer;
 }
 
-// java.awt.GraphicsDevice$WindowTranslucency
-declare enum WindowTranslucency {
-    PERPIXEL_TRANSPARENT,
-    TRANSLUCENT,
-    PERPIXEL_TRANSLUCENT,
+// java.nio.channels.CompletionHandler
+declare interface CompletionHandler {
+    completed(object: any, object: any): void;
+    failed(throwable: Throwable, object: any): void;
 }
 
-// java.nio.channels.ReadableByteChannel
-declare interface ReadableByteChannel extends Channel {
-    read(byteBuffer: ByteBuffer): number;
-}
-
-// java.nio.channels.GatheringByteChannel
-declare interface GatheringByteChannel extends WritableByteChannel {
-    write(byteBuffer: ByteBuffer): number;
-    write(byteBuffer: ByteBuffer, i: number, i: number): number;
+// java.security.cert.CertPath
+declare interface CertPath extends Serializable {
+    getEncoded(): number[];
+    getEncoded(s: string): number[];
+    getEncodings(): Iterator;
+    getCertificates(): List;
+    getType(): string;
 }
 
 // java.nio.file.attribute.FileTime
@@ -14137,145 +14164,69 @@ declare interface FileTime extends Comparable {
     fromMillis(l: number): FileTime;
 }
 
+// java.awt.GraphicsDevice$WindowTranslucency
+declare enum WindowTranslucency {
+    PERPIXEL_TRANSPARENT,
+    TRANSLUCENT,
+    PERPIXEL_TRANSLUCENT,
+}
+
 // java.security.Timestamp
 declare interface Timestamp extends Serializable {
     getSignerCertPath(): CertPath;
     getTimestamp(): Date;
 }
 
-// java.awt.BufferCapabilities$FlipContents
-declare interface FlipContents extends AttributeValue {
-    BACKGROUND: FlipContents;
-    COPIED: FlipContents;
-    PRIOR: FlipContents;
-    UNDEFINED: FlipContents;
+// java.text.ParsePosition
+declare interface ParsePosition {
+    getErrorIndex(): number;
+    getIndex(): number;
+    setErrorIndex(i: number): void;
+    setIndex(i: number): void;
 }
 
-// java.security.PublicKey
-declare interface PublicKey extends Key {
-    serialVersionUID: number;
+// java.nio.channels.spi.AbstractSelectableChannel
+declare interface AbstractSelectableChannel extends SelectableChannel {
 }
 
-// java.security.PrivilegedExceptionAction
-declare interface PrivilegedExceptionAction {
-    run(): any;
-}
-
-// java.lang.Double
-declare interface Double extends Number, Comparable {
-    equals(object: any): boolean;
-    isInfinite(): boolean;
-    isNaN(): boolean;
-    compareTo(double: Double): number;
-    compareTo(object: any): number;
-    hashCode(): number;
-    toString(): string;
-    isFinite(d: number): boolean;
-    isInfinite(d: number): boolean;
-    isNaN(d: number): boolean;
-    max(d: number, d: number): number;
-    min(d: number, d: number): number;
-    parseDouble(s: string): number;
-    sum(d: number, d: number): number;
-    compare(d: number, d: number): number;
-    hashCode(d: number): number;
-    valueOf(d: number): Double;
-    valueOf(s: string): Double;
-    toHexString(d: number): string;
-    toString(d: number): string;
-    doubleToLongBits(d: number): number;
-    longBitsToDouble(l: number): number;
-    doubleToRawLongBits(d: number): number;
-    MAX_VALUE: number;
-    MIN_NORMAL: number;
-    MIN_VALUE: number;
-    NEGATIVE_INFINITY: number;
-    NaN: number;
-    POSITIVE_INFINITY: number;
-    BYTES: number;
-    MAX_EXPONENT: number;
-    MIN_EXPONENT: number;
-    SIZE: number;
-    TYPE: Class;
-}
-
-// java.lang.module.ModuleDescriptor$Version
-declare interface Version extends Comparable {
-    compareTo(object: any): number;
-    compareTo(version: Version): number;
-    parse(s: string): Version;
-}
-
-// java.nio.channels.NetworkChannel
-declare interface NetworkChannel extends Channel {
-    getOption(socketOption: SocketOption): any;
-    getLocalAddress(): SocketAddress;
-    bind(socketAddress: SocketAddress): NetworkChannel;
-    setOption(socketOption: SocketOption, object: any): NetworkChannel;
-    supportedOptions(): Set;
-}
-
-// java.nio.channels.ScatteringByteChannel
-declare interface ScatteringByteChannel extends ReadableByteChannel {
-    read(byteBuffer: ByteBuffer): number;
-    read(byteBuffer: ByteBuffer, i: number, i: number): number;
-}
-
-// java.nio.channels.WritableByteChannel
-declare interface WritableByteChannel extends Channel {
-    write(byteBuffer: ByteBuffer): number;
-}
-
-// java.lang.Long
-declare interface Long extends Number, Comparable {
-    equals(object: any): boolean;
-    compareTo(long: Long): number;
-    compareTo(object: any): number;
-    hashCode(): number;
-    toString(): string;
-    bitCount(l: number): number;
-    compare(l: number, l: number): number;
-    compareUnsigned(l: number, l: number): number;
-    hashCode(l: number): number;
-    numberOfLeadingZeros(l: number): number;
-    numberOfTrailingZeros(l: number): number;
-    signum(l: number): number;
-    decode(s: string): Long;
-    getLong(s: string): Long;
-    getLong(s: string, long: Long): Long;
-    getLong(s: string, l: number): Long;
-    valueOf(s: string): Long;
-    valueOf(s: string, i: number): Long;
-    valueOf(l: number): Long;
-    toBinaryString(l: number): string;
-    toHexString(l: number): string;
-    toOctalString(l: number): string;
-    toString(l: number): string;
-    toString(l: number, i: number): string;
-    toUnsignedString(l: number): string;
-    toUnsignedString(l: number, i: number): string;
-    divideUnsigned(l: number, l: number): number;
-    highestOneBit(l: number): number;
-    lowestOneBit(l: number): number;
-    max(l: number, l: number): number;
-    min(l: number, l: number): number;
-    parseLong(s: string, i: number, i: number, i: number): number;
-    parseLong(s: string): number;
-    parseLong(s: string, i: number): number;
-    parseUnsignedLong(s: string, i: number, i: number, i: number): number;
-    parseUnsignedLong(s: string): number;
-    parseUnsignedLong(s: string, i: number): number;
-    remainderUnsigned(l: number, l: number): number;
-    reverse(l: number): number;
-    reverseBytes(l: number): number;
-    rotateLeft(l: number, i: number): number;
-    rotateRight(l: number, i: number): number;
-    sum(l: number, l: number): number;
-    BYTES: number;
-    SIZE: number;
-    TYPE: Class;
-    MAX_VALUE: number;
-    MIN_VALUE: number;
+// java.time.chrono.IsoChronology
+declare interface IsoChronology extends AbstractChronology, Serializable {
+    isLeapYear(l: number): boolean;
+    prolepticYear(era: Era, i: number): number;
+    getCalendarType(): string;
+    getId(): string;
+    date(i: number, i: number, i: number): LocalDate;
+    date(era: Era, i: number, i: number, i: number): LocalDate;
+    date(temporalAccessor: TemporalAccessor): LocalDate;
+    dateEpochDay(l: number): LocalDate;
+    dateNow(): LocalDate;
+    dateNow(clock: Clock): LocalDate;
+    dateNow(zoneId: ZoneId): LocalDate;
+    dateYearDay(i: number, i: number): LocalDate;
+    dateYearDay(era: Era, i: number, i: number): LocalDate;
+    localDateTime(temporalAccessor: TemporalAccessor): LocalDateTime;
+    period(i: number, i: number, i: number): Period;
+    zonedDateTime(instant: Instant, zoneId: ZoneId): ZonedDateTime;
+    zonedDateTime(temporalAccessor: TemporalAccessor): ZonedDateTime;
+    date(i: number, i: number, i: number): ChronoLocalDate;
+    date(era: Era, i: number, i: number, i: number): ChronoLocalDate;
+    date(temporalAccessor: TemporalAccessor): ChronoLocalDate;
+    dateEpochDay(l: number): ChronoLocalDate;
+    dateNow(): ChronoLocalDate;
+    dateNow(clock: Clock): ChronoLocalDate;
+    dateNow(zoneId: ZoneId): ChronoLocalDate;
+    dateYearDay(i: number, i: number): ChronoLocalDate;
+    dateYearDay(era: Era, i: number, i: number): ChronoLocalDate;
+    localDateTime(temporalAccessor: TemporalAccessor): ChronoLocalDateTime;
+    period(i: number, i: number, i: number): ChronoPeriod;
+    zonedDateTime(instant: Instant, zoneId: ZoneId): ChronoZonedDateTime;
+    zonedDateTime(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
+    eraOf(i: number): Era;
+    eraOf(i: number): IsoEra;
+    range(chronoField: ChronoField): ValueRange;
+    eras(): List;
+    epochSecond(i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
+    INSTANCE: IsoChronology;
 }
 
 // java.math.BigInteger
@@ -14333,20 +14284,144 @@ declare interface BigInteger extends Number, Comparable {
     ZERO: BigInteger;
 }
 
-// javax.security.cert.Certificate
-declare interface Certificate {
-    getEncoded(): number[];
-    getPublicKey(): PublicKey;
-    verify(publicKey: PublicKey): void;
-    verify(publicKey: PublicKey, s: string): void;
+// java.security.PrivilegedExceptionAction
+declare interface PrivilegedExceptionAction {
+    run(): any;
 }
 
-// java.text.ParsePosition
-declare interface ParsePosition {
-    getErrorIndex(): number;
-    getIndex(): number;
-    setErrorIndex(i: number): void;
-    setIndex(i: number): void;
+// java.lang.Double
+declare interface Double extends Number, Comparable {
+    equals(object: any): boolean;
+    isInfinite(): boolean;
+    isNaN(): boolean;
+    compareTo(double: Double): number;
+    compareTo(object: any): number;
+    hashCode(): number;
+    toString(): string;
+    isFinite(d: number): boolean;
+    isInfinite(d: number): boolean;
+    isNaN(d: number): boolean;
+    max(d: number, d: number): number;
+    min(d: number, d: number): number;
+    parseDouble(s: string): number;
+    sum(d: number, d: number): number;
+    compare(d: number, d: number): number;
+    hashCode(d: number): number;
+    valueOf(d: number): Double;
+    valueOf(s: string): Double;
+    toHexString(d: number): string;
+    toString(d: number): string;
+    doubleToLongBits(d: number): number;
+    longBitsToDouble(l: number): number;
+    doubleToRawLongBits(d: number): number;
+    MAX_VALUE: number;
+    MIN_NORMAL: number;
+    MIN_VALUE: number;
+    NEGATIVE_INFINITY: number;
+    NaN: number;
+    POSITIVE_INFINITY: number;
+    BYTES: number;
+    MAX_EXPONENT: number;
+    MIN_EXPONENT: number;
+    SIZE: number;
+    TYPE: Class;
+}
+
+// java.lang.module.ModuleDescriptor$Version
+declare interface Version extends Comparable {
+    compareTo(object: any): number;
+    compareTo(version: Version): number;
+    parse(s: string): Version;
+}
+
+// java.nio.channels.ServerSocketChannel
+declare interface ServerSocketChannel extends AbstractSelectableChannel, NetworkChannel {
+    socket(): ServerSocket;
+    getLocalAddress(): SocketAddress;
+    bind(socketAddress: SocketAddress, i: number): ServerSocketChannel;
+    setOption(socketOption: SocketOption, object: any): ServerSocketChannel;
+    accept(): SocketChannel;
+    validOps(): number;
+    bind(socketAddress: SocketAddress): ServerSocketChannel;
+    bind(socketAddress: SocketAddress): NetworkChannel;
+    setOption(socketOption: SocketOption, object: any): NetworkChannel;
+    open(): ServerSocketChannel;
+}
+
+// org.bukkit.attribute.AttributeInstance
+declare interface AttributeInstance {
+    getBaseValue(): number;
+    getDefaultValue(): number;
+    getValue(): number;
+    getModifiers(): Collection;
+    getAttribute(): Attribute;
+    addModifier(attributeModifier: AttributeModifier): void;
+    removeModifier(attributeModifier: AttributeModifier): void;
+    setBaseValue(d: number): void;
+}
+
+// java.lang.Long
+declare interface Long extends Number, Comparable {
+    equals(object: any): boolean;
+    compareTo(long: Long): number;
+    compareTo(object: any): number;
+    hashCode(): number;
+    toString(): string;
+    bitCount(l: number): number;
+    compare(l: number, l: number): number;
+    compareUnsigned(l: number, l: number): number;
+    hashCode(l: number): number;
+    numberOfLeadingZeros(l: number): number;
+    numberOfTrailingZeros(l: number): number;
+    signum(l: number): number;
+    decode(s: string): Long;
+    getLong(s: string): Long;
+    getLong(s: string, long: Long): Long;
+    getLong(s: string, l: number): Long;
+    valueOf(s: string): Long;
+    valueOf(s: string, i: number): Long;
+    valueOf(l: number): Long;
+    toBinaryString(l: number): string;
+    toHexString(l: number): string;
+    toOctalString(l: number): string;
+    toString(l: number): string;
+    toString(l: number, i: number): string;
+    toUnsignedString(l: number): string;
+    toUnsignedString(l: number, i: number): string;
+    divideUnsigned(l: number, l: number): number;
+    highestOneBit(l: number): number;
+    lowestOneBit(l: number): number;
+    max(l: number, l: number): number;
+    min(l: number, l: number): number;
+    parseLong(s: string, i: number, i: number, i: number): number;
+    parseLong(s: string): number;
+    parseLong(s: string, i: number): number;
+    parseUnsignedLong(s: string, i: number, i: number, i: number): number;
+    parseUnsignedLong(s: string): number;
+    parseUnsignedLong(s: string, i: number): number;
+    remainderUnsigned(l: number, l: number): number;
+    reverse(l: number): number;
+    reverseBytes(l: number): number;
+    rotateLeft(l: number, i: number): number;
+    rotateRight(l: number, i: number): number;
+    sum(l: number, l: number): number;
+    BYTES: number;
+    SIZE: number;
+    TYPE: Class;
+    MAX_VALUE: number;
+    MIN_VALUE: number;
+}
+
+// java.time.chrono.IsoEra
+declare enum IsoEra {
+    BCE,
+    CE,
+}
+
+// java.nio.channels.ScatteringByteChannel
+declare interface ScatteringByteChannel extends ReadableByteChannel {
+    read(byteBuffer: ByteBuffer): number;
+    read(byteBuffer: ByteBuffer, i: number, i: number): number;
 }
 
 // java.text.Format
@@ -14358,6 +14433,10 @@ declare interface Format extends Serializable, Cloneable {
     formatToCharacterIterator(object: any): AttributedCharacterIterator;
 }
 
+// org.bukkit.entity.NPC
+declare interface NPC extends Creature {
+}
+
 // java.lang.module.ModuleFinder
 declare interface ModuleFinder {
     find(s: string): Optional;
@@ -14367,6 +14446,160 @@ declare interface ModuleFinder {
     ofSystem(): ModuleFinder;
 }
 
+// org.bukkit.map.MapFont$CharacterSprite
+declare interface CharacterSprite {
+    get(i: number, i: number): boolean;
+    getHeight(): number;
+    getWidth(): number;
+}
+
+// java.time.chrono.Era
+declare interface Era extends TemporalAccessor, TemporalAdjuster {
+    getValue(): number;
+    isSupported(temporalField: TemporalField): boolean;
+    get(temporalField: TemporalField): number;
+    query(temporalQuery: TemporalQuery): any;
+    getDisplayName(textStyle: TextStyle, locale: Locale): string;
+    adjustInto(temporal: Temporal): Temporal;
+    range(temporalField: TemporalField): ValueRange;
+    getLong(temporalField: TemporalField): number;
+}
+
+// java.util.EventListener
+declare interface EventListener {
+}
+
+// java.nio.channels.ByteChannel
+declare interface ByteChannel extends ReadableByteChannel, WritableByteChannel {
+}
+
+// java.net.ContentHandler
+declare interface ContentHandler {
+    getContent(uRLConnection: URLConnection): any;
+    getContent(uRLConnection: URLConnection, clazz: Class): any;
+}
+
+// java.time.format.DecimalStyle
+declare interface DecimalStyle {
+    getDecimalSeparator(): string;
+    getNegativeSign(): string;
+    getPositiveSign(): string;
+    getZeroDigit(): string;
+    withDecimalSeparator(c: string): DecimalStyle;
+    withNegativeSign(c: string): DecimalStyle;
+    withPositiveSign(c: string): DecimalStyle;
+    withZeroDigit(c: string): DecimalStyle;
+    of(locale: Locale): DecimalStyle;
+    ofDefaultLocale(): DecimalStyle;
+    getAvailableLocales(): Set;
+    STANDARD: DecimalStyle;
+}
+
+// java.lang.module.ModuleDescriptor$Provides
+declare interface Provides extends Comparable {
+    compareTo(object: any): number;
+    compareTo(provides: Provides): number;
+    service(): string;
+    providers(): List;
+}
+
+// java.nio.channels.GatheringByteChannel
+declare interface GatheringByteChannel extends WritableByteChannel {
+    write(byteBuffer: ByteBuffer): number;
+    write(byteBuffer: ByteBuffer, i: number, i: number): number;
+}
+
+// java.lang.module.ModuleDescriptor$Requires
+declare interface Requires extends Comparable {
+    compareTo(object: any): number;
+    compareTo(requires: Requires): number;
+    name(): string;
+    compiledVersion(): Optional;
+    rawCompiledVersion(): Optional;
+    modifiers(): Set;
+}
+
+// java.time.format.FormatStyle
+declare enum FormatStyle {
+    FULL,
+    LONG,
+    MEDIUM,
+    SHORT,
+}
+
+// java.time.Period
+declare interface Period extends ChronoPeriod, Serializable {
+    isNegative(): boolean;
+    isZero(): boolean;
+    getDays(): number;
+    getMonths(): number;
+    getYears(): number;
+    minus(temporalAmount: TemporalAmount): Period;
+    minusDays(l: number): Period;
+    minusMonths(l: number): Period;
+    minusYears(l: number): Period;
+    multipliedBy(i: number): Period;
+    negated(): Period;
+    normalized(): Period;
+    plus(temporalAmount: TemporalAmount): Period;
+    plusDays(l: number): Period;
+    plusMonths(l: number): Period;
+    plusYears(l: number): Period;
+    withDays(i: number): Period;
+    withMonths(i: number): Period;
+    withYears(i: number): Period;
+    minus(temporalAmount: TemporalAmount): ChronoPeriod;
+    multipliedBy(i: number): ChronoPeriod;
+    negated(): ChronoPeriod;
+    normalized(): ChronoPeriod;
+    plus(temporalAmount: TemporalAmount): ChronoPeriod;
+    getChronology(): Chronology;
+    getChronology(): IsoChronology;
+    addTo(temporal: Temporal): Temporal;
+    subtractFrom(temporal: Temporal): Temporal;
+    getUnits(): List;
+    get(temporalUnit: TemporalUnit): number;
+    toTotalMonths(): number;
+    between(localDate: LocalDate, localDate: LocalDate): Period;
+    from(temporalAmount: TemporalAmount): Period;
+    of(i: number, i: number, i: number): Period;
+    ofDays(i: number): Period;
+    ofMonths(i: number): Period;
+    ofWeeks(i: number): Period;
+    ofYears(i: number): Period;
+    parse(s: string): Period;
+    ZERO: Period;
+}
+
+// java.awt.DisplayMode
+declare interface DisplayMode {
+    equals(displayMode: DisplayMode): boolean;
+    getBitDepth(): number;
+    getHeight(): number;
+    getRefreshRate(): number;
+    getWidth(): number;
+    BIT_DEPTH_MULTI: number;
+    REFRESH_RATE_UNKNOWN: number;
+}
+
+// org.bukkit.map.MapCursor
+declare interface MapCursor {
+    isVisible(): boolean;
+    getDirection(): number;
+    getRawType(): number;
+    getX(): number;
+    getY(): number;
+    getCaption(): string;
+    getType(): Type;
+    setCaption(s: string): void;
+    setDirection(b: number): void;
+    setRawType(b: number): void;
+    setType(type: Type): void;
+    setVisible(b: boolean): void;
+    setX(b: number): void;
+    setY(b: number): void;
+}
+
 // java.awt.GraphicsConfigTemplate
 declare interface GraphicsConfigTemplate extends Serializable {
     isGraphicsConfigSupported(graphicsConfiguration: GraphicsConfiguration): boolean;
@@ -14374,6 +14607,37 @@ declare interface GraphicsConfigTemplate extends Serializable {
     PREFERRED: number;
     REQUIRED: number;
     UNNECESSARY: number;
+}
+
+// java.nio.channels.NetworkChannel
+declare interface NetworkChannel extends Channel {
+    getOption(socketOption: SocketOption): any;
+    getLocalAddress(): SocketAddress;
+    bind(socketAddress: SocketAddress): NetworkChannel;
+    setOption(socketOption: SocketOption, object: any): NetworkChannel;
+    supportedOptions(): Set;
+}
+
+// java.security.PublicKey
+declare interface PublicKey extends Key {
+    serialVersionUID: number;
+}
+
+// java.net.SocketImpl
+declare interface SocketImpl extends SocketOptions {
+}
+
+// java.security.PrivilegedAction
+declare interface PrivilegedAction {
+    run(): any;
+}
+
+// javax.security.cert.Certificate
+declare interface Certificate {
+    getEncoded(): number[];
+    getPublicKey(): PublicKey;
+    verify(publicKey: PublicKey): void;
+    verify(publicKey: PublicKey, s: string): void;
 }
 
 // java.awt.Window
@@ -14451,61 +14715,35 @@ declare interface Window extends Container, Accessible {
     toFront(): void;
 }
 
-// java.time.chrono.Era
-declare interface Era extends TemporalAccessor, TemporalAdjuster {
-    getValue(): number;
-    isSupported(temporalField: TemporalField): boolean;
-    get(temporalField: TemporalField): number;
-    query(temporalQuery: TemporalQuery): any;
-    getDisplayName(textStyle: TextStyle, locale: Locale): string;
-    adjustInto(temporal: Temporal): Temporal;
-    range(temporalField: TemporalField): ValueRange;
-    getLong(temporalField: TemporalField): number;
+// java.security.AccessControlContext
+declare interface AccessControlContext {
+    getDomainCombiner(): DomainCombiner;
+    checkPermission(permission: Permission): void;
 }
 
-// java.lang.module.ModuleDescriptor$Provides
-declare interface Provides extends Comparable {
-    compareTo(object: any): number;
-    compareTo(provides: Provides): number;
-    service(): string;
-    providers(): List;
+// java.nio.channels.WritableByteChannel
+declare interface WritableByteChannel extends Channel {
+    write(byteBuffer: ByteBuffer): number;
 }
 
-// java.lang.module.ModuleDescriptor$Requires
-declare interface Requires extends Comparable {
-    compareTo(object: any): number;
-    compareTo(requires: Requires): number;
+// java.nio.channels.FileChannel$MapMode
+declare interface MapMode {
+    PRIVATE: MapMode;
+    READ_ONLY: MapMode;
+    READ_WRITE: MapMode;
+}
+
+// java.nio.file.attribute.AttributeView
+declare interface AttributeView {
     name(): string;
-    compiledVersion(): Optional;
-    rawCompiledVersion(): Optional;
-    modifiers(): Set;
 }
 
-// java.time.format.FormatStyle
-declare enum FormatStyle {
-    FULL,
-    LONG,
-    MEDIUM,
-    SHORT,
-}
-
-// java.security.cert.CertPath
-declare interface CertPath extends Serializable {
-    getEncoded(): number[];
-    getEncoded(s: string): number[];
-    getEncodings(): Iterator;
-    getCertificates(): List;
-    getType(): string;
-}
-
-// java.nio.channels.spi.AbstractInterruptibleChannel
-declare interface AbstractInterruptibleChannel extends Channel, InterruptibleChannel {
-    isOpen(): boolean;
-    close(): void;
-}
-
-// org.bukkit.entity.NPC
-declare interface NPC extends Creature {
+// java.awt.BufferCapabilities$FlipContents
+declare interface FlipContents extends AttributeValue {
+    BACKGROUND: FlipContents;
+    COPIED: FlipContents;
+    PRIOR: FlipContents;
+    UNDEFINED: FlipContents;
 }
 
 // org.bukkit.entity.Breedable
@@ -14514,24 +14752,6 @@ declare interface Breedable extends Ageable {
     getAgeLock(): boolean;
     setAgeLock(b: boolean): void;
     setBreed(b: boolean): void;
-}
-
-// org.bukkit.map.MapCursor
-declare interface MapCursor {
-    isVisible(): boolean;
-    getDirection(): number;
-    getRawType(): number;
-    getX(): number;
-    getY(): number;
-    getCaption(): string;
-    getType(): Type;
-    setCaption(s: string): void;
-    setDirection(b: number): void;
-    setRawType(b: number): void;
-    setType(type: Type): void;
-    setVisible(b: boolean): void;
-    setX(b: number): void;
-    setY(b: number): void;
 }
 
 // java.nio.channels.FileLock
@@ -14545,248 +14765,6 @@ declare interface FileLock extends AutoCloseable {
     size(): number;
     close(): void;
     acquiredBy(): Channel;
-}
-
-// java.nio.channels.spi.AbstractSelectableChannel
-declare interface AbstractSelectableChannel extends SelectableChannel {
-}
-
-// org.bukkit.attribute.AttributeInstance
-declare interface AttributeInstance {
-    getBaseValue(): number;
-    getDefaultValue(): number;
-    getValue(): number;
-    getModifiers(): Collection;
-    getAttribute(): Attribute;
-    addModifier(attributeModifier: AttributeModifier): void;
-    removeModifier(attributeModifier: AttributeModifier): void;
-    setBaseValue(d: number): void;
-}
-
-// java.net.ContentHandler
-declare interface ContentHandler {
-    getContent(uRLConnection: URLConnection): any;
-    getContent(uRLConnection: URLConnection, clazz: Class): any;
-}
-
-// java.security.PrivilegedAction
-declare interface PrivilegedAction {
-    run(): any;
-}
-
-// java.nio.channels.ServerSocketChannel
-declare interface ServerSocketChannel extends AbstractSelectableChannel, NetworkChannel {
-    socket(): ServerSocket;
-    getLocalAddress(): SocketAddress;
-    bind(socketAddress: SocketAddress, i: number): ServerSocketChannel;
-    setOption(socketOption: SocketOption, object: any): ServerSocketChannel;
-    accept(): SocketChannel;
-    validOps(): number;
-    bind(socketAddress: SocketAddress): ServerSocketChannel;
-    bind(socketAddress: SocketAddress): NetworkChannel;
-    setOption(socketOption: SocketOption, object: any): NetworkChannel;
-    open(): ServerSocketChannel;
-}
-
-// java.time.format.DecimalStyle
-declare interface DecimalStyle {
-    getDecimalSeparator(): string;
-    getNegativeSign(): string;
-    getPositiveSign(): string;
-    getZeroDigit(): string;
-    withDecimalSeparator(c: string): DecimalStyle;
-    withNegativeSign(c: string): DecimalStyle;
-    withPositiveSign(c: string): DecimalStyle;
-    withZeroDigit(c: string): DecimalStyle;
-    of(locale: Locale): DecimalStyle;
-    ofDefaultLocale(): DecimalStyle;
-    getAvailableLocales(): Set;
-    STANDARD: DecimalStyle;
-}
-
-// java.security.AccessControlContext
-declare interface AccessControlContext {
-    getDomainCombiner(): DomainCombiner;
-    checkPermission(permission: Permission): void;
-}
-
-// java.time.chrono.Chronology
-declare interface Chronology extends Comparable {
-    equals(object: any): boolean;
-    isLeapYear(l: number): boolean;
-    compareTo(chronology: Chronology): number;
-    hashCode(): number;
-    prolepticYear(era: Era, i: number): number;
-    getCalendarType(): string;
-    getId(): string;
-    toString(): string;
-    date(i: number, i: number, i: number): ChronoLocalDate;
-    date(temporalAccessor: TemporalAccessor): ChronoLocalDate;
-    dateEpochDay(l: number): ChronoLocalDate;
-    dateYearDay(i: number, i: number): ChronoLocalDate;
-    resolveDate(map: Map, resolverStyle: ResolverStyle): ChronoLocalDate;
-    eraOf(i: number): Era;
-    range(chronoField: ChronoField): ValueRange;
-    eras(): List;
-    compareTo(object: any): number;
-    getDisplayName(textStyle: TextStyle, locale: Locale): string;
-    date(era: Era, i: number, i: number, i: number): ChronoLocalDate;
-    dateNow(): ChronoLocalDate;
-    dateNow(clock: Clock): ChronoLocalDate;
-    dateNow(zoneId: ZoneId): ChronoLocalDate;
-    dateYearDay(era: Era, i: number, i: number): ChronoLocalDate;
-    localDateTime(temporalAccessor: TemporalAccessor): ChronoLocalDateTime;
-    period(i: number, i: number, i: number): ChronoPeriod;
-    zonedDateTime(instant: Instant, zoneId: ZoneId): ChronoZonedDateTime;
-    zonedDateTime(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
-    epochSecond(i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
-    epochSecond(era: Era, i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
-    from(temporalAccessor: TemporalAccessor): Chronology;
-    of(s: string): Chronology;
-    ofLocale(locale: Locale): Chronology;
-    getAvailableChronologies(): Set;
-}
-
-// java.nio.file.attribute.FileStoreAttributeView
-declare interface FileStoreAttributeView extends AttributeView {
-}
-
-// java.time.chrono.IsoChronology
-declare interface IsoChronology extends AbstractChronology, Serializable {
-    isLeapYear(l: number): boolean;
-    prolepticYear(era: Era, i: number): number;
-    getCalendarType(): string;
-    getId(): string;
-    date(i: number, i: number, i: number): LocalDate;
-    date(era: Era, i: number, i: number, i: number): LocalDate;
-    date(temporalAccessor: TemporalAccessor): LocalDate;
-    dateEpochDay(l: number): LocalDate;
-    dateNow(): LocalDate;
-    dateNow(clock: Clock): LocalDate;
-    dateNow(zoneId: ZoneId): LocalDate;
-    dateYearDay(i: number, i: number): LocalDate;
-    dateYearDay(era: Era, i: number, i: number): LocalDate;
-    localDateTime(temporalAccessor: TemporalAccessor): LocalDateTime;
-    period(i: number, i: number, i: number): Period;
-    zonedDateTime(instant: Instant, zoneId: ZoneId): ZonedDateTime;
-    zonedDateTime(temporalAccessor: TemporalAccessor): ZonedDateTime;
-    date(i: number, i: number, i: number): ChronoLocalDate;
-    date(era: Era, i: number, i: number, i: number): ChronoLocalDate;
-    date(temporalAccessor: TemporalAccessor): ChronoLocalDate;
-    dateEpochDay(l: number): ChronoLocalDate;
-    dateNow(): ChronoLocalDate;
-    dateNow(clock: Clock): ChronoLocalDate;
-    dateNow(zoneId: ZoneId): ChronoLocalDate;
-    dateYearDay(i: number, i: number): ChronoLocalDate;
-    dateYearDay(era: Era, i: number, i: number): ChronoLocalDate;
-    localDateTime(temporalAccessor: TemporalAccessor): ChronoLocalDateTime;
-    period(i: number, i: number, i: number): ChronoPeriod;
-    zonedDateTime(instant: Instant, zoneId: ZoneId): ChronoZonedDateTime;
-    zonedDateTime(temporalAccessor: TemporalAccessor): ChronoZonedDateTime;
-    eraOf(i: number): Era;
-    eraOf(i: number): IsoEra;
-    range(chronoField: ChronoField): ValueRange;
-    eras(): List;
-    epochSecond(i: number, i: number, i: number, i: number, i: number, i: number, zoneOffset: ZoneOffset): number;
-    INSTANCE: IsoChronology;
-}
-
-// java.nio.file.attribute.AttributeView
-declare interface AttributeView {
-    name(): string;
-}
-
-// java.awt.font.LineMetrics
-declare interface LineMetrics {
-    getAscent(): number;
-    getDescent(): number;
-    getHeight(): number;
-    getLeading(): number;
-    getStrikethroughOffset(): number;
-    getStrikethroughThickness(): number;
-    getUnderlineOffset(): number;
-    getUnderlineThickness(): number;
-    getBaselineOffsets(): number[];
-    getBaselineIndex(): number;
-    getNumChars(): number;
-}
-
-// java.time.Period
-declare interface Period extends ChronoPeriod, Serializable {
-    isNegative(): boolean;
-    isZero(): boolean;
-    getDays(): number;
-    getMonths(): number;
-    getYears(): number;
-    minus(temporalAmount: TemporalAmount): Period;
-    minusDays(l: number): Period;
-    minusMonths(l: number): Period;
-    minusYears(l: number): Period;
-    multipliedBy(i: number): Period;
-    negated(): Period;
-    normalized(): Period;
-    plus(temporalAmount: TemporalAmount): Period;
-    plusDays(l: number): Period;
-    plusMonths(l: number): Period;
-    plusYears(l: number): Period;
-    withDays(i: number): Period;
-    withMonths(i: number): Period;
-    withYears(i: number): Period;
-    minus(temporalAmount: TemporalAmount): ChronoPeriod;
-    multipliedBy(i: number): ChronoPeriod;
-    negated(): ChronoPeriod;
-    normalized(): ChronoPeriod;
-    plus(temporalAmount: TemporalAmount): ChronoPeriod;
-    getChronology(): Chronology;
-    getChronology(): IsoChronology;
-    addTo(temporal: Temporal): Temporal;
-    subtractFrom(temporal: Temporal): Temporal;
-    getUnits(): List;
-    get(temporalUnit: TemporalUnit): number;
-    toTotalMonths(): number;
-    between(localDate: LocalDate, localDate: LocalDate): Period;
-    from(temporalAmount: TemporalAmount): Period;
-    of(i: number, i: number, i: number): Period;
-    ofDays(i: number): Period;
-    ofMonths(i: number): Period;
-    ofWeeks(i: number): Period;
-    ofYears(i: number): Period;
-    parse(s: string): Period;
-    ZERO: Period;
-}
-
-// java.time.chrono.IsoEra
-declare enum IsoEra {
-    BCE,
-    CE,
-}
-
-// java.awt.DisplayMode
-declare interface DisplayMode {
-    equals(displayMode: DisplayMode): boolean;
-    getBitDepth(): number;
-    getHeight(): number;
-    getRefreshRate(): number;
-    getWidth(): number;
-    BIT_DEPTH_MULTI: number;
-    REFRESH_RATE_UNKNOWN: number;
-}
-
-// java.nio.channels.CompletionHandler
-declare interface CompletionHandler {
-    completed(object: any, object: any): void;
-    failed(throwable: Throwable, object: any): void;
-}
-
-// java.nio.channels.FileChannel$MapMode
-declare interface MapMode {
-    PRIVATE: MapMode;
-    READ_ONLY: MapMode;
-    READ_WRITE: MapMode;
-}
-
-// java.util.EventListener
-declare interface EventListener {
 }
 
 // java.time.chrono.ChronoPeriod
@@ -14809,19 +14787,41 @@ declare interface ChronoPeriod extends TemporalAmount {
     between(chronoLocalDate: ChronoLocalDate, chronoLocalDate: ChronoLocalDate): ChronoPeriod;
 }
 
-// java.net.SocketImpl
-declare interface SocketImpl extends SocketOptions {
+// java.nio.file.attribute.FileStoreAttributeView
+declare interface FileStoreAttributeView extends AttributeView {
 }
 
-// java.nio.channels.ByteChannel
-declare interface ByteChannel extends ReadableByteChannel, WritableByteChannel {
+// java.nio.channels.AsynchronousChannel
+declare interface AsynchronousChannel extends Channel {
+    close(): void;
 }
 
-// org.bukkit.map.MapFont$CharacterSprite
-declare interface CharacterSprite {
-    get(i: number, i: number): boolean;
-    getHeight(): number;
-    getWidth(): number;
+// java.nio.channels.ReadableByteChannel
+declare interface ReadableByteChannel extends Channel {
+    read(byteBuffer: ByteBuffer): number;
+}
+
+// java.nio.channels.spi.AbstractInterruptibleChannel
+declare interface AbstractInterruptibleChannel extends Channel, InterruptibleChannel {
+    isOpen(): boolean;
+    close(): void;
+}
+
+// java.time.zone.ZoneOffsetTransition
+declare interface ZoneOffsetTransition extends Comparable, Serializable {
+    isGap(): boolean;
+    isOverlap(): boolean;
+    isValidOffset(zoneOffset: ZoneOffset): boolean;
+    compareTo(object: any): number;
+    compareTo(zoneOffsetTransition: ZoneOffsetTransition): number;
+    getDuration(): Duration;
+    getInstant(): Instant;
+    getDateTimeAfter(): LocalDateTime;
+    getDateTimeBefore(): LocalDateTime;
+    getOffsetAfter(): ZoneOffset;
+    getOffsetBefore(): ZoneOffset;
+    toEpochSecond(): number;
+    of(localDateTime: LocalDateTime, zoneOffset: ZoneOffset, zoneOffset: ZoneOffset): ZoneOffsetTransition;
 }
 
 // java.util.Dictionary
@@ -14835,17 +14835,20 @@ declare interface Dictionary {
     keys(): Enumeration;
 }
 
-// org.bukkit.entity.Ageable
-declare interface Ageable extends Creature {
-    canBreed(): boolean;
-    getAgeLock(): boolean;
-    isAdult(): boolean;
-    getAge(): number;
-    setAdult(): void;
-    setAge(i: number): void;
-    setAgeLock(b: boolean): void;
-    setBaby(): void;
-    setBreed(b: boolean): void;
+// java.awt.event.WindowListener
+declare interface WindowListener extends EventListener {
+    windowActivated(windowEvent: WindowEvent): void;
+    windowClosed(windowEvent: WindowEvent): void;
+    windowClosing(windowEvent: WindowEvent): void;
+    windowDeactivated(windowEvent: WindowEvent): void;
+    windowDeiconified(windowEvent: WindowEvent): void;
+    windowIconified(windowEvent: WindowEvent): void;
+    windowOpened(windowEvent: WindowEvent): void;
+}
+
+// javax.accessibility.Accessible
+declare interface Accessible {
+    getAccessibleContext(): AccessibleContext;
 }
 
 // java.awt.Cursor
@@ -14872,86 +14875,134 @@ declare interface Cursor extends Serializable {
     W_RESIZE_CURSOR: number;
 }
 
-// java.awt.Event
-declare interface Event extends Serializable {
-    controlDown(): boolean;
-    metaDown(): boolean;
-    shiftDown(): boolean;
-    translate(i: number, i: number): void;
-    clickCount: number;
-    id: number;
-    key: number;
-    modifiers: number;
-    x: number;
-    y: number;
-    evt: Event;
-    arg: any;
-    target: any;
-    when: number;
-    ACTION_EVENT: number;
-    ALT_MASK: number;
-    BACK_SPACE: number;
-    CAPS_LOCK: number;
-    CTRL_MASK: number;
-    DELETE: number;
-    DOWN: number;
-    END: number;
-    ENTER: number;
-    ESCAPE: number;
-    F1: number;
-    F10: number;
-    F11: number;
-    F12: number;
-    F2: number;
-    F3: number;
-    F4: number;
-    F5: number;
-    F6: number;
-    F7: number;
-    F8: number;
-    F9: number;
-    GOT_FOCUS: number;
-    HOME: number;
-    INSERT: number;
-    KEY_ACTION: number;
-    KEY_ACTION_RELEASE: number;
-    KEY_PRESS: number;
-    KEY_RELEASE: number;
-    LEFT: number;
-    LIST_DESELECT: number;
-    LIST_SELECT: number;
-    LOAD_FILE: number;
-    LOST_FOCUS: number;
-    META_MASK: number;
-    MOUSE_DOWN: number;
-    MOUSE_DRAG: number;
-    MOUSE_ENTER: number;
-    MOUSE_EXIT: number;
-    MOUSE_MOVE: number;
-    MOUSE_UP: number;
-    NUM_LOCK: number;
-    PAUSE: number;
-    PGDN: number;
-    PGUP: number;
-    PRINT_SCREEN: number;
-    RIGHT: number;
-    SAVE_FILE: number;
-    SCROLL_ABSOLUTE: number;
-    SCROLL_BEGIN: number;
-    SCROLL_END: number;
-    SCROLL_LINE_DOWN: number;
-    SCROLL_LINE_UP: number;
-    SCROLL_LOCK: number;
-    SCROLL_PAGE_DOWN: number;
-    SCROLL_PAGE_UP: number;
-    SHIFT_MASK: number;
-    TAB: number;
-    UP: number;
-    WINDOW_DEICONIFY: number;
-    WINDOW_DESTROY: number;
-    WINDOW_EXPOSE: number;
-    WINDOW_ICONIFY: number;
-    WINDOW_MOVED: number;
+// java.awt.event.WindowFocusListener
+declare interface WindowFocusListener extends EventListener {
+    windowGainedFocus(windowEvent: WindowEvent): void;
+    windowLostFocus(windowEvent: WindowEvent): void;
+}
+
+// java.text.FieldPosition
+declare interface FieldPosition {
+    getBeginIndex(): number;
+    getEndIndex(): number;
+    getField(): number;
+    getFieldAttribute(): Field;
+    setBeginIndex(i: number): void;
+    setEndIndex(i: number): void;
+}
+
+// java.awt.Toolkit
+declare interface Toolkit {
+    isModalExclusionTypeSupported(modalExclusionType: ModalExclusionType): boolean;
+    isModalityTypeSupported(modalityType: ModalityType): boolean;
+    prepareImage(image: Image, i: number, i: number, imageObserver: ImageObserver): boolean;
+    checkImage(image: Image, i: number, i: number, imageObserver: ImageObserver): number;
+    getScreenResolution(): number;
+    getScreenSize(): Dimension;
+    getFontMetrics(font: Font): FontMetrics;
+    createImage(b: number, i: number, i: number): Image;
+    createImage(imageProducer: ImageProducer): Image;
+    createImage(s: string): Image;
+    createImage(uRL: URL): Image;
+    getImage(s: string): Image;
+    getImage(uRL: URL): Image;
+    getPrintJob(frame: Frame, s: string, properties: Properties): PrintJob;
+    getSystemClipboard(): Clipboard;
+    getColorModel(): ColorModel;
+    getFontList(): string[];
+    mapInputMethodHighlight(inputMethodHighlight: InputMethodHighlight): Map;
+    beep(): void;
+    sync(): void;
+    areExtraMouseButtonsEnabled(): boolean;
+    getLockingKeyState(i: number): boolean;
+    isAlwaysOnTopSupported(): boolean;
+    isDynamicLayoutActive(): boolean;
+    isFrameStateSupported(i: number): boolean;
+    getSystemEventQueue(): EventQueue;
+    getDesktopProperty(s: string): any;
+    getMaximumCursorColors(): number;
+    getMenuShortcutKeyMask(): number;
+    getMenuShortcutKeyMaskEx(): number;
+    createCustomCursor(image: Image, point: Point, s: string): Cursor;
+    getBestCursorSize(i: number, i: number): Dimension;
+    createImage(b: number): Image;
+    getScreenInsets(graphicsConfiguration: GraphicsConfiguration): Insets;
+    getPrintJob(frame: Frame, s: string, jobAttributes: JobAttributes, pageAttributes: PageAttributes): PrintJob;
+    getSystemSelection(): Clipboard;
+    createDragGestureRecognizer(clazz: Class, dragSource: DragSource, component: Component, i: number, dragGestureListener: DragGestureListener): DragGestureRecognizer;
+    getAWTEventListeners(): AWTEventListener[];
+    getAWTEventListeners(l: number): AWTEventListener[];
+    getPropertyChangeListeners(): PropertyChangeListener[];
+    getPropertyChangeListeners(s: string): PropertyChangeListener[];
+    getProperty(s: string, s: string): string;
+    getDefaultToolkit(): Toolkit;
+    addAWTEventListener(aWTEventListener: AWTEventListener, l: number): void;
+    addPropertyChangeListener(s: string, propertyChangeListener: PropertyChangeListener): void;
+    removeAWTEventListener(aWTEventListener: AWTEventListener): void;
+    removePropertyChangeListener(s: string, propertyChangeListener: PropertyChangeListener): void;
+    setDynamicLayout(b: boolean): void;
+    setLockingKeyState(i: number, b: boolean): void;
+}
+
+// org.bukkit.entity.Creature
+declare interface Creature extends Mob {
+}
+
+// java.security.DomainCombiner
+declare interface DomainCombiner {
+    combine(protectionDomain: ProtectionDomain, protectionDomain: ProtectionDomain): ProtectionDomain[];
+}
+
+// java.awt.event.WindowStateListener
+declare interface WindowStateListener extends EventListener {
+    windowStateChanged(windowEvent: WindowEvent): void;
+}
+
+// org.bukkit.entity.Ageable
+declare interface Ageable extends Creature {
+    canBreed(): boolean;
+    getAgeLock(): boolean;
+    isAdult(): boolean;
+    getAge(): number;
+    setAdult(): void;
+    setAge(i: number): void;
+    setAgeLock(b: boolean): void;
+    setBaby(): void;
+    setBreed(b: boolean): void;
+}
+
+// java.time.temporal.ChronoField
+declare enum ChronoField {
+    NANO_OF_SECOND,
+    NANO_OF_DAY,
+    MICRO_OF_SECOND,
+    MICRO_OF_DAY,
+    MILLI_OF_SECOND,
+    MILLI_OF_DAY,
+    SECOND_OF_MINUTE,
+    SECOND_OF_DAY,
+    MINUTE_OF_HOUR,
+    MINUTE_OF_DAY,
+    HOUR_OF_AMPM,
+    CLOCK_HOUR_OF_AMPM,
+    HOUR_OF_DAY,
+    CLOCK_HOUR_OF_DAY,
+    AMPM_OF_DAY,
+    DAY_OF_WEEK,
+    ALIGNED_DAY_OF_WEEK_IN_MONTH,
+    ALIGNED_DAY_OF_WEEK_IN_YEAR,
+    DAY_OF_MONTH,
+    DAY_OF_YEAR,
+    EPOCH_DAY,
+    ALIGNED_WEEK_OF_MONTH,
+    ALIGNED_WEEK_OF_YEAR,
+    MONTH_OF_YEAR,
+    PROLEPTIC_MONTH,
+    YEAR_OF_ERA,
+    YEAR,
+    ERA,
+    INSTANT_SECONDS,
+    OFFSET_SECONDS,
 }
 
 // java.awt.Component
@@ -15167,43 +15218,83 @@ declare interface Component extends ImageObserver, MenuContainer, Serializable {
     TOP_ALIGNMENT: number;
 }
 
-// java.time.temporal.ChronoField
-declare enum ChronoField {
-    NANO_OF_SECOND,
-    NANO_OF_DAY,
-    MICRO_OF_SECOND,
-    MICRO_OF_DAY,
-    MILLI_OF_SECOND,
-    MILLI_OF_DAY,
-    SECOND_OF_MINUTE,
-    SECOND_OF_DAY,
-    MINUTE_OF_HOUR,
-    MINUTE_OF_DAY,
-    HOUR_OF_AMPM,
-    CLOCK_HOUR_OF_AMPM,
-    HOUR_OF_DAY,
-    CLOCK_HOUR_OF_DAY,
-    AMPM_OF_DAY,
-    DAY_OF_WEEK,
-    ALIGNED_DAY_OF_WEEK_IN_MONTH,
-    ALIGNED_DAY_OF_WEEK_IN_YEAR,
-    DAY_OF_MONTH,
-    DAY_OF_YEAR,
-    EPOCH_DAY,
-    ALIGNED_WEEK_OF_MONTH,
-    ALIGNED_WEEK_OF_YEAR,
-    MONTH_OF_YEAR,
-    PROLEPTIC_MONTH,
-    YEAR_OF_ERA,
-    YEAR,
-    ERA,
-    INSTANT_SECONDS,
-    OFFSET_SECONDS,
+// java.awt.Window$Type
+declare enum Type {
+    NORMAL,
+    UTILITY,
+    POPUP,
 }
 
-// java.awt.event.WindowStateListener
-declare interface WindowStateListener extends EventListener {
-    windowStateChanged(windowEvent: WindowEvent): void;
+// java.net.SocketOptions
+declare interface SocketOptions {
+    getOption(i: number): any;
+    setOption(i: number, object: any): void;
+    IP_MULTICAST_IF: number;
+    IP_MULTICAST_IF2: number;
+    IP_MULTICAST_LOOP: number;
+    IP_TOS: number;
+    SO_BINDADDR: number;
+    SO_BROADCAST: number;
+    SO_KEEPALIVE: number;
+    SO_LINGER: number;
+    SO_OOBINLINE: number;
+    SO_RCVBUF: number;
+    SO_REUSEADDR: number;
+    SO_REUSEPORT: number;
+    SO_SNDBUF: number;
+    SO_TIMEOUT: number;
+    TCP_NODELAY: number;
+}
+
+// java.awt.image.BufferStrategy
+declare interface BufferStrategy {
+    contentsLost(): boolean;
+    contentsRestored(): boolean;
+    getCapabilities(): BufferCapabilities;
+    getDrawGraphics(): Graphics;
+    show(): void;
+    dispose(): void;
+}
+
+// java.time.chrono.AbstractChronology
+declare interface AbstractChronology extends Chronology {
+    compareTo(object: any): number;
+    compareTo(chronology: Chronology): number;
+    resolveDate(map: Map, resolverStyle: ResolverStyle): ChronoLocalDate;
+}
+
+// java.nio.channels.InterruptibleChannel
+declare interface InterruptibleChannel extends Channel {
+    close(): void;
+}
+
+// java.awt.im.InputContext
+declare interface InputContext {
+    isCompositionEnabled(): boolean;
+    selectInputMethod(locale: Locale): boolean;
+    getInputMethodControlObject(): any;
+    getLocale(): Locale;
+    getInstance(): InputContext;
+    dispatchEvent(aWTEvent: AWTEvent): void;
+    dispose(): void;
+    endComposition(): void;
+    reconvert(): void;
+    removeNotify(component: Component): void;
+    setCharacterSubsets(subset: Subset): void;
+    setCompositionEnabled(b: boolean): void;
+}
+
+// java.nio.channels.SelectableChannel
+declare interface SelectableChannel extends AbstractInterruptibleChannel, Channel {
+    isBlocking(): boolean;
+    isRegistered(): boolean;
+    validOps(): number;
+    blockingLock(): any;
+    configureBlocking(b: boolean): SelectableChannel;
+    keyFor(selector: Selector): SelectionKey;
+    register(selector: Selector, i: number, object: any): SelectionKey;
+    provider(): SelectorProvider;
+    register(selector: Selector, i: number): SelectionKey;
 }
 
 // java.awt.Container
@@ -15244,100 +15335,6 @@ declare interface Container extends Component {
     setFocusTraversalPolicy(focusTraversalPolicy: FocusTraversalPolicy): void;
     setLayout(layoutManager: LayoutManager): void;
     transferFocusDownCycle(): void;
-}
-
-// java.awt.im.InputContext
-declare interface InputContext {
-    isCompositionEnabled(): boolean;
-    selectInputMethod(locale: Locale): boolean;
-    getInputMethodControlObject(): any;
-    getLocale(): Locale;
-    getInstance(): InputContext;
-    dispatchEvent(aWTEvent: AWTEvent): void;
-    dispose(): void;
-    endComposition(): void;
-    reconvert(): void;
-    removeNotify(component: Component): void;
-    setCharacterSubsets(subset: Subset): void;
-    setCompositionEnabled(b: boolean): void;
-}
-
-// java.time.chrono.AbstractChronology
-declare interface AbstractChronology extends Chronology {
-    compareTo(object: any): number;
-    compareTo(chronology: Chronology): number;
-    resolveDate(map: Map, resolverStyle: ResolverStyle): ChronoLocalDate;
-}
-
-// java.nio.channels.InterruptibleChannel
-declare interface InterruptibleChannel extends Channel {
-    close(): void;
-}
-
-// java.security.DomainCombiner
-declare interface DomainCombiner {
-    combine(protectionDomain: ProtectionDomain, protectionDomain: ProtectionDomain): ProtectionDomain[];
-}
-
-// java.nio.channels.Channel
-declare interface Channel extends Closeable {
-    isOpen(): boolean;
-    close(): void;
-}
-
-// java.awt.AttributeValue
-declare interface AttributeValue {
-}
-
-// java.awt.Dialog$ModalExclusionType
-declare enum ModalExclusionType {
-    NO_EXCLUDE,
-    APPLICATION_EXCLUDE,
-    TOOLKIT_EXCLUDE,
-}
-
-// java.awt.image.BufferStrategy
-declare interface BufferStrategy {
-    contentsLost(): boolean;
-    contentsRestored(): boolean;
-    getCapabilities(): BufferCapabilities;
-    getDrawGraphics(): Graphics;
-    show(): void;
-    dispose(): void;
-}
-
-// javax.accessibility.Accessible
-declare interface Accessible {
-    getAccessibleContext(): AccessibleContext;
-}
-
-// java.awt.event.WindowFocusListener
-declare interface WindowFocusListener extends EventListener {
-    windowGainedFocus(windowEvent: WindowEvent): void;
-    windowLostFocus(windowEvent: WindowEvent): void;
-}
-
-// java.nio.channels.SelectableChannel
-declare interface SelectableChannel extends AbstractInterruptibleChannel, Channel {
-    isBlocking(): boolean;
-    isRegistered(): boolean;
-    validOps(): number;
-    blockingLock(): any;
-    configureBlocking(b: boolean): SelectableChannel;
-    keyFor(selector: Selector): SelectionKey;
-    register(selector: Selector, i: number, object: any): SelectionKey;
-    provider(): SelectorProvider;
-    register(selector: Selector, i: number): SelectionKey;
-}
-
-// java.text.FieldPosition
-declare interface FieldPosition {
-    getBeginIndex(): number;
-    getEndIndex(): number;
-    getField(): number;
-    getFieldAttribute(): Field;
-    setBeginIndex(i: number): void;
-    setEndIndex(i: number): void;
 }
 
 // javax.accessibility.AccessibleContext
@@ -15390,160 +15387,130 @@ declare interface AccessibleContext {
     ACCESSIBLE_VISIBLE_DATA_PROPERTY: string;
 }
 
-// java.awt.event.WindowListener
-declare interface WindowListener extends EventListener {
-    windowActivated(windowEvent: WindowEvent): void;
-    windowClosed(windowEvent: WindowEvent): void;
-    windowClosing(windowEvent: WindowEvent): void;
-    windowDeactivated(windowEvent: WindowEvent): void;
-    windowDeiconified(windowEvent: WindowEvent): void;
-    windowIconified(windowEvent: WindowEvent): void;
-    windowOpened(windowEvent: WindowEvent): void;
+// java.awt.Event
+declare interface Event extends Serializable {
+    controlDown(): boolean;
+    metaDown(): boolean;
+    shiftDown(): boolean;
+    translate(i: number, i: number): void;
+    clickCount: number;
+    id: number;
+    key: number;
+    modifiers: number;
+    x: number;
+    y: number;
+    evt: Event;
+    arg: any;
+    target: any;
+    when: number;
+    ACTION_EVENT: number;
+    ALT_MASK: number;
+    BACK_SPACE: number;
+    CAPS_LOCK: number;
+    CTRL_MASK: number;
+    DELETE: number;
+    DOWN: number;
+    END: number;
+    ENTER: number;
+    ESCAPE: number;
+    F1: number;
+    F10: number;
+    F11: number;
+    F12: number;
+    F2: number;
+    F3: number;
+    F4: number;
+    F5: number;
+    F6: number;
+    F7: number;
+    F8: number;
+    F9: number;
+    GOT_FOCUS: number;
+    HOME: number;
+    INSERT: number;
+    KEY_ACTION: number;
+    KEY_ACTION_RELEASE: number;
+    KEY_PRESS: number;
+    KEY_RELEASE: number;
+    LEFT: number;
+    LIST_DESELECT: number;
+    LIST_SELECT: number;
+    LOAD_FILE: number;
+    LOST_FOCUS: number;
+    META_MASK: number;
+    MOUSE_DOWN: number;
+    MOUSE_DRAG: number;
+    MOUSE_ENTER: number;
+    MOUSE_EXIT: number;
+    MOUSE_MOVE: number;
+    MOUSE_UP: number;
+    NUM_LOCK: number;
+    PAUSE: number;
+    PGDN: number;
+    PGUP: number;
+    PRINT_SCREEN: number;
+    RIGHT: number;
+    SAVE_FILE: number;
+    SCROLL_ABSOLUTE: number;
+    SCROLL_BEGIN: number;
+    SCROLL_END: number;
+    SCROLL_LINE_DOWN: number;
+    SCROLL_LINE_UP: number;
+    SCROLL_LOCK: number;
+    SCROLL_PAGE_DOWN: number;
+    SCROLL_PAGE_UP: number;
+    SHIFT_MASK: number;
+    TAB: number;
+    UP: number;
+    WINDOW_DEICONIFY: number;
+    WINDOW_DESTROY: number;
+    WINDOW_EXPOSE: number;
+    WINDOW_ICONIFY: number;
+    WINDOW_MOVED: number;
 }
 
-// java.awt.Toolkit
-declare interface Toolkit {
-    isModalExclusionTypeSupported(modalExclusionType: ModalExclusionType): boolean;
-    isModalityTypeSupported(modalityType: ModalityType): boolean;
-    prepareImage(image: Image, i: number, i: number, imageObserver: ImageObserver): boolean;
-    checkImage(image: Image, i: number, i: number, imageObserver: ImageObserver): number;
-    getScreenResolution(): number;
-    getScreenSize(): Dimension;
-    getFontMetrics(font: Font): FontMetrics;
-    createImage(b: number, i: number, i: number): Image;
-    createImage(imageProducer: ImageProducer): Image;
-    createImage(s: string): Image;
-    createImage(uRL: URL): Image;
-    getImage(s: string): Image;
-    getImage(uRL: URL): Image;
-    getPrintJob(frame: Frame, s: string, properties: Properties): PrintJob;
-    getSystemClipboard(): Clipboard;
-    getColorModel(): ColorModel;
-    getFontList(): string[];
-    mapInputMethodHighlight(inputMethodHighlight: InputMethodHighlight): Map;
-    beep(): void;
-    sync(): void;
-    areExtraMouseButtonsEnabled(): boolean;
-    getLockingKeyState(i: number): boolean;
-    isAlwaysOnTopSupported(): boolean;
-    isDynamicLayoutActive(): boolean;
-    isFrameStateSupported(i: number): boolean;
-    getSystemEventQueue(): EventQueue;
-    getDesktopProperty(s: string): any;
-    getMaximumCursorColors(): number;
-    getMenuShortcutKeyMask(): number;
-    getMenuShortcutKeyMaskEx(): number;
-    createCustomCursor(image: Image, point: Point, s: string): Cursor;
-    getBestCursorSize(i: number, i: number): Dimension;
-    createImage(b: number): Image;
-    getScreenInsets(graphicsConfiguration: GraphicsConfiguration): Insets;
-    getPrintJob(frame: Frame, s: string, jobAttributes: JobAttributes, pageAttributes: PageAttributes): PrintJob;
-    getSystemSelection(): Clipboard;
-    createDragGestureRecognizer(clazz: Class, dragSource: DragSource, component: Component, i: number, dragGestureListener: DragGestureListener): DragGestureRecognizer;
-    getAWTEventListeners(): AWTEventListener[];
-    getAWTEventListeners(l: number): AWTEventListener[];
-    getPropertyChangeListeners(): PropertyChangeListener[];
-    getPropertyChangeListeners(s: string): PropertyChangeListener[];
-    getProperty(s: string, s: string): string;
-    getDefaultToolkit(): Toolkit;
-    addAWTEventListener(aWTEventListener: AWTEventListener, l: number): void;
-    addPropertyChangeListener(s: string, propertyChangeListener: PropertyChangeListener): void;
-    removeAWTEventListener(aWTEventListener: AWTEventListener): void;
-    removePropertyChangeListener(s: string, propertyChangeListener: PropertyChangeListener): void;
-    setDynamicLayout(b: boolean): void;
-    setLockingKeyState(i: number, b: boolean): void;
+// java.awt.AttributeValue
+declare interface AttributeValue {
 }
 
-// java.net.SocketOptions
-declare interface SocketOptions {
-    getOption(i: number): any;
-    setOption(i: number, object: any): void;
-    IP_MULTICAST_IF: number;
-    IP_MULTICAST_IF2: number;
-    IP_MULTICAST_LOOP: number;
-    IP_TOS: number;
-    SO_BINDADDR: number;
-    SO_BROADCAST: number;
-    SO_KEEPALIVE: number;
-    SO_LINGER: number;
-    SO_OOBINLINE: number;
-    SO_RCVBUF: number;
-    SO_REUSEADDR: number;
-    SO_REUSEPORT: number;
-    SO_SNDBUF: number;
-    SO_TIMEOUT: number;
-    TCP_NODELAY: number;
+// java.awt.Dialog$ModalExclusionType
+declare enum ModalExclusionType {
+    NO_EXCLUDE,
+    APPLICATION_EXCLUDE,
+    TOOLKIT_EXCLUDE,
 }
 
-// java.awt.Window$Type
-declare enum Type {
-    NORMAL,
-    UTILITY,
-    POPUP,
+// java.nio.channels.Channel
+declare interface Channel extends Closeable {
+    isOpen(): boolean;
+    close(): void;
 }
 
-// org.bukkit.entity.Creature
-declare interface Creature extends Mob {
+// java.awt.event.FocusEvent$Cause
+declare enum Cause {
+    UNKNOWN,
+    MOUSE_EVENT,
+    TRAVERSAL,
+    TRAVERSAL_UP,
+    TRAVERSAL_DOWN,
+    TRAVERSAL_FORWARD,
+    TRAVERSAL_BACKWARD,
+    ROLLBACK,
+    UNEXPECTED,
+    ACTIVATION,
+    CLEAR_GLOBAL_FOCUS_OWNER,
 }
 
-// java.awt.event.MouseWheelListener
-declare interface MouseWheelListener extends EventListener {
-    mouseWheelMoved(mouseWheelEvent: MouseWheelEvent): void;
-}
-
-// javax.accessibility.AccessibleTable
-declare interface AccessibleTable {
-    isAccessibleColumnSelected(i: number): boolean;
-    isAccessibleRowSelected(i: number): boolean;
-    isAccessibleSelected(i: number, i: number): boolean;
-    getAccessibleColumnCount(): number;
-    getAccessibleColumnExtentAt(i: number, i: number): number;
-    getAccessibleRowCount(): number;
-    getAccessibleRowExtentAt(i: number, i: number): number;
-    getSelectedAccessibleColumns(): number[];
-    getSelectedAccessibleRows(): number[];
-    getAccessibleAt(i: number, i: number): Accessible;
-    getAccessibleCaption(): Accessible;
-    getAccessibleColumnDescription(i: number): Accessible;
-    getAccessibleRowDescription(i: number): Accessible;
-    getAccessibleSummary(): Accessible;
-    getAccessibleColumnHeader(): AccessibleTable;
-    getAccessibleRowHeader(): AccessibleTable;
-    setAccessibleCaption(accessible: Accessible): void;
-    setAccessibleColumnDescription(i: number, accessible: Accessible): void;
-    setAccessibleColumnHeader(accessibleTable: AccessibleTable): void;
-    setAccessibleRowDescription(i: number, accessible: Accessible): void;
-    setAccessibleRowHeader(accessibleTable: AccessibleTable): void;
-    setAccessibleSummary(accessible: Accessible): void;
-}
-
-// java.awt.event.MouseListener
-declare interface MouseListener extends EventListener {
-    mouseClicked(mouseEvent: MouseEvent): void;
-    mouseEntered(mouseEvent: MouseEvent): void;
-    mouseExited(mouseEvent: MouseEvent): void;
-    mousePressed(mouseEvent: MouseEvent): void;
-    mouseReleased(mouseEvent: MouseEvent): void;
-}
-
-// java.awt.im.InputMethodRequests
-declare interface InputMethodRequests {
-    getCommittedTextLength(): number;
-    getInsertPositionOffset(): number;
-    getTextLocation(textHitInfo: TextHitInfo): Rectangle;
-    getLocationOffset(i: number, i: number): TextHitInfo;
-    cancelLatestCommittedText(attribute: Attribute): AttributedCharacterIterator;
-    getCommittedText(i: number, i: number, attribute: Attribute): AttributedCharacterIterator;
-    getSelectedText(attribute: Attribute): AttributedCharacterIterator;
-}
-
-// java.awt.event.HierarchyListener
-declare interface HierarchyListener extends EventListener {
-    hierarchyChanged(hierarchyEvent: HierarchyEvent): void;
-}
-
-// java.text.Format$Field
-declare interface Field extends Attribute {
+// java.nio.channels.spi.SelectorProvider
+declare interface SelectorProvider {
+    openDatagramChannel(): DatagramChannel;
+    openDatagramChannel(protocolFamily: ProtocolFamily): DatagramChannel;
+    openPipe(): Pipe;
+    openServerSocketChannel(): ServerSocketChannel;
+    openSocketChannel(): SocketChannel;
+    openSelector(): AbstractSelector;
+    inheritedChannel(): Channel;
+    provider(): SelectorProvider;
 }
 
 // java.awt.event.AWTEventListener
@@ -15551,64 +15518,17 @@ declare interface AWTEventListener extends EventListener {
     eventDispatched(aWTEvent: AWTEvent): void;
 }
 
-// java.lang.Character$Subset
-declare interface Subset {
-}
-
-// javax.accessibility.AccessibleRelationSet
-declare interface AccessibleRelationSet {
-    add(accessibleRelation: AccessibleRelation): boolean;
-    contains(s: string): boolean;
-    remove(accessibleRelation: AccessibleRelation): boolean;
-    size(): number;
-    get(s: string): AccessibleRelation;
-    toArray(): AccessibleRelation[];
-    addAll(accessibleRelation: AccessibleRelation): void;
-    clear(): void;
-}
-
-// java.awt.Insets
-declare interface Insets extends Cloneable, Serializable {
-    set(i: number, i: number, i: number, i: number): void;
-    bottom: number;
-    left: number;
-    right: number;
-    top: number;
-}
-
-// java.awt.event.ComponentListener
-declare interface ComponentListener extends EventListener {
-    componentHidden(componentEvent: ComponentEvent): void;
-    componentMoved(componentEvent: ComponentEvent): void;
-    componentResized(componentEvent: ComponentEvent): void;
-    componentShown(componentEvent: ComponentEvent): void;
-}
-
-// java.beans.PropertyChangeListener
-declare interface PropertyChangeListener extends EventListener {
-    propertyChange(propertyChangeEvent: PropertyChangeEvent): void;
-}
-
-// javax.accessibility.AccessibleValue
-declare interface AccessibleValue {
-    setCurrentAccessibleValue(number: Number): boolean;
-    getCurrentAccessibleValue(): Number;
-    getMaximumAccessibleValue(): Number;
-    getMinimumAccessibleValue(): Number;
-}
-
-// java.awt.Dialog$ModalityType
-declare enum ModalityType {
-    MODELESS,
-    DOCUMENT_MODAL,
-    APPLICATION_MODAL,
-    TOOLKIT_MODAL,
-}
-
-// java.awt.PopupMenu
-declare interface PopupMenu extends Menu {
-    getParent(): MenuContainer;
-    show(component: Component, i: number, i: number): void;
+// java.awt.datatransfer.Clipboard
+declare interface Clipboard {
+    isDataFlavorAvailable(dataFlavor: DataFlavor): boolean;
+    getAvailableDataFlavors(): DataFlavor[];
+    getData(dataFlavor: DataFlavor): any;
+    getName(): string;
+    getFlavorListeners(): FlavorListener[];
+    getContents(object: any): Transferable;
+    addFlavorListener(flavorListener: FlavorListener): void;
+    removeFlavorListener(flavorListener: FlavorListener): void;
+    setContents(transferable: Transferable, clipboardOwner: ClipboardOwner): void;
 }
 
 // java.awt.dnd.DragSource
@@ -15638,169 +15558,39 @@ declare interface DragSource extends Serializable {
     DefaultMoveNoDrop: Cursor;
 }
 
-// java.awt.dnd.DragGestureRecognizer
-declare interface DragGestureRecognizer extends Serializable {
-    getDragSource(): DragSource;
-    getTriggerEvent(): InputEvent;
-    getSourceActions(): number;
-    getComponent(): Component;
-    addDragGestureListener(dragGestureListener: DragGestureListener): void;
-    removeDragGestureListener(dragGestureListener: DragGestureListener): void;
-    setComponent(component: Component): void;
-    setSourceActions(i: number): void;
-    resetRecognizer(): void;
+// java.text.Format$Field
+declare interface Field extends Attribute {
 }
 
-// java.awt.EventQueue
-declare interface EventQueue {
-    getNextEvent(): AWTEvent;
-    peekEvent(): AWTEvent;
-    peekEvent(i: number): AWTEvent;
-    createSecondaryLoop(): SecondaryLoop;
-    isDispatchThread(): boolean;
-    getCurrentEvent(): AWTEvent;
-    getMostRecentEventTime(): number;
-    invokeAndWait(runnable: Runnable): void;
-    invokeLater(runnable: Runnable): void;
-    postEvent(aWTEvent: AWTEvent): void;
-    push(eventQueue: EventQueue): void;
+// javax.accessibility.AccessibleValue
+declare interface AccessibleValue {
+    setCurrentAccessibleValue(number: Number): boolean;
+    getCurrentAccessibleValue(): Number;
+    getMaximumAccessibleValue(): Number;
+    getMinimumAccessibleValue(): Number;
 }
 
-// java.awt.dnd.DragGestureListener
-declare interface DragGestureListener extends EventListener {
-    dragGestureRecognized(dragGestureEvent: DragGestureEvent): void;
+// java.awt.event.HierarchyBoundsListener
+declare interface HierarchyBoundsListener extends EventListener {
+    ancestorMoved(hierarchyEvent: HierarchyEvent): void;
+    ancestorResized(hierarchyEvent: HierarchyEvent): void;
 }
 
-// java.awt.event.MouseMotionListener
-declare interface MouseMotionListener extends EventListener {
-    mouseDragged(mouseEvent: MouseEvent): void;
-    mouseMoved(mouseEvent: MouseEvent): void;
-}
-
-// javax.accessibility.AccessibleEditableText
-declare interface AccessibleEditableText extends AccessibleText {
-    getTextRange(i: number, i: number): string;
-    cut(i: number, i: number): void;
-    delete(i: number, i: number): void;
-    insertTextAtIndex(i: number, s: string): void;
-    paste(i: number): void;
-    replaceText(i: number, i: number, s: string): void;
-    selectText(i: number, i: number): void;
-    setAttributes(i: number, i: number, attributeSet: AttributeSet): void;
-    setTextContents(s: string): void;
-}
-
-// java.awt.Frame
-declare interface Frame extends Window, MenuContainer {
-    isResizable(): boolean;
-    isUndecorated(): boolean;
-    getCursorType(): number;
-    getExtendedState(): number;
-    getIconImage(): Image;
-    getMenuBar(): MenuBar;
-    getMaximizedBounds(): Rectangle;
-    getTitle(): string;
-    getFrames(): Frame[];
-    getState(): number;
-    setState(i: number): void;
-    remove(menuComponent: MenuComponent): void;
-    setCursor(i: number): void;
-    setExtendedState(i: number): void;
-    setMaximizedBounds(rectangle: Rectangle): void;
-    setMenuBar(menuBar: MenuBar): void;
-    setResizable(b: boolean): void;
-    setTitle(s: string): void;
-    setUndecorated(b: boolean): void;
-    CROSSHAIR_CURSOR: number;
-    DEFAULT_CURSOR: number;
-    E_RESIZE_CURSOR: number;
-    HAND_CURSOR: number;
-    ICONIFIED: number;
-    MAXIMIZED_BOTH: number;
-    MAXIMIZED_HORIZ: number;
-    MAXIMIZED_VERT: number;
-    MOVE_CURSOR: number;
-    NE_RESIZE_CURSOR: number;
-    NORMAL: number;
-    NW_RESIZE_CURSOR: number;
-    N_RESIZE_CURSOR: number;
-    SE_RESIZE_CURSOR: number;
-    SW_RESIZE_CURSOR: number;
-    S_RESIZE_CURSOR: number;
-    TEXT_CURSOR: number;
-    WAIT_CURSOR: number;
-    W_RESIZE_CURSOR: number;
-}
-
-// java.awt.PrintJob
-declare interface PrintJob {
-    lastPageFirst(): boolean;
-    getPageResolution(): number;
-    getPageDimension(): Dimension;
-    getGraphics(): Graphics;
-    end(): void;
-}
-
-// java.awt.event.ContainerListener
-declare interface ContainerListener extends EventListener {
-    componentAdded(containerEvent: ContainerEvent): void;
-    componentRemoved(containerEvent: ContainerEvent): void;
-}
-
-// java.awt.datatransfer.Clipboard
-declare interface Clipboard {
-    isDataFlavorAvailable(dataFlavor: DataFlavor): boolean;
-    getAvailableDataFlavors(): DataFlavor[];
-    getData(dataFlavor: DataFlavor): any;
-    getName(): string;
-    getFlavorListeners(): FlavorListener[];
-    getContents(object: any): Transferable;
-    addFlavorListener(flavorListener: FlavorListener): void;
-    removeFlavorListener(flavorListener: FlavorListener): void;
-    setContents(transferable: Transferable, clipboardOwner: ClipboardOwner): void;
-}
-
-// java.awt.event.FocusEvent$Cause
-declare enum Cause {
-    UNKNOWN,
-    MOUSE_EVENT,
-    TRAVERSAL,
-    TRAVERSAL_UP,
-    TRAVERSAL_DOWN,
-    TRAVERSAL_FORWARD,
-    TRAVERSAL_BACKWARD,
-    ROLLBACK,
-    UNEXPECTED,
-    ACTIVATION,
-    CLEAR_GLOBAL_FOCUS_OWNER,
-}
-
-// java.awt.event.KeyListener
-declare interface KeyListener extends EventListener {
-    keyPressed(keyEvent: KeyEvent): void;
-    keyReleased(keyEvent: KeyEvent): void;
-    keyTyped(keyEvent: KeyEvent): void;
-}
-
-// java.awt.MenuComponent
-declare interface MenuComponent extends Serializable {
-    postEvent(event: Event): boolean;
-    dispatchEvent(aWTEvent: AWTEvent): void;
-    getFont(): Font;
-    getParent(): MenuContainer;
-    getName(): string;
-    getAccessibleContext(): AccessibleContext;
-    removeNotify(): void;
-    setFont(font: Font): void;
-    setName(s: string): void;
-}
-
-// org.bukkit.entity.Mob
-declare interface Mob extends LivingEntity, Lootable {
-    isAware(): boolean;
-    getTarget(): LivingEntity;
-    setAware(b: boolean): void;
-    setTarget(livingEntity: LivingEntity): void;
+// java.nio.channels.Selector
+declare interface Selector extends Closeable {
+    isOpen(): boolean;
+    select(): number;
+    select(l: number): number;
+    selectNow(): number;
+    wakeup(): Selector;
+    provider(): SelectorProvider;
+    keys(): Set;
+    selectedKeys(): Set;
+    close(): void;
+    select(consumer: Consumer): number;
+    select(consumer: Consumer, l: number): number;
+    selectNow(consumer: Consumer): number;
+    open(): Selector;
 }
 
 // java.awt.dnd.DropTarget
@@ -15823,6 +15613,157 @@ declare interface DropTarget extends DropTargetListener, Serializable {
     removeNotify(): void;
     setDefaultActions(i: number): void;
     setFlavorMap(flavorMap: FlavorMap): void;
+}
+
+// java.awt.Insets
+declare interface Insets extends Cloneable, Serializable {
+    set(i: number, i: number, i: number, i: number): void;
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+}
+
+// java.awt.im.InputMethodHighlight
+declare interface InputMethodHighlight {
+    isSelected(): boolean;
+    getState(): number;
+    getVariation(): number;
+    getStyle(): Map;
+    CONVERTED_TEXT: number;
+    RAW_TEXT: number;
+    SELECTED_CONVERTED_TEXT_HIGHLIGHT: InputMethodHighlight;
+    SELECTED_RAW_TEXT_HIGHLIGHT: InputMethodHighlight;
+    UNSELECTED_CONVERTED_TEXT_HIGHLIGHT: InputMethodHighlight;
+    UNSELECTED_RAW_TEXT_HIGHLIGHT: InputMethodHighlight;
+}
+
+// java.awt.LayoutManager
+declare interface LayoutManager {
+    minimumLayoutSize(container: Container): Dimension;
+    preferredLayoutSize(container: Container): Dimension;
+    addLayoutComponent(s: string, component: Component): void;
+    layoutContainer(container: Container): void;
+    removeLayoutComponent(component: Component): void;
+}
+
+// java.awt.event.ContainerListener
+declare interface ContainerListener extends EventListener {
+    componentAdded(containerEvent: ContainerEvent): void;
+    componentRemoved(containerEvent: ContainerEvent): void;
+}
+
+// java.awt.AWTEvent
+declare interface AWTEvent extends EventObject {
+    getID(): number;
+    paramString(): string;
+    setSource(object: any): void;
+    RESERVED_ID_MAX: number;
+    ACTION_EVENT_MASK: number;
+    ADJUSTMENT_EVENT_MASK: number;
+    COMPONENT_EVENT_MASK: number;
+    CONTAINER_EVENT_MASK: number;
+    FOCUS_EVENT_MASK: number;
+    HIERARCHY_BOUNDS_EVENT_MASK: number;
+    HIERARCHY_EVENT_MASK: number;
+    INPUT_METHOD_EVENT_MASK: number;
+    INVOCATION_EVENT_MASK: number;
+    ITEM_EVENT_MASK: number;
+    KEY_EVENT_MASK: number;
+    MOUSE_EVENT_MASK: number;
+    MOUSE_MOTION_EVENT_MASK: number;
+    MOUSE_WHEEL_EVENT_MASK: number;
+    PAINT_EVENT_MASK: number;
+    TEXT_EVENT_MASK: number;
+    WINDOW_EVENT_MASK: number;
+    WINDOW_FOCUS_EVENT_MASK: number;
+    WINDOW_STATE_EVENT_MASK: number;
+}
+
+// javax.accessibility.AccessibleSelection
+declare interface AccessibleSelection {
+    isAccessibleChildSelected(i: number): boolean;
+    getAccessibleSelectionCount(): number;
+    getAccessibleSelection(i: number): Accessible;
+    addAccessibleSelection(i: number): void;
+    clearAccessibleSelection(): void;
+    removeAccessibleSelection(i: number): void;
+    selectAllAccessibleSelection(): void;
+}
+
+// javax.accessibility.AccessibleText
+declare interface AccessibleText {
+    getCaretPosition(): number;
+    getCharCount(): number;
+    getIndexAtPoint(point: Point): number;
+    getSelectionEnd(): number;
+    getSelectionStart(): number;
+    getCharacterBounds(i: number): Rectangle;
+    getAfterIndex(i: number, i: number): string;
+    getAtIndex(i: number, i: number): string;
+    getBeforeIndex(i: number, i: number): string;
+    getSelectedText(): string;
+    getCharacterAttribute(i: number): AttributeSet;
+    CHARACTER: number;
+    SENTENCE: number;
+    WORD: number;
+}
+
+// javax.accessibility.AccessibleEditableText
+declare interface AccessibleEditableText extends AccessibleText {
+    getTextRange(i: number, i: number): string;
+    cut(i: number, i: number): void;
+    delete(i: number, i: number): void;
+    insertTextAtIndex(i: number, s: string): void;
+    paste(i: number): void;
+    replaceText(i: number, i: number, s: string): void;
+    selectText(i: number, i: number): void;
+    setAttributes(i: number, i: number, attributeSet: AttributeSet): void;
+    setTextContents(s: string): void;
+}
+
+// javax.accessibility.AccessibleTable
+declare interface AccessibleTable {
+    isAccessibleColumnSelected(i: number): boolean;
+    isAccessibleRowSelected(i: number): boolean;
+    isAccessibleSelected(i: number, i: number): boolean;
+    getAccessibleColumnCount(): number;
+    getAccessibleColumnExtentAt(i: number, i: number): number;
+    getAccessibleRowCount(): number;
+    getAccessibleRowExtentAt(i: number, i: number): number;
+    getSelectedAccessibleColumns(): number[];
+    getSelectedAccessibleRows(): number[];
+    getAccessibleAt(i: number, i: number): Accessible;
+    getAccessibleCaption(): Accessible;
+    getAccessibleColumnDescription(i: number): Accessible;
+    getAccessibleRowDescription(i: number): Accessible;
+    getAccessibleSummary(): Accessible;
+    getAccessibleColumnHeader(): AccessibleTable;
+    getAccessibleRowHeader(): AccessibleTable;
+    setAccessibleCaption(accessible: Accessible): void;
+    setAccessibleColumnDescription(i: number, accessible: Accessible): void;
+    setAccessibleColumnHeader(accessibleTable: AccessibleTable): void;
+    setAccessibleRowDescription(i: number, accessible: Accessible): void;
+    setAccessibleRowHeader(accessibleTable: AccessibleTable): void;
+    setAccessibleSummary(accessible: Accessible): void;
+}
+
+// java.beans.PropertyChangeListener
+declare interface PropertyChangeListener extends EventListener {
+    propertyChange(propertyChangeEvent: PropertyChangeEvent): void;
+}
+
+// java.awt.MenuComponent
+declare interface MenuComponent extends Serializable {
+    postEvent(event: Event): boolean;
+    dispatchEvent(aWTEvent: AWTEvent): void;
+    getFont(): Font;
+    getParent(): MenuContainer;
+    getName(): string;
+    getAccessibleContext(): AccessibleContext;
+    removeNotify(): void;
+    setFont(font: Font): void;
+    setName(s: string): void;
 }
 
 // javax.accessibility.AccessibleRole
@@ -15892,6 +15833,215 @@ declare interface AccessibleRole extends AccessibleBundle {
     WINDOW: AccessibleRole;
 }
 
+// javax.accessibility.AccessibleStateSet
+declare interface AccessibleStateSet {
+    add(accessibleState: AccessibleState): boolean;
+    contains(accessibleState: AccessibleState): boolean;
+    remove(accessibleState: AccessibleState): boolean;
+    toArray(): AccessibleState[];
+    addAll(accessibleState: AccessibleState): void;
+    clear(): void;
+}
+
+// java.awt.event.FocusListener
+declare interface FocusListener extends EventListener {
+    focusGained(focusEvent: FocusEvent): void;
+    focusLost(focusEvent: FocusEvent): void;
+}
+
+// javax.accessibility.AccessibleAction
+declare interface AccessibleAction {
+    doAccessibleAction(i: number): boolean;
+    getAccessibleActionCount(): number;
+    getAccessibleActionDescription(i: number): string;
+    CLICK: string;
+    DECREMENT: string;
+    INCREMENT: string;
+    TOGGLE_EXPAND: string;
+    TOGGLE_POPUP: string;
+}
+
+// java.awt.event.WindowEvent
+declare interface WindowEvent extends ComponentEvent {
+    getNewState(): number;
+    getOldState(): number;
+    getOppositeWindow(): Window;
+    getWindow(): Window;
+    WINDOW_ACTIVATED: number;
+    WINDOW_CLOSED: number;
+    WINDOW_CLOSING: number;
+    WINDOW_DEACTIVATED: number;
+    WINDOW_DEICONIFIED: number;
+    WINDOW_FIRST: number;
+    WINDOW_GAINED_FOCUS: number;
+    WINDOW_ICONIFIED: number;
+    WINDOW_LAST: number;
+    WINDOW_LOST_FOCUS: number;
+    WINDOW_OPENED: number;
+    WINDOW_STATE_CHANGED: number;
+}
+
+// java.awt.dnd.DragGestureRecognizer
+declare interface DragGestureRecognizer extends Serializable {
+    getDragSource(): DragSource;
+    getTriggerEvent(): InputEvent;
+    getSourceActions(): number;
+    getComponent(): Component;
+    addDragGestureListener(dragGestureListener: DragGestureListener): void;
+    removeDragGestureListener(dragGestureListener: DragGestureListener): void;
+    setComponent(component: Component): void;
+    setSourceActions(i: number): void;
+    resetRecognizer(): void;
+}
+
+// java.awt.Component$BaselineResizeBehavior
+declare enum BaselineResizeBehavior {
+    CONSTANT_ASCENT,
+    CONSTANT_DESCENT,
+    CENTER_OFFSET,
+    OTHER,
+}
+
+// java.awt.EventQueue
+declare interface EventQueue {
+    getNextEvent(): AWTEvent;
+    peekEvent(): AWTEvent;
+    peekEvent(i: number): AWTEvent;
+    createSecondaryLoop(): SecondaryLoop;
+    isDispatchThread(): boolean;
+    getCurrentEvent(): AWTEvent;
+    getMostRecentEventTime(): number;
+    invokeAndWait(runnable: Runnable): void;
+    invokeLater(runnable: Runnable): void;
+    postEvent(aWTEvent: AWTEvent): void;
+    push(eventQueue: EventQueue): void;
+}
+
+// java.awt.MenuContainer
+declare interface MenuContainer {
+    postEvent(event: Event): boolean;
+    getFont(): Font;
+    remove(menuComponent: MenuComponent): void;
+}
+
+// java.awt.event.MouseListener
+declare interface MouseListener extends EventListener {
+    mouseClicked(mouseEvent: MouseEvent): void;
+    mouseEntered(mouseEvent: MouseEvent): void;
+    mouseExited(mouseEvent: MouseEvent): void;
+    mousePressed(mouseEvent: MouseEvent): void;
+    mouseReleased(mouseEvent: MouseEvent): void;
+}
+
+// java.awt.event.InputMethodListener
+declare interface InputMethodListener extends EventListener {
+    caretPositionChanged(inputMethodEvent: InputMethodEvent): void;
+    inputMethodTextChanged(inputMethodEvent: InputMethodEvent): void;
+}
+
+// javax.accessibility.AccessibleRelationSet
+declare interface AccessibleRelationSet {
+    add(accessibleRelation: AccessibleRelation): boolean;
+    contains(s: string): boolean;
+    remove(accessibleRelation: AccessibleRelation): boolean;
+    size(): number;
+    get(s: string): AccessibleRelation;
+    toArray(): AccessibleRelation[];
+    addAll(accessibleRelation: AccessibleRelation): void;
+    clear(): void;
+}
+
+// java.awt.dnd.DragGestureListener
+declare interface DragGestureListener extends EventListener {
+    dragGestureRecognized(dragGestureEvent: DragGestureEvent): void;
+}
+
+// java.awt.event.MouseMotionListener
+declare interface MouseMotionListener extends EventListener {
+    mouseDragged(mouseEvent: MouseEvent): void;
+    mouseMoved(mouseEvent: MouseEvent): void;
+}
+
+// javax.accessibility.AccessibleIcon
+declare interface AccessibleIcon {
+    getAccessibleIconHeight(): number;
+    getAccessibleIconWidth(): number;
+    getAccessibleIconDescription(): string;
+    setAccessibleIconDescription(s: string): void;
+}
+
+// java.awt.ComponentOrientation
+declare interface ComponentOrientation extends Serializable {
+    isHorizontal(): boolean;
+    isLeftToRight(): boolean;
+    getOrientation(locale: Locale): ComponentOrientation;
+    getOrientation(resourceBundle: ResourceBundle): ComponentOrientation;
+    LEFT_TO_RIGHT: ComponentOrientation;
+    RIGHT_TO_LEFT: ComponentOrientation;
+    UNKNOWN: ComponentOrientation;
+}
+
+// java.awt.event.KeyListener
+declare interface KeyListener extends EventListener {
+    keyPressed(keyEvent: KeyEvent): void;
+    keyReleased(keyEvent: KeyEvent): void;
+    keyTyped(keyEvent: KeyEvent): void;
+}
+
+// javax.accessibility.AccessibleComponent
+declare interface AccessibleComponent {
+    contains(point: Point): boolean;
+    isEnabled(): boolean;
+    isFocusTraversable(): boolean;
+    isShowing(): boolean;
+    isVisible(): boolean;
+    getBackground(): Color;
+    getForeground(): Color;
+    getCursor(): Cursor;
+    getSize(): Dimension;
+    getFont(): Font;
+    getFontMetrics(font: Font): FontMetrics;
+    getLocation(): Point;
+    getLocationOnScreen(): Point;
+    getBounds(): Rectangle;
+    getAccessibleAt(point: Point): Accessible;
+    addFocusListener(focusListener: FocusListener): void;
+    removeFocusListener(focusListener: FocusListener): void;
+    requestFocus(): void;
+    setBackground(color: Color): void;
+    setBounds(rectangle: Rectangle): void;
+    setCursor(cursor: Cursor): void;
+    setEnabled(b: boolean): void;
+    setFont(font: Font): void;
+    setForeground(color: Color): void;
+    setLocation(point: Point): void;
+    setSize(dimension: Dimension): void;
+    setVisible(b: boolean): void;
+}
+
+// java.awt.Dialog$ModalityType
+declare enum ModalityType {
+    MODELESS,
+    DOCUMENT_MODAL,
+    APPLICATION_MODAL,
+    TOOLKIT_MODAL,
+}
+
+// java.awt.FocusTraversalPolicy
+declare interface FocusTraversalPolicy {
+    getComponentAfter(container: Container, component: Component): Component;
+    getComponentBefore(container: Container, component: Component): Component;
+    getDefaultComponent(container: Container): Component;
+    getFirstComponent(container: Container): Component;
+    getLastComponent(container: Container): Component;
+    getInitialComponent(window: Window): Component;
+}
+
+// java.awt.event.MouseWheelListener
+declare interface MouseWheelListener extends EventListener {
+    mouseWheelMoved(mouseWheelEvent: MouseWheelEvent): void;
+}
+
 // java.nio.channels.SelectionKey
 declare interface SelectionKey {
     isValid(): boolean;
@@ -15915,44 +16065,13 @@ declare interface SelectionKey {
     OP_WRITE: number;
 }
 
-// java.awt.PageAttributes
-declare interface PageAttributes extends Cloneable {
-    getPrinterResolution(): number[];
-    getColor(): ColorType;
-    getMedia(): MediaType;
-    getOrientationRequested(): OrientationRequestedType;
-    getOrigin(): OriginType;
-    getPrintQuality(): PrintQualityType;
-    set(pageAttributes: PageAttributes): void;
-    setColor(colorType: ColorType): void;
-    setMedia(mediaType: MediaType): void;
-    setMediaToDefault(): void;
-    setOrientationRequested(i: number): void;
-    setOrientationRequested(orientationRequestedType: OrientationRequestedType): void;
-    setOrientationRequestedToDefault(): void;
-    setOrigin(originType: OriginType): void;
-    setPrintQuality(i: number): void;
-    setPrintQuality(printQualityType: PrintQualityType): void;
-    setPrintQualityToDefault(): void;
-    setPrinterResolution(i: number): void;
-    setPrinterResolution(i: number): void;
-    setPrinterResolutionToDefault(): void;
-}
-
-// java.awt.event.InputMethodListener
-declare interface InputMethodListener extends EventListener {
-    caretPositionChanged(inputMethodEvent: InputMethodEvent): void;
-    inputMethodTextChanged(inputMethodEvent: InputMethodEvent): void;
-}
-
-// javax.accessibility.AccessibleStateSet
-declare interface AccessibleStateSet {
-    add(accessibleState: AccessibleState): boolean;
-    contains(accessibleState: AccessibleState): boolean;
-    remove(accessibleState: AccessibleState): boolean;
-    toArray(): AccessibleState[];
-    addAll(accessibleState: AccessibleState): void;
-    clear(): void;
+// java.awt.PrintJob
+declare interface PrintJob {
+    lastPageFirst(): boolean;
+    getPageResolution(): number;
+    getPageDimension(): Dimension;
+    getGraphics(): Graphics;
+    end(): void;
 }
 
 // java.awt.JobAttributes
@@ -15989,275 +16108,146 @@ declare interface JobAttributes extends Cloneable {
     setToPage(i: number): void;
 }
 
-// java.awt.event.WindowEvent
-declare interface WindowEvent extends ComponentEvent {
-    getNewState(): number;
-    getOldState(): number;
-    getOppositeWindow(): Window;
-    getWindow(): Window;
-    WINDOW_ACTIVATED: number;
-    WINDOW_CLOSED: number;
-    WINDOW_CLOSING: number;
-    WINDOW_DEACTIVATED: number;
-    WINDOW_DEICONIFIED: number;
-    WINDOW_FIRST: number;
-    WINDOW_GAINED_FOCUS: number;
-    WINDOW_ICONIFIED: number;
-    WINDOW_LAST: number;
-    WINDOW_LOST_FOCUS: number;
-    WINDOW_OPENED: number;
-    WINDOW_STATE_CHANGED: number;
-}
-
-// java.nio.channels.spi.SelectorProvider
-declare interface SelectorProvider {
-    openDatagramChannel(): DatagramChannel;
-    openDatagramChannel(protocolFamily: ProtocolFamily): DatagramChannel;
-    openPipe(): Pipe;
-    openServerSocketChannel(): ServerSocketChannel;
-    openSocketChannel(): SocketChannel;
-    openSelector(): AbstractSelector;
-    inheritedChannel(): Channel;
-    provider(): SelectorProvider;
-}
-
-// java.awt.im.InputMethodHighlight
-declare interface InputMethodHighlight {
-    isSelected(): boolean;
+// java.awt.Frame
+declare interface Frame extends Window, MenuContainer {
+    isResizable(): boolean;
+    isUndecorated(): boolean;
+    getCursorType(): number;
+    getExtendedState(): number;
+    getIconImage(): Image;
+    getMenuBar(): MenuBar;
+    getMaximizedBounds(): Rectangle;
+    getTitle(): string;
+    getFrames(): Frame[];
     getState(): number;
-    getVariation(): number;
-    getStyle(): Map;
-    CONVERTED_TEXT: number;
-    RAW_TEXT: number;
-    SELECTED_CONVERTED_TEXT_HIGHLIGHT: InputMethodHighlight;
-    SELECTED_RAW_TEXT_HIGHLIGHT: InputMethodHighlight;
-    UNSELECTED_CONVERTED_TEXT_HIGHLIGHT: InputMethodHighlight;
-    UNSELECTED_RAW_TEXT_HIGHLIGHT: InputMethodHighlight;
-}
-
-// java.awt.AWTEvent
-declare interface AWTEvent extends EventObject {
-    getID(): number;
-    paramString(): string;
-    setSource(object: any): void;
-    RESERVED_ID_MAX: number;
-    ACTION_EVENT_MASK: number;
-    ADJUSTMENT_EVENT_MASK: number;
-    COMPONENT_EVENT_MASK: number;
-    CONTAINER_EVENT_MASK: number;
-    FOCUS_EVENT_MASK: number;
-    HIERARCHY_BOUNDS_EVENT_MASK: number;
-    HIERARCHY_EVENT_MASK: number;
-    INPUT_METHOD_EVENT_MASK: number;
-    INVOCATION_EVENT_MASK: number;
-    ITEM_EVENT_MASK: number;
-    KEY_EVENT_MASK: number;
-    MOUSE_EVENT_MASK: number;
-    MOUSE_MOTION_EVENT_MASK: number;
-    MOUSE_WHEEL_EVENT_MASK: number;
-    PAINT_EVENT_MASK: number;
-    TEXT_EVENT_MASK: number;
-    WINDOW_EVENT_MASK: number;
-    WINDOW_FOCUS_EVENT_MASK: number;
-    WINDOW_STATE_EVENT_MASK: number;
-}
-
-// javax.accessibility.AccessibleText
-declare interface AccessibleText {
-    getCaretPosition(): number;
-    getCharCount(): number;
-    getIndexAtPoint(point: Point): number;
-    getSelectionEnd(): number;
-    getSelectionStart(): number;
-    getCharacterBounds(i: number): Rectangle;
-    getAfterIndex(i: number, i: number): string;
-    getAtIndex(i: number, i: number): string;
-    getBeforeIndex(i: number, i: number): string;
-    getSelectedText(): string;
-    getCharacterAttribute(i: number): AttributeSet;
-    CHARACTER: number;
-    SENTENCE: number;
-    WORD: number;
-}
-
-// javax.accessibility.AccessibleAction
-declare interface AccessibleAction {
-    doAccessibleAction(i: number): boolean;
-    getAccessibleActionCount(): number;
-    getAccessibleActionDescription(i: number): string;
-    CLICK: string;
-    DECREMENT: string;
-    INCREMENT: string;
-    TOGGLE_EXPAND: string;
-    TOGGLE_POPUP: string;
-}
-
-// javax.accessibility.AccessibleSelection
-declare interface AccessibleSelection {
-    isAccessibleChildSelected(i: number): boolean;
-    getAccessibleSelectionCount(): number;
-    getAccessibleSelection(i: number): Accessible;
-    addAccessibleSelection(i: number): void;
-    clearAccessibleSelection(): void;
-    removeAccessibleSelection(i: number): void;
-    selectAllAccessibleSelection(): void;
-}
-
-// java.awt.ComponentOrientation
-declare interface ComponentOrientation extends Serializable {
-    isHorizontal(): boolean;
-    isLeftToRight(): boolean;
-    getOrientation(locale: Locale): ComponentOrientation;
-    getOrientation(resourceBundle: ResourceBundle): ComponentOrientation;
-    LEFT_TO_RIGHT: ComponentOrientation;
-    RIGHT_TO_LEFT: ComponentOrientation;
-    UNKNOWN: ComponentOrientation;
-}
-
-// java.awt.event.FocusListener
-declare interface FocusListener extends EventListener {
-    focusGained(focusEvent: FocusEvent): void;
-    focusLost(focusEvent: FocusEvent): void;
-}
-
-// java.awt.Component$BaselineResizeBehavior
-declare enum BaselineResizeBehavior {
-    CONSTANT_ASCENT,
-    CONSTANT_DESCENT,
-    CENTER_OFFSET,
-    OTHER,
-}
-
-// javax.accessibility.AccessibleComponent
-declare interface AccessibleComponent {
-    contains(point: Point): boolean;
-    isEnabled(): boolean;
-    isFocusTraversable(): boolean;
-    isShowing(): boolean;
-    isVisible(): boolean;
-    getBackground(): Color;
-    getForeground(): Color;
-    getCursor(): Cursor;
-    getSize(): Dimension;
-    getFont(): Font;
-    getFontMetrics(font: Font): FontMetrics;
-    getLocation(): Point;
-    getLocationOnScreen(): Point;
-    getBounds(): Rectangle;
-    getAccessibleAt(point: Point): Accessible;
-    addFocusListener(focusListener: FocusListener): void;
-    removeFocusListener(focusListener: FocusListener): void;
-    requestFocus(): void;
-    setBackground(color: Color): void;
-    setBounds(rectangle: Rectangle): void;
-    setCursor(cursor: Cursor): void;
-    setEnabled(b: boolean): void;
-    setFont(font: Font): void;
-    setForeground(color: Color): void;
-    setLocation(point: Point): void;
-    setSize(dimension: Dimension): void;
-    setVisible(b: boolean): void;
-}
-
-// java.nio.channels.Selector
-declare interface Selector extends Closeable {
-    isOpen(): boolean;
-    select(): number;
-    select(l: number): number;
-    selectNow(): number;
-    wakeup(): Selector;
-    provider(): SelectorProvider;
-    keys(): Set;
-    selectedKeys(): Set;
-    close(): void;
-    select(consumer: Consumer): number;
-    select(consumer: Consumer, l: number): number;
-    selectNow(consumer: Consumer): number;
-    open(): Selector;
-}
-
-// java.awt.FocusTraversalPolicy
-declare interface FocusTraversalPolicy {
-    getComponentAfter(container: Container, component: Component): Component;
-    getComponentBefore(container: Container, component: Component): Component;
-    getDefaultComponent(container: Container): Component;
-    getFirstComponent(container: Container): Component;
-    getLastComponent(container: Container): Component;
-    getInitialComponent(window: Window): Component;
-}
-
-// java.awt.MenuContainer
-declare interface MenuContainer {
-    postEvent(event: Event): boolean;
-    getFont(): Font;
+    setState(i: number): void;
     remove(menuComponent: MenuComponent): void;
+    setCursor(i: number): void;
+    setExtendedState(i: number): void;
+    setMaximizedBounds(rectangle: Rectangle): void;
+    setMenuBar(menuBar: MenuBar): void;
+    setResizable(b: boolean): void;
+    setTitle(s: string): void;
+    setUndecorated(b: boolean): void;
+    CROSSHAIR_CURSOR: number;
+    DEFAULT_CURSOR: number;
+    E_RESIZE_CURSOR: number;
+    HAND_CURSOR: number;
+    ICONIFIED: number;
+    MAXIMIZED_BOTH: number;
+    MAXIMIZED_HORIZ: number;
+    MAXIMIZED_VERT: number;
+    MOVE_CURSOR: number;
+    NE_RESIZE_CURSOR: number;
+    NORMAL: number;
+    NW_RESIZE_CURSOR: number;
+    N_RESIZE_CURSOR: number;
+    SE_RESIZE_CURSOR: number;
+    SW_RESIZE_CURSOR: number;
+    S_RESIZE_CURSOR: number;
+    TEXT_CURSOR: number;
+    WAIT_CURSOR: number;
+    W_RESIZE_CURSOR: number;
 }
 
-// javax.accessibility.AccessibleIcon
-declare interface AccessibleIcon {
-    getAccessibleIconHeight(): number;
-    getAccessibleIconWidth(): number;
-    getAccessibleIconDescription(): string;
-    setAccessibleIconDescription(s: string): void;
+// java.awt.PopupMenu
+declare interface PopupMenu extends Menu {
+    getParent(): MenuContainer;
+    show(component: Component, i: number, i: number): void;
 }
 
-// java.awt.event.HierarchyBoundsListener
-declare interface HierarchyBoundsListener extends EventListener {
-    ancestorMoved(hierarchyEvent: HierarchyEvent): void;
-    ancestorResized(hierarchyEvent: HierarchyEvent): void;
+// java.awt.event.HierarchyListener
+declare interface HierarchyListener extends EventListener {
+    hierarchyChanged(hierarchyEvent: HierarchyEvent): void;
 }
 
-// java.awt.LayoutManager
-declare interface LayoutManager {
-    minimumLayoutSize(container: Container): Dimension;
-    preferredLayoutSize(container: Container): Dimension;
-    addLayoutComponent(s: string, component: Component): void;
-    layoutContainer(container: Container): void;
-    removeLayoutComponent(component: Component): void;
+// org.bukkit.entity.Mob
+declare interface Mob extends LivingEntity, Lootable {
+    isAware(): boolean;
+    getTarget(): LivingEntity;
+    setAware(b: boolean): void;
+    setTarget(livingEntity: LivingEntity): void;
 }
 
-// java.awt.event.InputEvent
-declare interface InputEvent extends ComponentEvent {
-    isAltDown(): boolean;
-    isAltGraphDown(): boolean;
-    isConsumed(): boolean;
-    isControlDown(): boolean;
-    isMetaDown(): boolean;
-    isShiftDown(): boolean;
-    getModifiers(): number;
-    getModifiersEx(): number;
-    getWhen(): number;
-    getMaskForButton(i: number): number;
-    getModifiersExText(i: number): string;
-    consume(): void;
-    ALT_DOWN_MASK: number;
-    ALT_GRAPH_DOWN_MASK: number;
-    ALT_GRAPH_MASK: number;
-    ALT_MASK: number;
-    BUTTON1_DOWN_MASK: number;
-    BUTTON1_MASK: number;
-    BUTTON2_DOWN_MASK: number;
-    BUTTON2_MASK: number;
-    BUTTON3_DOWN_MASK: number;
-    BUTTON3_MASK: number;
-    CTRL_DOWN_MASK: number;
-    CTRL_MASK: number;
-    META_DOWN_MASK: number;
-    META_MASK: number;
-    SHIFT_DOWN_MASK: number;
-    SHIFT_MASK: number;
+// java.awt.im.InputMethodRequests
+declare interface InputMethodRequests {
+    getCommittedTextLength(): number;
+    getInsertPositionOffset(): number;
+    getTextLocation(textHitInfo: TextHitInfo): Rectangle;
+    getLocationOffset(i: number, i: number): TextHitInfo;
+    cancelLatestCommittedText(attribute: Attribute): AttributedCharacterIterator;
+    getCommittedText(i: number, i: number, attribute: Attribute): AttributedCharacterIterator;
+    getSelectedText(attribute: Attribute): AttributedCharacterIterator;
 }
 
-// java.awt.JobAttributes$DestinationType
-declare interface DestinationType extends AttributeValue {
-    FILE: DestinationType;
-    PRINTER: DestinationType;
+// java.lang.Character$Subset
+declare interface Subset {
 }
 
-// java.awt.PageAttributes$OrientationRequestedType
-declare interface OrientationRequestedType extends AttributeValue {
-    LANDSCAPE: OrientationRequestedType;
-    PORTRAIT: OrientationRequestedType;
+// java.awt.PageAttributes
+declare interface PageAttributes extends Cloneable {
+    getPrinterResolution(): number[];
+    getColor(): ColorType;
+    getMedia(): MediaType;
+    getOrientationRequested(): OrientationRequestedType;
+    getOrigin(): OriginType;
+    getPrintQuality(): PrintQualityType;
+    set(pageAttributes: PageAttributes): void;
+    setColor(colorType: ColorType): void;
+    setMedia(mediaType: MediaType): void;
+    setMediaToDefault(): void;
+    setOrientationRequested(i: number): void;
+    setOrientationRequested(orientationRequestedType: OrientationRequestedType): void;
+    setOrientationRequestedToDefault(): void;
+    setOrigin(originType: OriginType): void;
+    setPrintQuality(i: number): void;
+    setPrintQuality(printQualityType: PrintQualityType): void;
+    setPrintQualityToDefault(): void;
+    setPrinterResolution(i: number): void;
+    setPrinterResolution(i: number): void;
+    setPrinterResolutionToDefault(): void;
+}
+
+// java.awt.event.ComponentListener
+declare interface ComponentListener extends EventListener {
+    componentHidden(componentEvent: ComponentEvent): void;
+    componentMoved(componentEvent: ComponentEvent): void;
+    componentResized(componentEvent: ComponentEvent): void;
+    componentShown(componentEvent: ComponentEvent): void;
+}
+
+// java.awt.dnd.DropTargetContext
+declare interface DropTargetContext extends Serializable {
+    getComponent(): Component;
+    getDropTarget(): DropTarget;
+    dropComplete(b: boolean): void;
+}
+
+// java.awt.MenuBar
+declare interface MenuBar extends MenuComponent, MenuContainer, Accessible {
+    countMenus(): number;
+    getMenuCount(): number;
+    add(menu: Menu): Menu;
+    getHelpMenu(): Menu;
+    getMenu(i: number): Menu;
+    getShortcutMenuItem(menuShortcut: MenuShortcut): MenuItem;
+    shortcuts(): Enumeration;
+    addNotify(): void;
+    deleteShortcut(menuShortcut: MenuShortcut): void;
+    remove(i: number): void;
+    remove(menuComponent: MenuComponent): void;
+    setHelpMenu(menu: Menu): void;
+}
+
+// java.awt.event.MouseWheelEvent
+declare interface MouseWheelEvent extends MouseEvent {
+    getPreciseWheelRotation(): number;
+    getScrollAmount(): number;
+    getScrollType(): number;
+    getUnitsToScroll(): number;
+    getWheelRotation(): number;
+    WHEEL_BLOCK_SCROLL: number;
+    WHEEL_UNIT_SCROLL: number;
 }
 
 // java.awt.event.ContainerEvent
@@ -16270,12 +16260,88 @@ declare interface ContainerEvent extends ComponentEvent {
     CONTAINER_LAST: number;
 }
 
-// org.bukkit.loot.Lootable
-declare interface Lootable {
-    getSeed(): number;
-    getLootTable(): LootTable;
-    setLootTable(lootTable: LootTable): void;
-    setSeed(l: number): void;
+// java.awt.dnd.DropTargetDragEvent
+declare interface DropTargetDragEvent extends DropTargetEvent {
+    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
+    getDropAction(): number;
+    getSourceActions(): number;
+    getLocation(): Point;
+    getCurrentDataFlavors(): DataFlavor[];
+    getTransferable(): Transferable;
+    getCurrentDataFlavorsAsList(): List;
+    acceptDrag(i: number): void;
+    rejectDrag(): void;
+}
+
+// java.awt.dnd.DragSourceMotionListener
+declare interface DragSourceMotionListener extends EventListener {
+    dragMouseMoved(dragSourceDragEvent: DragSourceDragEvent): void;
+}
+
+// java.nio.channels.spi.AbstractSelector
+declare interface AbstractSelector extends Selector {
+}
+
+// java.awt.event.FocusEvent
+declare interface FocusEvent extends ComponentEvent {
+    isTemporary(): boolean;
+    getCause(): Cause;
+    getOppositeComponent(): Component;
+    FOCUS_FIRST: number;
+    FOCUS_GAINED: number;
+    FOCUS_LAST: number;
+    FOCUS_LOST: number;
+}
+
+// java.awt.JobAttributes$MultipleDocumentHandlingType
+declare interface MultipleDocumentHandlingType extends AttributeValue {
+    SEPARATE_DOCUMENTS_COLLATED_COPIES: MultipleDocumentHandlingType;
+    SEPARATE_DOCUMENTS_UNCOLLATED_COPIES: MultipleDocumentHandlingType;
+}
+
+// java.awt.dnd.DropTargetDropEvent
+declare interface DropTargetDropEvent extends DropTargetEvent {
+    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
+    isLocalTransfer(): boolean;
+    getDropAction(): number;
+    getSourceActions(): number;
+    getLocation(): Point;
+    getCurrentDataFlavors(): DataFlavor[];
+    getTransferable(): Transferable;
+    getCurrentDataFlavorsAsList(): List;
+    acceptDrop(i: number): void;
+    dropComplete(b: boolean): void;
+    rejectDrop(): void;
+}
+
+// java.awt.JobAttributes$DestinationType
+declare interface DestinationType extends AttributeValue {
+    FILE: DestinationType;
+    PRINTER: DestinationType;
+}
+
+// java.awt.datatransfer.ClipboardOwner
+declare interface ClipboardOwner {
+    lostOwnership(clipboard: Clipboard, transferable: Transferable): void;
+}
+
+// java.awt.font.TextHitInfo
+declare interface TextHitInfo {
+    equals(textHitInfo: TextHitInfo): boolean;
+    isLeadingEdge(): boolean;
+    getCharIndex(): number;
+    getInsertionIndex(): number;
+    getOffsetHit(i: number): TextHitInfo;
+    getOtherHit(): TextHitInfo;
+    afterOffset(i: number): TextHitInfo;
+    beforeOffset(i: number): TextHitInfo;
+    leading(i: number): TextHitInfo;
+    trailing(i: number): TextHitInfo;
+}
+
+// java.awt.dnd.DropTargetEvent
+declare interface DropTargetEvent extends EventObject {
+    getDropTargetContext(): DropTargetContext;
 }
 
 // java.awt.SecondaryLoop
@@ -16284,29 +16350,52 @@ declare interface SecondaryLoop {
     exit(): boolean;
 }
 
-// java.awt.dnd.DragSourceListener
-declare interface DragSourceListener extends EventListener {
-    dragDropEnd(dragSourceDropEvent: DragSourceDropEvent): void;
-    dragEnter(dragSourceDragEvent: DragSourceDragEvent): void;
-    dragExit(dragSourceEvent: DragSourceEvent): void;
-    dragOver(dragSourceDragEvent: DragSourceDragEvent): void;
-    dropActionChanged(dragSourceDragEvent: DragSourceDragEvent): void;
+// java.awt.JobAttributes$DialogType
+declare interface DialogType extends AttributeValue {
+    COMMON: DialogType;
+    NATIVE: DialogType;
+    NONE: DialogType;
 }
 
-// java.awt.event.HierarchyEvent
-declare interface HierarchyEvent extends AWTEvent {
-    getChanged(): Component;
+// java.awt.PageAttributes$ColorType
+declare interface ColorType extends AttributeValue {
+    COLOR: ColorType;
+    MONOCHROME: ColorType;
+}
+
+// java.awt.dnd.DragGestureEvent
+declare interface DragGestureEvent extends EventObject {
+    getDragAction(): number;
     getComponent(): Component;
-    getChangedParent(): Container;
-    getChangeFlags(): number;
-    ANCESTOR_MOVED: number;
-    ANCESTOR_RESIZED: number;
-    DISPLAYABILITY_CHANGED: number;
-    HIERARCHY_CHANGED: number;
-    HIERARCHY_FIRST: number;
-    HIERARCHY_LAST: number;
-    PARENT_CHANGED: number;
-    SHOWING_CHANGED: number;
+    getDragOrigin(): Point;
+    getSourceAsDragGestureRecognizer(): DragGestureRecognizer;
+    getDragSource(): DragSource;
+    getTriggerEvent(): InputEvent;
+    toArray(): any[];
+    toArray(object: any): any[];
+    iterator(): Iterator;
+    startDrag(cursor: Cursor, image: Image, point: Point, transferable: Transferable, dragSourceListener: DragSourceListener): void;
+    startDrag(cursor: Cursor, transferable: Transferable): void;
+    startDrag(cursor: Cursor, transferable: Transferable, dragSourceListener: DragSourceListener): void;
+}
+
+// java.awt.datatransfer.FlavorMap
+declare interface FlavorMap {
+    getFlavorsForNatives(s: string): Map;
+    getNativesForFlavors(dataFlavor: DataFlavor): Map;
+}
+
+// java.awt.JobAttributes$SidesType
+declare interface SidesType extends AttributeValue {
+    ONE_SIDED: SidesType;
+    TWO_SIDED_LONG_EDGE: SidesType;
+    TWO_SIDED_SHORT_EDGE: SidesType;
+}
+
+// java.awt.PageAttributes$OriginType
+declare interface OriginType extends AttributeValue {
+    PHYSICAL: OriginType;
+    PRINTABLE: OriginType;
 }
 
 // java.awt.dnd.DropTargetListener
@@ -16316,12 +16405,6 @@ declare interface DropTargetListener extends EventListener {
     dragOver(dropTargetDragEvent: DropTargetDragEvent): void;
     drop(dropTargetDropEvent: DropTargetDropEvent): void;
     dropActionChanged(dropTargetDragEvent: DropTargetDragEvent): void;
-}
-
-// java.awt.JobAttributes$MultipleDocumentHandlingType
-declare interface MultipleDocumentHandlingType extends AttributeValue {
-    SEPARATE_DOCUMENTS_COLLATED_COPIES: MultipleDocumentHandlingType;
-    SEPARATE_DOCUMENTS_UNCOLLATED_COPIES: MultipleDocumentHandlingType;
 }
 
 // javax.accessibility.AccessibleState
@@ -16357,20 +16440,54 @@ declare interface AccessibleState extends AccessibleBundle {
     VISIBLE: AccessibleState;
 }
 
-// java.awt.MenuBar
-declare interface MenuBar extends MenuComponent, MenuContainer, Accessible {
-    countMenus(): number;
-    getMenuCount(): number;
-    add(menu: Menu): Menu;
-    getHelpMenu(): Menu;
-    getMenu(i: number): Menu;
-    getShortcutMenuItem(menuShortcut: MenuShortcut): MenuItem;
-    shortcuts(): Enumeration;
-    addNotify(): void;
-    deleteShortcut(menuShortcut: MenuShortcut): void;
-    remove(i: number): void;
-    remove(menuComponent: MenuComponent): void;
-    setHelpMenu(menu: Menu): void;
+// java.awt.PageAttributes$OrientationRequestedType
+declare interface OrientationRequestedType extends AttributeValue {
+    LANDSCAPE: OrientationRequestedType;
+    PORTRAIT: OrientationRequestedType;
+}
+
+// java.awt.datatransfer.DataFlavor
+declare interface DataFlavor extends Externalizable, Cloneable {
+    equals(dataFlavor: DataFlavor): boolean;
+    equals(s: string): boolean;
+    isFlavorJavaFileListType(): boolean;
+    isFlavorRemoteObjectType(): boolean;
+    isFlavorSerializedObjectType(): boolean;
+    isFlavorTextType(): boolean;
+    isMimeTypeEqual(s: string): boolean;
+    isMimeTypeSerializedObject(): boolean;
+    isRepresentationClassByteBuffer(): boolean;
+    isRepresentationClassCharBuffer(): boolean;
+    isRepresentationClassInputStream(): boolean;
+    isRepresentationClassReader(): boolean;
+    isRepresentationClassRemote(): boolean;
+    isRepresentationClassSerializable(): boolean;
+    match(dataFlavor: DataFlavor): boolean;
+    isMimeTypeEqual(dataFlavor: DataFlavor): boolean;
+    getDefaultRepresentationClass(): Class;
+    getDefaultRepresentationClassAsString(): string;
+    getReaderForText(transferable: Transferable): Reader;
+    getRepresentationClass(): Class;
+    getHumanPresentableName(): string;
+    getMimeType(): string;
+    getParameter(s: string): string;
+    getPrimaryType(): string;
+    getSubType(): string;
+    getTextPlainUnicodeFlavor(): DataFlavor;
+    selectBestTextFlavor(dataFlavor: DataFlavor): DataFlavor;
+    readExternal(objectInput: ObjectInput): void;
+    writeExternal(objectOutput: ObjectOutput): void;
+    setHumanPresentableName(s: string): void;
+    imageFlavor: DataFlavor;
+    javaFileListFlavor: DataFlavor;
+    plainTextFlavor: DataFlavor;
+    stringFlavor: DataFlavor;
+    javaJVMLocalObjectMimeType: string;
+    javaRemoteObjectMimeType: string;
+    javaSerializedObjectMimeType: string;
+    allHtmlFlavor: DataFlavor;
+    fragmentHtmlFlavor: DataFlavor;
+    selectionHtmlFlavor: DataFlavor;
 }
 
 // java.awt.PageAttributes$PrintQualityType
@@ -16380,62 +16497,9 @@ declare interface PrintQualityType extends AttributeValue {
     NORMAL: PrintQualityType;
 }
 
-// java.awt.Menu
-declare interface Menu extends MenuItem, MenuContainer, Accessible {
-    isTearOff(): boolean;
-    countItems(): number;
-    getItemCount(): number;
-    add(menuItem: MenuItem): MenuItem;
-    getItem(i: number): MenuItem;
-    add(s: string): void;
-    addSeparator(): void;
-    insert(menuItem: MenuItem, i: number): void;
-    insert(s: string, i: number): void;
-    insertSeparator(i: number): void;
-    remove(i: number): void;
-    remove(menuComponent: MenuComponent): void;
-    removeAll(): void;
-    removeNotify(): void;
-}
-
-// java.awt.JobAttributes$SidesType
-declare interface SidesType extends AttributeValue {
-    ONE_SIDED: SidesType;
-    TWO_SIDED_LONG_EDGE: SidesType;
-    TWO_SIDED_SHORT_EDGE: SidesType;
-}
-
-// javax.swing.text.AttributeSet
-declare interface AttributeSet {
-    containsAttribute(object: any, object: any): boolean;
-    containsAttributes(attributeSet: AttributeSet): boolean;
-    isDefined(object: any): boolean;
-    isEqual(attributeSet: AttributeSet): boolean;
-    getAttributeCount(): number;
-    getAttribute(object: any): any;
-    getAttributeNames(): Enumeration;
-    copyAttributes(): AttributeSet;
-    getResolveParent(): AttributeSet;
-    NameAttribute: any;
-    ResolveAttribute: any;
-}
-
-// java.awt.dnd.DropTargetEvent
-declare interface DropTargetEvent extends EventObject {
-    getDropTargetContext(): DropTargetContext;
-}
-
-// java.awt.event.InputMethodEvent
-declare interface InputMethodEvent extends AWTEvent {
-    getCommittedCharacterCount(): number;
-    getCaret(): TextHitInfo;
-    getVisiblePosition(): TextHitInfo;
-    getText(): AttributedCharacterIterator;
-    getWhen(): number;
-    CARET_POSITION_CHANGED: number;
-    INPUT_METHOD_FIRST: number;
-    INPUT_METHOD_LAST: number;
-    INPUT_METHOD_TEXT_CHANGED: number;
+// java.awt.datatransfer.FlavorListener
+declare interface FlavorListener extends EventListener {
+    flavorsChanged(flavorEvent: FlavorEvent): void;
 }
 
 // java.nio.channels.DatagramChannel
@@ -16463,9 +16527,207 @@ declare interface DatagramChannel extends AbstractSelectableChannel, ByteChannel
     open(protocolFamily: ProtocolFamily): DatagramChannel;
 }
 
-// java.awt.dnd.DragSourceMotionListener
-declare interface DragSourceMotionListener extends EventListener {
-    dragMouseMoved(dragSourceDragEvent: DragSourceDragEvent): void;
+// java.beans.PropertyChangeEvent
+declare interface PropertyChangeEvent extends EventObject {
+    getNewValue(): any;
+    getOldValue(): any;
+    getPropagationId(): any;
+    getPropertyName(): string;
+    setPropagationId(object: any): void;
+}
+
+// java.awt.PageAttributes$MediaType
+declare interface MediaType extends AttributeValue {
+    A: MediaType;
+    A0: MediaType;
+    A1: MediaType;
+    A10: MediaType;
+    A2: MediaType;
+    A3: MediaType;
+    A4: MediaType;
+    A5: MediaType;
+    A6: MediaType;
+    A7: MediaType;
+    A8: MediaType;
+    A9: MediaType;
+    B: MediaType;
+    B0: MediaType;
+    B1: MediaType;
+    B10: MediaType;
+    B2: MediaType;
+    B3: MediaType;
+    B4: MediaType;
+    B5: MediaType;
+    B6: MediaType;
+    B7: MediaType;
+    B8: MediaType;
+    B9: MediaType;
+    C: MediaType;
+    C0: MediaType;
+    C1: MediaType;
+    C10: MediaType;
+    C2: MediaType;
+    C3: MediaType;
+    C4: MediaType;
+    C5: MediaType;
+    C6: MediaType;
+    C7: MediaType;
+    C8: MediaType;
+    C9: MediaType;
+    D: MediaType;
+    E: MediaType;
+    ENV_10: MediaType;
+    ENV_10X13: MediaType;
+    ENV_10X14: MediaType;
+    ENV_10X15: MediaType;
+    ENV_11: MediaType;
+    ENV_12: MediaType;
+    ENV_14: MediaType;
+    ENV_6X9: MediaType;
+    ENV_7X9: MediaType;
+    ENV_9: MediaType;
+    ENV_9X11: MediaType;
+    ENV_9X12: MediaType;
+    ENV_INVITE: MediaType;
+    ENV_ITALY: MediaType;
+    ENV_MONARCH: MediaType;
+    ENV_PERSONAL: MediaType;
+    EXECUTIVE: MediaType;
+    FOLIO: MediaType;
+    INVITE: MediaType;
+    INVITE_ENVELOPE: MediaType;
+    INVOICE: MediaType;
+    ISO_2A0: MediaType;
+    ISO_4A0: MediaType;
+    ISO_A0: MediaType;
+    ISO_A1: MediaType;
+    ISO_A10: MediaType;
+    ISO_A2: MediaType;
+    ISO_A3: MediaType;
+    ISO_A4: MediaType;
+    ISO_A5: MediaType;
+    ISO_A6: MediaType;
+    ISO_A7: MediaType;
+    ISO_A8: MediaType;
+    ISO_A9: MediaType;
+    ISO_B0: MediaType;
+    ISO_B1: MediaType;
+    ISO_B10: MediaType;
+    ISO_B2: MediaType;
+    ISO_B3: MediaType;
+    ISO_B4: MediaType;
+    ISO_B4_ENVELOPE: MediaType;
+    ISO_B5: MediaType;
+    ISO_B5_ENVELOPE: MediaType;
+    ISO_B6: MediaType;
+    ISO_B7: MediaType;
+    ISO_B8: MediaType;
+    ISO_B9: MediaType;
+    ISO_C0: MediaType;
+    ISO_C0_ENVELOPE: MediaType;
+    ISO_C1: MediaType;
+    ISO_C10: MediaType;
+    ISO_C10_ENVELOPE: MediaType;
+    ISO_C1_ENVELOPE: MediaType;
+    ISO_C2: MediaType;
+    ISO_C2_ENVELOPE: MediaType;
+    ISO_C3: MediaType;
+    ISO_C3_ENVELOPE: MediaType;
+    ISO_C4: MediaType;
+    ISO_C4_ENVELOPE: MediaType;
+    ISO_C5: MediaType;
+    ISO_C5_ENVELOPE: MediaType;
+    ISO_C6: MediaType;
+    ISO_C6_ENVELOPE: MediaType;
+    ISO_C7: MediaType;
+    ISO_C7_ENVELOPE: MediaType;
+    ISO_C8: MediaType;
+    ISO_C8_ENVELOPE: MediaType;
+    ISO_C9: MediaType;
+    ISO_C9_ENVELOPE: MediaType;
+    ISO_DESIGNATED_LONG: MediaType;
+    ISO_DESIGNATED_LONG_ENVELOPE: MediaType;
+    ITALY: MediaType;
+    ITALY_ENVELOPE: MediaType;
+    JIS_B0: MediaType;
+    JIS_B1: MediaType;
+    JIS_B10: MediaType;
+    JIS_B2: MediaType;
+    JIS_B3: MediaType;
+    JIS_B4: MediaType;
+    JIS_B5: MediaType;
+    JIS_B6: MediaType;
+    JIS_B7: MediaType;
+    JIS_B8: MediaType;
+    JIS_B9: MediaType;
+    LEDGER: MediaType;
+    LEGAL: MediaType;
+    LETTER: MediaType;
+    MONARCH: MediaType;
+    MONARCH_ENVELOPE: MediaType;
+    NA_10X13_ENVELOPE: MediaType;
+    NA_10X14_ENVELOPE: MediaType;
+    NA_10X15_ENVELOPE: MediaType;
+    NA_6X9_ENVELOPE: MediaType;
+    NA_7X9_ENVELOPE: MediaType;
+    NA_9X11_ENVELOPE: MediaType;
+    NA_9X12_ENVELOPE: MediaType;
+    NA_LEGAL: MediaType;
+    NA_LETTER: MediaType;
+    NA_NUMBER_10_ENVELOPE: MediaType;
+    NA_NUMBER_11_ENVELOPE: MediaType;
+    NA_NUMBER_12_ENVELOPE: MediaType;
+    NA_NUMBER_14_ENVELOPE: MediaType;
+    NA_NUMBER_9_ENVELOPE: MediaType;
+    NOTE: MediaType;
+    PERSONAL: MediaType;
+    PERSONAL_ENVELOPE: MediaType;
+    QUARTO: MediaType;
+    STATEMENT: MediaType;
+    TABLOID: MediaType;
+}
+
+// java.nio.channels.Pipe
+declare interface Pipe {
+    sink(): SinkChannel;
+    source(): SourceChannel;
+    open(): Pipe;
+}
+
+// java.awt.event.MouseEvent
+declare interface MouseEvent extends InputEvent {
+    isPopupTrigger(): boolean;
+    getButton(): number;
+    getClickCount(): number;
+    getX(): number;
+    getXOnScreen(): number;
+    getY(): number;
+    getYOnScreen(): number;
+    getLocationOnScreen(): Point;
+    getPoint(): Point;
+    paramString(): string;
+    getMouseModifiersText(i: number): string;
+    translatePoint(i: number, i: number): void;
+    BUTTON1: number;
+    BUTTON2: number;
+    BUTTON3: number;
+    MOUSE_CLICKED: number;
+    MOUSE_DRAGGED: number;
+    MOUSE_ENTERED: number;
+    MOUSE_EXITED: number;
+    MOUSE_FIRST: number;
+    MOUSE_LAST: number;
+    MOUSE_MOVED: number;
+    MOUSE_PRESSED: number;
+    MOUSE_RELEASED: number;
+    MOUSE_WHEEL: number;
+    NOBUTTON: number;
+}
+
+// javax.accessibility.AccessibleBundle
+declare interface AccessibleBundle {
+    toDisplayString(): string;
+    toDisplayString(locale: Locale): string;
 }
 
 // java.awt.JobAttributes$DefaultSelectionType
@@ -16475,15 +16737,21 @@ declare interface DefaultSelectionType extends AttributeValue {
     SELECTION: DefaultSelectionType;
 }
 
-// java.nio.channels.spi.AbstractSelector
-declare interface AbstractSelector extends Selector {
+// java.awt.dnd.DragSourceListener
+declare interface DragSourceListener extends EventListener {
+    dragDropEnd(dragSourceDropEvent: DragSourceDropEvent): void;
+    dragEnter(dragSourceDragEvent: DragSourceDragEvent): void;
+    dragExit(dragSourceEvent: DragSourceEvent): void;
+    dragOver(dragSourceDragEvent: DragSourceDragEvent): void;
+    dropActionChanged(dragSourceDragEvent: DragSourceDragEvent): void;
 }
 
-// java.awt.datatransfer.Transferable
-declare interface Transferable {
-    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
-    getTransferDataFlavors(): DataFlavor[];
-    getTransferData(dataFlavor: DataFlavor): any;
+// org.bukkit.loot.Lootable
+declare interface Lootable {
+    getSeed(): number;
+    getLootTable(): LootTable;
+    setLootTable(lootTable: LootTable): void;
+    setSeed(l: number): void;
 }
 
 // java.awt.event.KeyEvent
@@ -16702,11 +16970,116 @@ declare interface KeyEvent extends InputEvent {
     VK_Z: number;
 }
 
-// java.nio.channels.Pipe
-declare interface Pipe {
-    sink(): SinkChannel;
-    source(): SourceChannel;
-    open(): Pipe;
+// java.awt.event.HierarchyEvent
+declare interface HierarchyEvent extends AWTEvent {
+    getChanged(): Component;
+    getComponent(): Component;
+    getChangedParent(): Container;
+    getChangeFlags(): number;
+    ANCESTOR_MOVED: number;
+    ANCESTOR_RESIZED: number;
+    DISPLAYABILITY_CHANGED: number;
+    HIERARCHY_CHANGED: number;
+    HIERARCHY_FIRST: number;
+    HIERARCHY_LAST: number;
+    PARENT_CHANGED: number;
+    SHOWING_CHANGED: number;
+}
+
+// javax.swing.text.AttributeSet
+declare interface AttributeSet {
+    containsAttribute(object: any, object: any): boolean;
+    containsAttributes(attributeSet: AttributeSet): boolean;
+    isDefined(object: any): boolean;
+    isEqual(attributeSet: AttributeSet): boolean;
+    getAttributeCount(): number;
+    getAttribute(object: any): any;
+    getAttributeNames(): Enumeration;
+    copyAttributes(): AttributeSet;
+    getResolveParent(): AttributeSet;
+    NameAttribute: any;
+    ResolveAttribute: any;
+}
+
+// java.awt.Menu
+declare interface Menu extends MenuItem, MenuContainer, Accessible {
+    isTearOff(): boolean;
+    countItems(): number;
+    getItemCount(): number;
+    add(menuItem: MenuItem): MenuItem;
+    getItem(i: number): MenuItem;
+    add(s: string): void;
+    addSeparator(): void;
+    insert(menuItem: MenuItem, i: number): void;
+    insert(s: string, i: number): void;
+    insertSeparator(i: number): void;
+    remove(i: number): void;
+    remove(menuComponent: MenuComponent): void;
+    removeAll(): void;
+    removeNotify(): void;
+}
+
+// java.awt.event.InputMethodEvent
+declare interface InputMethodEvent extends AWTEvent {
+    getCommittedCharacterCount(): number;
+    getCaret(): TextHitInfo;
+    getVisiblePosition(): TextHitInfo;
+    getText(): AttributedCharacterIterator;
+    getWhen(): number;
+    CARET_POSITION_CHANGED: number;
+    INPUT_METHOD_FIRST: number;
+    INPUT_METHOD_LAST: number;
+    INPUT_METHOD_TEXT_CHANGED: number;
+}
+
+// java.awt.datatransfer.Transferable
+declare interface Transferable {
+    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
+    getTransferDataFlavors(): DataFlavor[];
+    getTransferData(dataFlavor: DataFlavor): any;
+}
+
+// java.awt.event.InputEvent
+declare interface InputEvent extends ComponentEvent {
+    isAltDown(): boolean;
+    isAltGraphDown(): boolean;
+    isConsumed(): boolean;
+    isControlDown(): boolean;
+    isMetaDown(): boolean;
+    isShiftDown(): boolean;
+    getModifiers(): number;
+    getModifiersEx(): number;
+    getWhen(): number;
+    getMaskForButton(i: number): number;
+    getModifiersExText(i: number): string;
+    consume(): void;
+    ALT_DOWN_MASK: number;
+    ALT_GRAPH_DOWN_MASK: number;
+    ALT_GRAPH_MASK: number;
+    ALT_MASK: number;
+    BUTTON1_DOWN_MASK: number;
+    BUTTON1_MASK: number;
+    BUTTON2_DOWN_MASK: number;
+    BUTTON2_MASK: number;
+    BUTTON3_DOWN_MASK: number;
+    BUTTON3_MASK: number;
+    CTRL_DOWN_MASK: number;
+    CTRL_MASK: number;
+    META_DOWN_MASK: number;
+    META_MASK: number;
+    SHIFT_DOWN_MASK: number;
+    SHIFT_MASK: number;
+}
+
+// java.awt.event.ComponentEvent
+declare interface ComponentEvent extends AWTEvent {
+    getComponent(): Component;
+    COMPONENT_FIRST: number;
+    COMPONENT_HIDDEN: number;
+    COMPONENT_LAST: number;
+    COMPONENT_MOVED: number;
+    COMPONENT_RESIZED: number;
+    COMPONENT_SHOWN: number;
 }
 
 // javax.accessibility.AccessibleRelation
@@ -16741,382 +17114,9 @@ declare interface AccessibleRelation extends AccessibleBundle {
     SUBWINDOW_OF_PROPERTY: string;
 }
 
-// java.awt.event.FocusEvent
-declare interface FocusEvent extends ComponentEvent {
-    isTemporary(): boolean;
-    getCause(): Cause;
-    getOppositeComponent(): Component;
-    FOCUS_FIRST: number;
-    FOCUS_GAINED: number;
-    FOCUS_LAST: number;
-    FOCUS_LOST: number;
-}
-
-// java.awt.event.ComponentEvent
-declare interface ComponentEvent extends AWTEvent {
-    getComponent(): Component;
-    COMPONENT_FIRST: number;
-    COMPONENT_HIDDEN: number;
-    COMPONENT_LAST: number;
-    COMPONENT_MOVED: number;
-    COMPONENT_RESIZED: number;
-    COMPONENT_SHOWN: number;
-}
-
-// java.awt.event.MouseWheelEvent
-declare interface MouseWheelEvent extends MouseEvent {
-    getPreciseWheelRotation(): number;
-    getScrollAmount(): number;
-    getScrollType(): number;
-    getUnitsToScroll(): number;
-    getWheelRotation(): number;
-    WHEEL_BLOCK_SCROLL: number;
-    WHEEL_UNIT_SCROLL: number;
-}
-
-// java.awt.datatransfer.FlavorListener
-declare interface FlavorListener extends EventListener {
-    flavorsChanged(flavorEvent: FlavorEvent): void;
-}
-
 // java.net.ProtocolFamily
 declare interface ProtocolFamily {
     name(): string;
-}
-
-// java.awt.font.TextHitInfo
-declare interface TextHitInfo {
-    equals(textHitInfo: TextHitInfo): boolean;
-    isLeadingEdge(): boolean;
-    getCharIndex(): number;
-    getInsertionIndex(): number;
-    getOffsetHit(i: number): TextHitInfo;
-    getOtherHit(): TextHitInfo;
-    afterOffset(i: number): TextHitInfo;
-    beforeOffset(i: number): TextHitInfo;
-    leading(i: number): TextHitInfo;
-    trailing(i: number): TextHitInfo;
-}
-
-// java.awt.dnd.DropTargetDropEvent
-declare interface DropTargetDropEvent extends DropTargetEvent {
-    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
-    isLocalTransfer(): boolean;
-    getDropAction(): number;
-    getSourceActions(): number;
-    getLocation(): Point;
-    getCurrentDataFlavors(): DataFlavor[];
-    getTransferable(): Transferable;
-    getCurrentDataFlavorsAsList(): List;
-    acceptDrop(i: number): void;
-    dropComplete(b: boolean): void;
-    rejectDrop(): void;
-}
-
-// java.awt.datatransfer.ClipboardOwner
-declare interface ClipboardOwner {
-    lostOwnership(clipboard: Clipboard, transferable: Transferable): void;
-}
-
-// java.awt.PageAttributes$OriginType
-declare interface OriginType extends AttributeValue {
-    PHYSICAL: OriginType;
-    PRINTABLE: OriginType;
-}
-
-// java.awt.datatransfer.FlavorMap
-declare interface FlavorMap {
-    getFlavorsForNatives(s: string): Map;
-    getNativesForFlavors(dataFlavor: DataFlavor): Map;
-}
-
-// java.awt.PageAttributes$MediaType
-declare interface MediaType extends AttributeValue {
-    A: MediaType;
-    A0: MediaType;
-    A1: MediaType;
-    A10: MediaType;
-    A2: MediaType;
-    A3: MediaType;
-    A4: MediaType;
-    A5: MediaType;
-    A6: MediaType;
-    A7: MediaType;
-    A8: MediaType;
-    A9: MediaType;
-    B: MediaType;
-    B0: MediaType;
-    B1: MediaType;
-    B10: MediaType;
-    B2: MediaType;
-    B3: MediaType;
-    B4: MediaType;
-    B5: MediaType;
-    B6: MediaType;
-    B7: MediaType;
-    B8: MediaType;
-    B9: MediaType;
-    C: MediaType;
-    C0: MediaType;
-    C1: MediaType;
-    C10: MediaType;
-    C2: MediaType;
-    C3: MediaType;
-    C4: MediaType;
-    C5: MediaType;
-    C6: MediaType;
-    C7: MediaType;
-    C8: MediaType;
-    C9: MediaType;
-    D: MediaType;
-    E: MediaType;
-    ENV_10: MediaType;
-    ENV_10X13: MediaType;
-    ENV_10X14: MediaType;
-    ENV_10X15: MediaType;
-    ENV_11: MediaType;
-    ENV_12: MediaType;
-    ENV_14: MediaType;
-    ENV_6X9: MediaType;
-    ENV_7X9: MediaType;
-    ENV_9: MediaType;
-    ENV_9X11: MediaType;
-    ENV_9X12: MediaType;
-    ENV_INVITE: MediaType;
-    ENV_ITALY: MediaType;
-    ENV_MONARCH: MediaType;
-    ENV_PERSONAL: MediaType;
-    EXECUTIVE: MediaType;
-    FOLIO: MediaType;
-    INVITE: MediaType;
-    INVITE_ENVELOPE: MediaType;
-    INVOICE: MediaType;
-    ISO_2A0: MediaType;
-    ISO_4A0: MediaType;
-    ISO_A0: MediaType;
-    ISO_A1: MediaType;
-    ISO_A10: MediaType;
-    ISO_A2: MediaType;
-    ISO_A3: MediaType;
-    ISO_A4: MediaType;
-    ISO_A5: MediaType;
-    ISO_A6: MediaType;
-    ISO_A7: MediaType;
-    ISO_A8: MediaType;
-    ISO_A9: MediaType;
-    ISO_B0: MediaType;
-    ISO_B1: MediaType;
-    ISO_B10: MediaType;
-    ISO_B2: MediaType;
-    ISO_B3: MediaType;
-    ISO_B4: MediaType;
-    ISO_B4_ENVELOPE: MediaType;
-    ISO_B5: MediaType;
-    ISO_B5_ENVELOPE: MediaType;
-    ISO_B6: MediaType;
-    ISO_B7: MediaType;
-    ISO_B8: MediaType;
-    ISO_B9: MediaType;
-    ISO_C0: MediaType;
-    ISO_C0_ENVELOPE: MediaType;
-    ISO_C1: MediaType;
-    ISO_C10: MediaType;
-    ISO_C10_ENVELOPE: MediaType;
-    ISO_C1_ENVELOPE: MediaType;
-    ISO_C2: MediaType;
-    ISO_C2_ENVELOPE: MediaType;
-    ISO_C3: MediaType;
-    ISO_C3_ENVELOPE: MediaType;
-    ISO_C4: MediaType;
-    ISO_C4_ENVELOPE: MediaType;
-    ISO_C5: MediaType;
-    ISO_C5_ENVELOPE: MediaType;
-    ISO_C6: MediaType;
-    ISO_C6_ENVELOPE: MediaType;
-    ISO_C7: MediaType;
-    ISO_C7_ENVELOPE: MediaType;
-    ISO_C8: MediaType;
-    ISO_C8_ENVELOPE: MediaType;
-    ISO_C9: MediaType;
-    ISO_C9_ENVELOPE: MediaType;
-    ISO_DESIGNATED_LONG: MediaType;
-    ISO_DESIGNATED_LONG_ENVELOPE: MediaType;
-    ITALY: MediaType;
-    ITALY_ENVELOPE: MediaType;
-    JIS_B0: MediaType;
-    JIS_B1: MediaType;
-    JIS_B10: MediaType;
-    JIS_B2: MediaType;
-    JIS_B3: MediaType;
-    JIS_B4: MediaType;
-    JIS_B5: MediaType;
-    JIS_B6: MediaType;
-    JIS_B7: MediaType;
-    JIS_B8: MediaType;
-    JIS_B9: MediaType;
-    LEDGER: MediaType;
-    LEGAL: MediaType;
-    LETTER: MediaType;
-    MONARCH: MediaType;
-    MONARCH_ENVELOPE: MediaType;
-    NA_10X13_ENVELOPE: MediaType;
-    NA_10X14_ENVELOPE: MediaType;
-    NA_10X15_ENVELOPE: MediaType;
-    NA_6X9_ENVELOPE: MediaType;
-    NA_7X9_ENVELOPE: MediaType;
-    NA_9X11_ENVELOPE: MediaType;
-    NA_9X12_ENVELOPE: MediaType;
-    NA_LEGAL: MediaType;
-    NA_LETTER: MediaType;
-    NA_NUMBER_10_ENVELOPE: MediaType;
-    NA_NUMBER_11_ENVELOPE: MediaType;
-    NA_NUMBER_12_ENVELOPE: MediaType;
-    NA_NUMBER_14_ENVELOPE: MediaType;
-    NA_NUMBER_9_ENVELOPE: MediaType;
-    NOTE: MediaType;
-    PERSONAL: MediaType;
-    PERSONAL_ENVELOPE: MediaType;
-    QUARTO: MediaType;
-    STATEMENT: MediaType;
-    TABLOID: MediaType;
-}
-
-// java.awt.dnd.DragGestureEvent
-declare interface DragGestureEvent extends EventObject {
-    getDragAction(): number;
-    getComponent(): Component;
-    getDragOrigin(): Point;
-    getSourceAsDragGestureRecognizer(): DragGestureRecognizer;
-    getDragSource(): DragSource;
-    getTriggerEvent(): InputEvent;
-    toArray(): any[];
-    toArray(object: any): any[];
-    iterator(): Iterator;
-    startDrag(cursor: Cursor, image: Image, point: Point, transferable: Transferable, dragSourceListener: DragSourceListener): void;
-    startDrag(cursor: Cursor, transferable: Transferable): void;
-    startDrag(cursor: Cursor, transferable: Transferable, dragSourceListener: DragSourceListener): void;
-}
-
-// java.awt.datatransfer.DataFlavor
-declare interface DataFlavor extends Externalizable, Cloneable {
-    equals(dataFlavor: DataFlavor): boolean;
-    equals(s: string): boolean;
-    isFlavorJavaFileListType(): boolean;
-    isFlavorRemoteObjectType(): boolean;
-    isFlavorSerializedObjectType(): boolean;
-    isFlavorTextType(): boolean;
-    isMimeTypeEqual(s: string): boolean;
-    isMimeTypeSerializedObject(): boolean;
-    isRepresentationClassByteBuffer(): boolean;
-    isRepresentationClassCharBuffer(): boolean;
-    isRepresentationClassInputStream(): boolean;
-    isRepresentationClassReader(): boolean;
-    isRepresentationClassRemote(): boolean;
-    isRepresentationClassSerializable(): boolean;
-    match(dataFlavor: DataFlavor): boolean;
-    isMimeTypeEqual(dataFlavor: DataFlavor): boolean;
-    getDefaultRepresentationClass(): Class;
-    getDefaultRepresentationClassAsString(): string;
-    getReaderForText(transferable: Transferable): Reader;
-    getRepresentationClass(): Class;
-    getHumanPresentableName(): string;
-    getMimeType(): string;
-    getParameter(s: string): string;
-    getPrimaryType(): string;
-    getSubType(): string;
-    getTextPlainUnicodeFlavor(): DataFlavor;
-    selectBestTextFlavor(dataFlavor: DataFlavor): DataFlavor;
-    readExternal(objectInput: ObjectInput): void;
-    writeExternal(objectOutput: ObjectOutput): void;
-    setHumanPresentableName(s: string): void;
-    imageFlavor: DataFlavor;
-    javaFileListFlavor: DataFlavor;
-    plainTextFlavor: DataFlavor;
-    stringFlavor: DataFlavor;
-    javaJVMLocalObjectMimeType: string;
-    javaRemoteObjectMimeType: string;
-    javaSerializedObjectMimeType: string;
-    allHtmlFlavor: DataFlavor;
-    fragmentHtmlFlavor: DataFlavor;
-    selectionHtmlFlavor: DataFlavor;
-}
-
-// java.awt.JobAttributes$DialogType
-declare interface DialogType extends AttributeValue {
-    COMMON: DialogType;
-    NATIVE: DialogType;
-    NONE: DialogType;
-}
-
-// javax.accessibility.AccessibleBundle
-declare interface AccessibleBundle {
-    toDisplayString(): string;
-    toDisplayString(locale: Locale): string;
-}
-
-// java.beans.PropertyChangeEvent
-declare interface PropertyChangeEvent extends EventObject {
-    getNewValue(): any;
-    getOldValue(): any;
-    getPropagationId(): any;
-    getPropertyName(): string;
-    setPropagationId(object: any): void;
-}
-
-// java.awt.dnd.DropTargetDragEvent
-declare interface DropTargetDragEvent extends DropTargetEvent {
-    isDataFlavorSupported(dataFlavor: DataFlavor): boolean;
-    getDropAction(): number;
-    getSourceActions(): number;
-    getLocation(): Point;
-    getCurrentDataFlavors(): DataFlavor[];
-    getTransferable(): Transferable;
-    getCurrentDataFlavorsAsList(): List;
-    acceptDrag(i: number): void;
-    rejectDrag(): void;
-}
-
-// java.awt.dnd.DropTargetContext
-declare interface DropTargetContext extends Serializable {
-    getComponent(): Component;
-    getDropTarget(): DropTarget;
-    dropComplete(b: boolean): void;
-}
-
-// java.awt.PageAttributes$ColorType
-declare interface ColorType extends AttributeValue {
-    COLOR: ColorType;
-    MONOCHROME: ColorType;
-}
-
-// java.awt.event.MouseEvent
-declare interface MouseEvent extends InputEvent {
-    isPopupTrigger(): boolean;
-    getButton(): number;
-    getClickCount(): number;
-    getX(): number;
-    getXOnScreen(): number;
-    getY(): number;
-    getYOnScreen(): number;
-    getLocationOnScreen(): Point;
-    getPoint(): Point;
-    paramString(): string;
-    getMouseModifiersText(i: number): string;
-    translatePoint(i: number, i: number): void;
-    BUTTON1: number;
-    BUTTON2: number;
-    BUTTON3: number;
-    MOUSE_CLICKED: number;
-    MOUSE_DRAGGED: number;
-    MOUSE_ENTERED: number;
-    MOUSE_EXITED: number;
-    MOUSE_FIRST: number;
-    MOUSE_LAST: number;
-    MOUSE_MOVED: number;
-    MOUSE_PRESSED: number;
-    MOUSE_RELEASED: number;
-    MOUSE_WHEEL: number;
-    NOBUTTON: number;
 }
 
 // java.awt.dnd.DragSourceDragEvent
@@ -17128,65 +17128,12 @@ declare interface DragSourceDragEvent extends DragSourceEvent {
     getUserAction(): number;
 }
 
-// java.io.ObjectOutput
-declare interface ObjectOutput extends DataOutput, AutoCloseable {
-    close(): void;
-    flush(): void;
-    write(b: number): void;
-    write(b: number, i: number, i: number): void;
-    write(i: number): void;
-    writeObject(object: any): void;
-}
-
-// java.nio.channels.Pipe$SourceChannel
-declare interface SourceChannel extends AbstractSelectableChannel, ReadableByteChannel, ScatteringByteChannel {
-    validOps(): number;
-}
-
-// java.io.Externalizable
-declare interface Externalizable extends Serializable {
-    readExternal(objectInput: ObjectInput): void;
-    writeExternal(objectOutput: ObjectOutput): void;
-}
-
-// java.io.ObjectInput
-declare interface ObjectInput extends DataInput, AutoCloseable {
-    available(): number;
-    read(): number;
-    read(b: number): number;
-    read(b: number, i: number, i: number): number;
-    readObject(): any;
-    skip(l: number): number;
-    close(): void;
-}
-
-// java.nio.channels.Pipe$SinkChannel
-declare interface SinkChannel extends AbstractSelectableChannel, WritableByteChannel, GatheringByteChannel {
-    validOps(): number;
-}
-
-// java.awt.MenuShortcut
-declare interface MenuShortcut extends Serializable {
-    equals(menuShortcut: MenuShortcut): boolean;
-    usesShiftModifier(): boolean;
-    getKey(): number;
-}
-
-// java.awt.datatransfer.FlavorEvent
-declare interface FlavorEvent extends EventObject {
-}
-
-// java.awt.dnd.DragSourceDropEvent
-declare interface DragSourceDropEvent extends DragSourceEvent {
-    getDropSuccess(): boolean;
-    getDropAction(): number;
-}
-
-// java.nio.channels.MulticastChannel
-declare interface MulticastChannel extends NetworkChannel {
-    join(inetAddress: InetAddress, networkInterface: NetworkInterface): MembershipKey;
-    join(inetAddress: InetAddress, networkInterface: NetworkInterface, inetAddress: InetAddress): MembershipKey;
-    close(): void;
+// java.awt.dnd.DragSourceEvent
+declare interface DragSourceEvent extends EventObject {
+    getX(): number;
+    getY(): number;
+    getLocation(): Point;
+    getDragSourceContext(): DragSourceContext;
 }
 
 // java.net.DatagramSocket
@@ -17226,6 +17173,17 @@ declare interface DatagramSocket extends Closeable {
     send(datagramPacket: DatagramPacket): void;
 }
 
+// java.nio.channels.Pipe$SourceChannel
+declare interface SourceChannel extends AbstractSelectableChannel, ReadableByteChannel, ScatteringByteChannel {
+    validOps(): number;
+}
+
+// java.awt.dnd.DragSourceDropEvent
+declare interface DragSourceDropEvent extends DragSourceEvent {
+    getDropSuccess(): boolean;
+    getDropAction(): number;
+}
+
 // java.awt.MenuItem
 declare interface MenuItem extends MenuComponent, Accessible {
     isEnabled(): boolean;
@@ -17247,12 +17205,54 @@ declare interface MenuItem extends MenuComponent, Accessible {
     setShortcut(menuShortcut: MenuShortcut): void;
 }
 
-// java.awt.dnd.DragSourceEvent
-declare interface DragSourceEvent extends EventObject {
-    getX(): number;
-    getY(): number;
-    getLocation(): Point;
-    getDragSourceContext(): DragSourceContext;
+// java.nio.channels.MulticastChannel
+declare interface MulticastChannel extends NetworkChannel {
+    join(inetAddress: InetAddress, networkInterface: NetworkInterface): MembershipKey;
+    join(inetAddress: InetAddress, networkInterface: NetworkInterface, inetAddress: InetAddress): MembershipKey;
+    close(): void;
+}
+
+// java.io.ObjectInput
+declare interface ObjectInput extends DataInput, AutoCloseable {
+    available(): number;
+    read(): number;
+    read(b: number): number;
+    read(b: number, i: number, i: number): number;
+    readObject(): any;
+    skip(l: number): number;
+    close(): void;
+}
+
+// java.nio.channels.Pipe$SinkChannel
+declare interface SinkChannel extends AbstractSelectableChannel, WritableByteChannel, GatheringByteChannel {
+    validOps(): number;
+}
+
+// java.awt.MenuShortcut
+declare interface MenuShortcut extends Serializable {
+    equals(menuShortcut: MenuShortcut): boolean;
+    usesShiftModifier(): boolean;
+    getKey(): number;
+}
+
+// java.io.ObjectOutput
+declare interface ObjectOutput extends DataOutput, AutoCloseable {
+    close(): void;
+    flush(): void;
+    write(b: number): void;
+    write(b: number, i: number, i: number): void;
+    write(i: number): void;
+    writeObject(object: any): void;
+}
+
+// java.awt.datatransfer.FlavorEvent
+declare interface FlavorEvent extends EventObject {
+}
+
+// java.io.Externalizable
+declare interface Externalizable extends Serializable {
+    readExternal(objectInput: ObjectInput): void;
+    writeExternal(objectOutput: ObjectOutput): void;
 }
 
 // java.io.DataInput
@@ -17318,18 +17318,6 @@ declare interface DatagramSocketImplFactory {
     createDatagramSocketImpl(): DatagramSocketImpl;
 }
 
-// java.nio.channels.MembershipKey
-declare interface MembershipKey {
-    isValid(): boolean;
-    group(): InetAddress;
-    sourceAddress(): InetAddress;
-    networkInterface(): NetworkInterface;
-    block(inetAddress: InetAddress): MembershipKey;
-    unblock(inetAddress: InetAddress): MembershipKey;
-    channel(): MulticastChannel;
-    drop(): void;
-}
-
 // java.awt.dnd.DragSourceContext
 declare interface DragSourceContext extends DragSourceListener, DragSourceMotionListener, Serializable {
     getSourceActions(): number;
@@ -17348,6 +17336,18 @@ declare interface DragSourceContext extends DragSourceListener, DragSourceMotion
     dragOver(dragSourceDragEvent: DragSourceDragEvent): void;
     dropActionChanged(dragSourceDragEvent: DragSourceDragEvent): void;
     transferablesFlavorsChanged(): void;
+}
+
+// java.nio.channels.MembershipKey
+declare interface MembershipKey {
+    isValid(): boolean;
+    group(): InetAddress;
+    sourceAddress(): InetAddress;
+    networkInterface(): NetworkInterface;
+    block(inetAddress: InetAddress): MembershipKey;
+    unblock(inetAddress: InetAddress): MembershipKey;
+    channel(): MulticastChannel;
+    drop(): void;
 }
 
 // java.awt.event.ActionEvent
