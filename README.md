@@ -65,7 +65,7 @@ Additional global variables:
 - `logger`: instance of `java.util.logging.Logger`
 - `server`: instance of `org.bukkit.Server`
 
-Demo project: [bukkit-example](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example)
+Demo project: [bukkit-example-groovy](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example-groovy), [bukkit-example-javascript](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example-javascript)
 
 ### Bungee
 
