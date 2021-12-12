@@ -49,10 +49,10 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @Override
     public Map<String, Object> getDefaultBindings(ScriptHelper scriptHelper) {
         return Map.of(
-                "script", scriptHelper,
-                "plugin", this,
-                "logger", new ScriptLoggerWrapper(this.getLogger(), scriptHelper.getName()),
-                "server", this.getServer()
+            "script", scriptHelper,
+            "plugin", this,
+            "logger", new ScriptLoggerWrapper(this.getLogger(), scriptHelper.getName()),
+            "server", this.getServer()
         );
     }
 
@@ -94,10 +94,11 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
                 return Files.list(scriptFolder)
-                        .map(Path::getFileName)
-                        .map(Path::toString)
-                        .filter(name -> !loaded.contains(name));
-            } catch (IOException ignored) {
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .filter(name -> !loaded.contains(name));
+            }
+            catch (IOException ignored) {
                 return Stream.of();
             }
         }));
@@ -114,9 +115,9 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
         // basic a.k.a. default languages
         ScriptManager scriptManager = ScriptManagerImpl.create()
-                .register("groovy", new BukkitGroovyServiceImpl(this))
-                .register("js", new BukkitGraalServiceImpl(this, "js"))
-                .register("py", new BukkitPythonServiceImpl(this));
+            .register("groovy", new BukkitGroovyServiceImpl(this))
+            .register("js", new BukkitGraalServiceImpl(this, "js"))
+            .register("py", new BukkitPythonServiceImpl(this));
 
         // additional supported by graal
         Engine.create().getLanguages().forEach((extension, lang) -> {

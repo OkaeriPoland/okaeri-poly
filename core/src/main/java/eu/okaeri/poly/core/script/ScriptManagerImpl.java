@@ -31,9 +31,9 @@ public class ScriptManagerImpl implements ScriptManager {
     @Override
     public Set<String> listLoaded() {
         return this.services.values().stream()
-                .map(ScriptService::listLoaded)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+            .map(ScriptService::listLoaded)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toSet());
     }
 
     @Override

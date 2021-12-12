@@ -1,9 +1,9 @@
 package eu.okaeri.poly.bukkit.command;
 
 import eu.okaeri.commands.annotation.Arg;
+import eu.okaeri.commands.annotation.Command;
 import eu.okaeri.commands.annotation.Completion;
 import eu.okaeri.commands.annotation.Executor;
-import eu.okaeri.commands.annotation.Command;
 import eu.okaeri.commands.bukkit.annotation.Permission;
 import eu.okaeri.commands.service.CommandService;
 import eu.okaeri.injector.annotation.Inject;
