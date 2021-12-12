@@ -68,15 +68,15 @@ public abstract class BukkitScriptHelperImpl implements BukkitScriptHelper {
         this.getScriptTasks().forEach(BukkitTask::cancel);
 
         this.getScriptChannelListeners().stream()
-                .map(ScriptPluginMessageExecutor.class::cast)
-                .forEach(executor -> this.plugin.getServer().getMessenger().unregisterIncomingPluginChannel(this.plugin, executor.getChannelName(), executor));
+            .map(ScriptPluginMessageExecutor.class::cast)
+            .forEach(executor -> this.plugin.getServer().getMessenger().unregisterIncomingPluginChannel(this.plugin, executor.getChannelName(), executor));
 
         CommandMap commandMap = CommandsBukkitUnsafe.getCommandMap();
         this.getScriptCommands().stream()
-                .map(commandMap::getCommand)
-                .filter(Objects::nonNull)
-                .map(Command::getName)
-                .forEach(CommandsBukkitUnsafe::unregister);
+            .map(commandMap::getCommand)
+            .filter(Objects::nonNull)
+            .map(Command::getName)
+            .forEach(CommandsBukkitUnsafe::unregister);
     }
 
     @Override

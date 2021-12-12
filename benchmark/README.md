@@ -1,4 +1,5 @@
 ## Results
+
 ```console
 # JDK 11, Windows 11, Ryzen 5 3600
 #
@@ -14,6 +15,7 @@ BenchmarkScriptingMatmul.groovy_matmul_compile_static  thrpt    3  1662,161 ±  
 BenchmarkScriptingMatmul.jython_matmul                 thrpt    3    12,974 ±    0,131  ops/s
 BenchmarkScriptingMatmul.native_matmul                 thrpt    3  1739,149 ± 1514,806  ops/s
 ```
+
 ```console
 # JDK 11, Windows 11, Ryzen 5 3600
 #

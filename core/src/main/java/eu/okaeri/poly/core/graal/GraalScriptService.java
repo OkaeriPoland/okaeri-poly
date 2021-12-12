@@ -24,10 +24,10 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
 
     protected Context createContext() {
         return Context.newBuilder(languageId)
-                .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
-                .allowHostClassLookup(className -> true)
-                .allowHostAccess(HostAccess.ALL)
-                .build();
+            .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
+            .allowHostClassLookup(className -> true)
+            .allowHostAccess(HostAccess.ALL)
+            .build();
     }
 
     @Override

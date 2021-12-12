@@ -23,8 +23,8 @@ public class TestPoly {
     public void test_basic_graal_context() {
 
         @Cleanup Context context = Context.newBuilder("js")
-                .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
-                .build();
+            .option("engine.WarnInterpreterOnly", (DEBUG ? "true" : "false"))
+            .build();
         context.eval(Source.newBuilder("js", "const a = 1 + 1", "src.js").build());
         Value result = context.getBindings("js").getMember("a");
 
