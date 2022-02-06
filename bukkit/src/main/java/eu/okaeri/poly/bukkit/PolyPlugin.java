@@ -23,12 +23,10 @@ import eu.okaeri.poly.core.script.ScriptLoggerWrapper;
 import eu.okaeri.poly.core.script.ScriptManagerImpl;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.graalvm.polyglot.Engine;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -75,14 +73,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @SneakyThrows
     @Planned(ExecutionPhase.SETUP)
     private void setupClassLoader() {
-
-        // get url
-        Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
-        getFile.setAccessible(true);
-        File jar = (File) getFile.invoke(this);
-
-        // replace context classloader
-        URL[] urls = {jar.toURI().toURL()};
+        URL[] urls = {this.getFile().toURI().toURL()};
         PolyClassLoader loader = new PolyClassLoader(urls, this.getClassLoader());
         Thread.currentThread().setContextClassLoader(loader);
     }
