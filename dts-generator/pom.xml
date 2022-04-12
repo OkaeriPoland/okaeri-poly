@@ -15,6 +15,7 @@
         <module>mc1_13_2</module>
         <module>mc1_16_5</module>
         <module>mc1_17_1</module>
+        <module>mc1_18_2</module>
     </modules>
 
     <properties>
@@ -74,6 +75,10 @@
         <repository>
             <id>okaeri-repo</id>
             <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 

@@ -11,20 +11,26 @@ public class CommonGenerator {
 
     public DefinitionGenerator defaults() {
         return new DefinitionGenerator()
-                // common
-                .entrypoint(HttpClient.class)
-                .entrypoint(HttpResponse.BodyHandlers.class)
-                .entrypoint("eu.okaeri.poly.api.")
-                // bukkit
-                .entrypoint("org.bukkit.")
-                .blacklist("eu.okaeri.poly.api.bukkit.BukkitPythonHelper")
-                .blacklist("org.bukkit.plugin.java.LibraryLoader");
+            // include commons classes
+            .entrypoint(HttpClient.class)
+            .entrypoint(HttpResponse.BodyHandlers.class)
+            .entrypoint("eu.okaeri.poly.api.")
+            // include bukkit classes
+            .entrypoint("org.bukkit.")
+            // try not to index jython/groovy
+            .blacklist("eu.okaeri.poly.api.bukkit.BukkitPythonHelper")
+            .blacklist("eu.okaeri.poly.api.bukkit.BukkitGroovyHelper")
+            .blacklist("eu.okaeri.poly.api.bukkit.BukkitGroovyScript")
+            .blacklist("org.bukkit.plugin.java.LibraryLoader")
+            // exclude groovy directly
+            .blacklist("org.codehaus.")
+            .blacklist("groovy.");
     }
 
     @SneakyThrows
     public void write(String platform, String target, DefinitionGenerator generator) {
 
-        String projectVersion = System.getProperty("poly.version", "1.2.1");
+        String projectVersion = System.getProperty("poly.version", "1.2.2");
         String javaVersion = System.getProperty("java.version").split("\\.")[0];
 
         Path targetPath = Paths.get("../target");
