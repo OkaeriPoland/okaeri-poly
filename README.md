@@ -53,11 +53,11 @@ script.listen(PlayerJoinEvent) { event ->
 
 ### Bukkit
 
-| Backend    | Helper                                                                                                                                                           | Note                                                                                                                               |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Groovy     | [BukkitScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitScriptHelper.java)         | BukkitGroovyHelper exists, but thanks to good interop all methods are contained in BukkitScriptHelper.                             |
-| JavaScript | [BukkitScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitScriptHelper.java)         | BukkitJavaScriptHelper exists, but thanks to good interop all methods are contained in BukkitScriptHelper.                         |
-| Python     | [BukkitPythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitPythonHelper.java)         | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
+| Backend    | Helper                                                                                                                                                   | Note                                                                                                                               |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Groovy     | [BukkitGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and BukkitScriptHelper should work too.   |
+| JavaScript | [BukkitScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitScriptHelper.java) | Uses generalized helper implementation with no custom additions. All needed methods are contained in BukkitScriptHelper.           |
+| Python     | [BukkitPythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitPythonHelper.java) | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
 
 Additional global variables:
 
@@ -69,11 +69,11 @@ Demo project: [bukkit-example-groovy](https://github.com/OkaeriPoland/okaeri-pol
 
 ### Bungee
 
-| Backend    | Helper                                                                                                                                                           | Note                                                                                                                               |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Groovy     | [BungeeScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeScriptHelper.java)         | BungeeGroovyHelper exists, but thanks to good interop all methods are contained in BungeeScriptHelper.                             |
-| JavaScript | [BungeeScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeScriptHelper.java)         | BungeeJavaScriptHelper exists, but thanks to good interop all methods are contained in BungeeScriptHelper.                         |
-| Python     | [BungeePythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeePythonHelper.java)         | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
+| Backend    | Helper                                                                                                                                                   | Note                                                                                                                               |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Groovy     | [BungeeGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and BungeeScriptHelper should work too.   |
+| JavaScript | [BungeeScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeScriptHelper.java) | Uses generalized helper implementation with no custom additions. All needed methods are contained in BungeeScriptHelper.           |
+| Python     | [BungeePythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeePythonHelper.java) | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
 
 Additional global variables:
 
@@ -102,7 +102,7 @@ Add dependency to the `dependencies` section:
 <dependency>
     <groupId>eu.okaeri</groupId>
     <artifactId>okaeri-poly-[platform]-api</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -118,7 +118,7 @@ maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 Add dependency to the `maven` section:
 
 ```groovy
-compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.1'
+compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.2'
 ```
 
 ### IDE

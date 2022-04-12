@@ -2,6 +2,9 @@ package eu.okaeri.poly.api.bukkit;
 
 import groovy.lang.Closure;
 import groovy.lang.Script;
+import groovy.transform.stc.ClosureParams;
+import groovy.transform.stc.FirstParam;
+import groovy.transform.stc.FromString;
 import lombok.NonNull;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
@@ -18,9 +21,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-public abstract class BukkitGroovyScript extends Script implements BukkitScriptHelper {
+@SuppressWarnings("unused")
+public abstract class BukkitGroovyScript extends Script implements BukkitGroovyHelper {
 
-    public BukkitScriptHelper script;
+    public BukkitGroovyHelper script;
     public JavaPlugin plugin;
     public Logger logger;
     public Server server;
@@ -56,13 +60,28 @@ public abstract class BukkitGroovyScript extends Script implements BukkitScriptH
     }
 
     @Override
+    public <T extends Event> void listen(@NonNull Class<T> eventClass, @ClosureParams(FirstParam.FirstGenericType.class) @NonNull Closure<?> closure) {
+        this.script.listen(eventClass, closure);
+    }
+
+    @Override
     public <T extends Event> void listen(@NonNull Class<T> eventClass, @NonNull EventPriority priority, @NonNull Consumer<T> consumer) {
         this.script.listen(eventClass, priority, consumer);
     }
 
     @Override
+    public <T extends Event> void listen(@NonNull Class<T> eventClass, @NonNull EventPriority priority, @ClosureParams(FirstParam.FirstGenericType.class) @NonNull Closure<?> closure) {
+        this.script.listen(eventClass, priority, closure);
+    }
+
+    @Override
     public <T extends Event> void listen(@NonNull Class<T> eventClass, @NonNull EventPriority priority, boolean ignoreCancelled, @NonNull Consumer<T> consumer) {
         this.script.listen(eventClass, priority, ignoreCancelled, consumer);
+    }
+
+    @Override
+    public <T extends Event> void listen(@NonNull Class<T> eventClass, @NonNull EventPriority priority, boolean ignoreCancelled, @ClosureParams(FirstParam.FirstGenericType.class) @NonNull Closure<?> closure) {
+        this.script.listen(eventClass, priority, ignoreCancelled, closure);
     }
 
     @Override
@@ -75,8 +94,13 @@ public abstract class BukkitGroovyScript extends Script implements BukkitScriptH
         this.script.command(label, consumer);
     }
 
-    public void command(@NonNull String label, @NonNull Closure<?> closure) {
-        this.command(label, (sender, args) -> closure.call(sender));
+    @Override
+    public void command(@NonNull String label, @ClosureParams(value = FromString.class, options = {
+        "",
+        "org.bukkit.command.CommandSender",
+        "org.bukkit.command.CommandSender, java.util.ArrayList<java.lang.String>"
+    }) @NonNull Closure<?> closure) {
+        this.script.command(label, closure);
     }
 
     @Override

@@ -4,7 +4,7 @@ import org.bukkit.entity.Player
 script.command("healme") { sender, args ->
 
     if (!(sender instanceof Player)) {
-        sender.sendMessage("Sorry no mercy for console.");
+        sender.sendMessage("Sorry no mercy for console.")
         return
     }
 
