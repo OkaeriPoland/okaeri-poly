@@ -1,3 +1,7 @@
+@BaseScript BukkitGroovyScript script
+
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+import groovy.transform.BaseScript
 import groovy.transform.CompileStatic
 import groovy.transform.Field
 import org.bukkit.ChatColor
@@ -35,7 +39,7 @@ Duration getRemainingTime(Player player) {
 }
 
 // command itself
-script.command("cake") { sender ->
+command("cake") { sender ->
 
     if (!(sender instanceof Player)) {
         sender.sendMessage("No cake for console!")

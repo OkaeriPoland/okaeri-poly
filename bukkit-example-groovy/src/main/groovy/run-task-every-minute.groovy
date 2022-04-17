@@ -1,3 +1,7 @@
+@BaseScript BukkitGroovyScript script
+
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+import groovy.transform.BaseScript
 import groovy.transform.Field
 
 import java.time.Instant
@@ -6,6 +10,6 @@ import java.time.Instant
 long scriptGlobalCounter = 0
 
 
-script.runEveryAsync(60 * 20) {
+runEveryAsync(60 * 20) {
     server.broadcastMessage("It is ${Instant.now()}! ${scriptGlobalCounter++} from ${Thread.currentThread().getName()}")
 }
