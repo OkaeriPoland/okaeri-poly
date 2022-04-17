@@ -1,9 +1,13 @@
+@BaseScript BukkitGroovyScript script
+
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+import groovy.transform.BaseScript
 import org.bukkit.Material
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 
-script.listen(BlockBreakEvent, EventPriority.MONITOR, true) { event ->
+listen(BlockBreakEvent, EventPriority.MONITOR, true) { event ->
 
     if (event.block.type != Material.STONE) {
         return

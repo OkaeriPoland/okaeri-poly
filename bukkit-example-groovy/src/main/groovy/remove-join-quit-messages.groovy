@@ -1,10 +1,14 @@
+@BaseScript BukkitGroovyScript script
+
+import eu.okaeri.poly.api.bukkit.BukkitGroovyScript
+import groovy.transform.BaseScript
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
-script.listen(PlayerJoinEvent) { event ->
+listen(PlayerJoinEvent) { event ->
     event.joinMessage = null
 }
 
-script.listen(PlayerQuitEvent) { event ->
+listen(PlayerQuitEvent) { event ->
     event.quitMessage = null
 }
