@@ -10,7 +10,8 @@ import org.bukkit.event.entity.CreatureSpawnEvent
 @Field
 Set<EntityType> entityTypes = [
         EntityType.IRON_GOLEM,
-        EntityType.BLAZE
+        EntityType.GUARDIAN,
+        EntityType.ELDER_GUARDIAN
 ]
 
 listen(CreatureSpawnEvent) { event ->
