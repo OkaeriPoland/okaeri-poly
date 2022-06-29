@@ -7,7 +7,7 @@
     <groupId>eu.okaeri</groupId>
     <artifactId>okaeri-poly</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 
     <modules>
         <module>core</module>
@@ -18,12 +18,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
-        <graalvm.version>21.3.0</graalvm.version>
-        <groovy.version>3.0.9</groovy.version>
-        <jython.version>2.7.2</jython.version>
+        <library.okaeri-platform.version>0.4.0-preview.74</library.okaeri-platform.version>
+        <library.graalvm.version>22.1.0.1</library.graalvm.version>
+        <library.groovy.version>3.0.11</library.groovy.version>
+        <library.jython.version>2.7.2</library.jython.version>
     </properties>
 
     <build>
@@ -31,12 +32,12 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>3.0.0-M7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>3.10.1</version>
                     <configuration>
                         <compilerArgs>
                             <arg>-parameters</arg>
@@ -51,7 +52,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
 
