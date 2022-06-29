@@ -1,4 +1,5 @@
 import eu.okaeri.tesdeser.DefinitionGenerator;
+import eu.okaeri.tesdeser.TypeScriptGenerator;
 import lombok.SneakyThrows;
 
 import java.net.http.HttpClient;
@@ -10,7 +11,7 @@ import java.nio.file.Paths;
 public class CommonGenerator {
 
     public DefinitionGenerator defaults() {
-        return new DefinitionGenerator()
+        return new TypeScriptGenerator()
             // include commons classes
             .entrypoint(HttpClient.class)
             .entrypoint(HttpResponse.BodyHandlers.class)
@@ -30,7 +31,7 @@ public class CommonGenerator {
     @SneakyThrows
     public void write(String platform, String target, DefinitionGenerator generator) {
 
-        String projectVersion = System.getProperty("poly.version", "1.2.2");
+        String projectVersion = System.getProperty("poly.version", "1.2.3");
         String javaVersion = System.getProperty("java.version").split("\\.")[0];
 
         Path targetPath = Paths.get("../target");

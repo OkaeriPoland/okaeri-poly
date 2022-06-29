@@ -5,7 +5,7 @@
     <parent>
         <artifactId>okaeri-poly</artifactId>
         <groupId>eu.okaeri</groupId>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-poly-core-api</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
@@ -27,13 +27,13 @@
         <dependency>
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
-            <version>${jython.version}</version>
+            <version>${library.jython.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
+            <version>${library.groovy.version}</version>
         </dependency>
     </dependencies>
 

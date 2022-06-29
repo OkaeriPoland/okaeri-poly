@@ -5,7 +5,7 @@
     <parent>
         <artifactId>okaeri-poly</artifactId>
         <groupId>eu.okaeri</groupId>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,18 +15,18 @@
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-poly-core</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-poly-bukkit-api</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-platform-bukkit</artifactId>
-            <version>0.4.0-preview40</version>
+            <version>${library.okaeri-platform.version}</version>
         </dependency>
 
         <dependency>
@@ -48,7 +48,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>3.0.0-M2</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -56,7 +56,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <goals>
