@@ -9,6 +9,8 @@ import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
+import java.util.Map;
+
 public abstract class GraalScriptService extends ScriptServiceImpl {
 
     private static final boolean DEBUG = Boolean.getBoolean("poly.debug");
@@ -50,16 +52,17 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
     }
 
     @Override
-    public Object eval(@NonNull String source) {
+    public Object eval(@NonNull String source, @NonNull Map<String, Object> context) {
 
-        Context context = this.createContext();
-        ScriptHelper scriptHelper = this.createScriptHelper(context, "eval");
+        Context graalContext = this.createContext();
+        ScriptHelper scriptHelper = this.createScriptHelper(graalContext, "eval");
 
-        Value bindings = context.getBindings(languageId);
+        Value bindings = graalContext.getBindings(languageId);
         this.getDefaultBindings(scriptHelper).forEach(bindings::putMember);
+        context.forEach(bindings::putMember);
 
         try {
-            return context.eval(Source.newBuilder(languageId, source, "script." + languageId).build());
+            return graalContext.eval(Source.newBuilder(languageId, source, "script." + languageId).build());
         }
         catch (Throwable throwable) {
             throw new RuntimeException("Failed script eval", throwable);

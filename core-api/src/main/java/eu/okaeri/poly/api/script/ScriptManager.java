@@ -18,7 +18,11 @@ public interface ScriptManager {
 
     ScriptHelper load(@NonNull String name, @NonNull String source);
 
-    Object eval(@NonNull String extension, @NonNull String source);
+    default Object eval(@NonNull String extension, @NonNull String source) {
+        return this.eval(extension, source, Map.of());
+    }
+
+    Object eval(@NonNull String extension, @NonNull String source, @NonNull Map<String, Object> context);
 
     boolean unload(@NonNull String name);
 }

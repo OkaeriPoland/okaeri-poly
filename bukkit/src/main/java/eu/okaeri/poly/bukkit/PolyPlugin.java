@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -46,12 +47,12 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Override
     public Map<String, Object> getDefaultBindings(ScriptHelper scriptHelper) {
-        return Map.of(
+        return new LinkedHashMap<>(Map.of(
             "script", scriptHelper,
             "plugin", this,
             "logger", new ScriptLoggerWrapper(this.getLogger(), scriptHelper.getName()),
             "server", this.getServer()
-        );
+        ));
     }
 
     @SneakyThrows

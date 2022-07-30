@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.net.InetSocketAddress;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Permission("poly.eval")
@@ -36,9 +38,17 @@ public class EvalCommand implements CommandService {
             return "You are not allowed to use eval! (see config.yml)";
         }
 
+        Map<String, Object> context = new LinkedHashMap<>();
+        context.put("sender", sender);
+
+        if (sender instanceof Player player) {
+            context.put("player", player);
+            context.put("world", player.getWorld());
+        }
+
         String engine = this.config.getEval().getEngine();
         try {
-            Object result = this.scriptManager.eval(engine, code);
+            Object result = this.scriptManager.eval(engine, code, context);
             return "$> " + result;
         }
         catch (Exception exception) {

@@ -36,13 +36,14 @@ public class BukkitPythonServiceImpl extends ScriptServiceImpl {
     }
 
     @Override
-    public Object eval(@NonNull String source) {
+    public Object eval(@NonNull String source, @NonNull Map<String, Object> context) {
 
         ScriptHelper scriptHelper = new BukkitPythonHelperImpl((Plugin) this.getPoly(), "eval");
         @Cleanup PythonInterpreter python = new PythonInterpreter();
 
         Map<String, Object> bindings = this.getDefaultBindings(scriptHelper);
         bindings.forEach(python::set);
+        context.forEach(python::set);
 
         try {
             // limited capability and weird return type
