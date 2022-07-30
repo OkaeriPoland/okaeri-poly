@@ -41,10 +41,12 @@ public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
     }
 
     @Override
-    public Object eval(@NonNull String source) {
+    public Object eval(@NonNull String source, @NonNull Map<String, Object> context) {
 
         ScriptHelper scriptHelper = new BukkitGroovyHelperImpl((Plugin) this.getPoly(), "eval");
-        GroovyShell groovyShell = new GroovyShell(new Binding(this.getDefaultBindings(scriptHelper)));
+        Binding binding = new Binding(this.getDefaultBindings(scriptHelper));
+        context.forEach(binding::setVariable);
+        GroovyShell groovyShell = new GroovyShell(binding);
 
         try {
             return groovyShell.evaluate(source);
