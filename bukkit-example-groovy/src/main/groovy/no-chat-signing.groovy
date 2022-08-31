@@ -12,6 +12,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent
  */
 listen(AsyncPlayerChatEvent, EventPriority.MONITOR, true) {
     it.cancelled = true
-    def result = String.format(it.format, it.player.name, it.message)
+    def result = String.format(it.format, it.player.displayName, it.message)
     it.recipients.each { it.sendMessage(result) }
 }
