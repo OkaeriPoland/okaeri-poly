@@ -28,11 +28,13 @@ import org.graalvm.polyglot.Engine;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
@@ -58,17 +60,20 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
     private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
-        Files.list(scriptFolder).forEach(path -> {
-            try {
-                long start = System.currentTimeMillis();
-                scriptManager.load(path);
-                long took = System.currentTimeMillis() - start;
-                this.log("- Loaded script: " + path.getFileName() + " [" + took + " ms]");
-            }
-            catch (Exception exception) {
-                this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
-            }
-        });
+        Files.walk(scriptFolder)
+            .filter(Predicate.not(Files::isDirectory))
+            .forEach(path -> {
+                try {
+                    long start = System.currentTimeMillis();
+                    String userFriendlyName = scriptFolder.relativize(path).toString();
+                    scriptManager.load(userFriendlyName, Files.readString(path));
+                    long took = System.currentTimeMillis() - start;
+                    this.log("- Loaded script: " + userFriendlyName + " [" + took + " ms]");
+                }
+                catch (Exception exception) {
+                    this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
+                }
+            });
     }
 
     @SneakyThrows
@@ -85,10 +90,11 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
-                return Files.list(scriptFolder)
-                    .map(Path::getFileName)
+                return Files.walk(scriptFolder)
+                    .filter(Predicate.not(Files::isDirectory))
+                    .map(scriptFolder::relativize)
                     .map(Path::toString)
-                    .filter(name -> !loaded.contains(name));
+                    .filter(Predicate.not(loaded::contains));
             }
             catch (IOException ignored) {
                 return Stream.of();

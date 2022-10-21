@@ -37,16 +37,17 @@ public class PolyCommand implements CommandService {
     @Completion(arg = "name", value = "@unloadedscripts")
     public String load(@Arg String name) {
 
-        Optional<Path> pathOptional = Files.list(this.scriptFolder)
-                .filter(path -> path.getFileName().toString().startsWith(name))
-                .findAny();
+        Path path = this.scriptFolder.resolve(Path.of(name));
 
-        if (pathOptional.isEmpty()) {
-            return "No script found found for such name!";
+        if (Files.isDirectory(path)) {
+            return "Given path is directory!";
+        }
+        if (!Files.isRegularFile(path)) {
+            return "No script found under following path: " + path;
         }
 
-        Path path = pathOptional.get();
-        ScriptHelper script = this.scriptManager.load(path);
+        String userFriendlyName = this.scriptFolder.relativize(path).toString();
+        ScriptHelper script = this.scriptManager.load(userFriendlyName, Files.readString(path));
 
         return "Loaded script " + script.getName() + "!";
     }

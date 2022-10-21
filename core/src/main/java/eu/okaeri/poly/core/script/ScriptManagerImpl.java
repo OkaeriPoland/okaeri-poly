@@ -37,14 +37,6 @@ public class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    @SneakyThrows
-    public ScriptHelper load(@NonNull Path path) {
-        String fileName = path.getFileName().toString();
-        String source = String.join("\n", Files.readAllLines(path));
-        return this.load(fileName, source);
-    }
-
-    @Override
     public ScriptHelper load(@NonNull String name, @NonNull String source) {
 
         String extension = this.getExtension(name);
