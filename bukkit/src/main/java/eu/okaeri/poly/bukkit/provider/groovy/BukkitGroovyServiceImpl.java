@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class BukkitGroovyServiceImpl extends ScriptServiceImpl {
 
-    public BukkitGroovyServiceImpl(Poly poly) {
+    public BukkitGroovyServiceImpl(@NonNull Poly poly) {
         super(poly);
     }
 

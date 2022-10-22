@@ -17,12 +17,12 @@ public abstract class GraalScriptService extends ScriptServiceImpl {
 
     public final String languageId;
 
-    public GraalScriptService(Poly poly, String languageId) {
+    public GraalScriptService(@NonNull Poly poly, @NonNull String languageId) {
         super(poly);
         this.languageId = languageId;
     }
 
-    protected abstract ScriptHelper createScriptHelper(Context context, String scriptName);
+    protected abstract ScriptHelper createScriptHelper(@NonNull Context context, @NonNull String scriptName);
 
     protected Context createContext() {
         return Context.newBuilder(languageId)

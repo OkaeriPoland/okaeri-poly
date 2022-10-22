@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class BukkitPythonServiceImpl extends ScriptServiceImpl {
 
-    public BukkitPythonServiceImpl(Poly poly) {
+    public BukkitPythonServiceImpl(@NonNull Poly poly) {
         super(poly);
     }
 

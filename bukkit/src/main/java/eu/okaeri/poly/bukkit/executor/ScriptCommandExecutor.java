@@ -18,9 +18,8 @@ public class ScriptCommandExecutor extends Command {
     }
 
     @Override
-    public boolean execute(CommandSender commandSender, String s, String[] strings) {
-        this.consumer.accept(commandSender, Arrays.asList(strings));
+    public boolean execute(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
+        this.consumer.accept(sender, Arrays.asList(args));
         return true;
     }
 }
-

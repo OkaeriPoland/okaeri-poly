@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ScriptSchedulerExecutor implements Runnable {
 
-    @NonNull private final Runnable runnable;
+    private @NonNull final Runnable runnable;
 
     @Override
     public void run() {

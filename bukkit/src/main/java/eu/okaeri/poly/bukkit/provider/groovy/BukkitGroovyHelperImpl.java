@@ -10,7 +10,7 @@ import org.bukkit.plugin.Plugin;
 
 public class BukkitGroovyHelperImpl extends BukkitScriptHelperImpl implements BukkitGroovyHelper {
 
-    public BukkitGroovyHelperImpl(Plugin plugin, String scriptName) {
+    public BukkitGroovyHelperImpl(@NonNull Plugin plugin, @NonNull String scriptName) {
         super(plugin, scriptName);
     }
 
@@ -32,17 +32,10 @@ public class BukkitGroovyHelperImpl extends BukkitScriptHelperImpl implements Bu
     @Override
     public void command(@NonNull String label, @NonNull Closure<?> closure) {
         switch (closure.getMaximumNumberOfParameters()) {
-            case 0:
-                this.command(label, (sender, args) -> closure.call());
-                break;
-            case 1:
-                this.command(label, (sender, args) -> closure.call(sender));
-                break;
-            case 2:
-                this.command(label, closure::call);
-                break;
-            default:
-                throw new RuntimeException("Too many closure params for command, found " + closure.getMaximumNumberOfParameters() + " in " + this.getName());
+            case 0 -> this.command(label, (sender, args) -> closure.call());
+            case 1 -> this.command(label, (sender, args) -> closure.call(sender));
+            case 2 -> this.command(label, closure::call);
+            default -> throw new RuntimeException("Too many closure params for command, found " + closure.getMaximumNumberOfParameters() + " in " + this.getName());
         }
     }
 }
