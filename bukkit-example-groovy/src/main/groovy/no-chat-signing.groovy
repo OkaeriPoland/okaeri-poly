@@ -14,4 +14,5 @@ listen(AsyncPlayerChatEvent, EventPriority.MONITOR, true) {
     it.cancelled = true
     def result = String.format(it.format, it.player.displayName, it.message)
     it.recipients.each { it.sendMessage(result) }
+    server.consoleSender.sendMessage(result)
 }
