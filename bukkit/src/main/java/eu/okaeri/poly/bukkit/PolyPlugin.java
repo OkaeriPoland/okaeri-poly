@@ -26,12 +26,14 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.graalvm.polyglot.Engine;
+import org.python.antlr.ast.Str;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -63,9 +65,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
     private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
-        Stream<Path> scriptStream = Files.walk(scriptFolder);
-        scriptStream.filter(Predicate.not(Files::isDirectory))
-            .forEach(path -> {
+        @Cleanup Stream<Path> scriptStream = this.getScriptPaths(scriptFolder);
+        scriptStream.forEach(path -> {
                 try {
                     long start = System.currentTimeMillis();
                     String userFriendlyName = scriptFolder.relativize(path).toString();
@@ -88,39 +89,14 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Planned(ExecutionPhase.PRE_STARTUP)
     private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
-        commands.registerCompletion("loadedscripts", new SimpleNamedCompletionHandler(() -> this.scriptManager.listLoaded().stream()));
+        commands.registerCompletion("loadedscripts", new SimpleNamedCompletionHandler(this.scriptManager.listLoaded()::stream));
         commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
-                Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
-                Stream<Path> scriptStream = Files.walk(scriptFolder);
-                return scriptStream
-                    .filter(Predicate.not(Files::isDirectory))
+                return this.getScriptPaths(scriptFolder)
                     .map(scriptFolder::relativize)
                     .map(Path::toString)
-                    .filter(Predicate.not(loaded::contains))
-                    .filter(name -> {
-                        String[] split = name.split(Pattern.quote(File.separator));
-                        for (int i = 0; i < split.length; i++) {
-                            String fileName = split[i];
-                            // ignore paths which have hidden folders/files (prefixed with dot)
-                            if (fileName.startsWith(".")) {
-                                return false;
-                            }
-
-                            // ignore path elements preceding the last element
-                            if (i != (split.length - 1)) {
-                                continue;
-                            }
-
-                            // ignore paths where file name doesn't end with one of registered extensions
-                            String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-                            if (!registeredExtensions.contains(extension)) {
-                                return false;
-                            }
-                        }
-                        return true;
-                    });
+                    .filter(Predicate.not(loaded::contains));
             } catch (IOException ignored) {
                 return Stream.of();
             }
@@ -157,5 +133,35 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         });
 
         return scriptManager;
+    }
+
+    private Stream<Path> getScriptPaths(Path scriptFolder) throws IOException {
+        Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
+        return Files.walk(scriptFolder)
+            .filter(Predicate.not(Files::isDirectory))
+            .map(Path::toString)
+            .filter(name -> {
+                String[] split = name.split(Pattern.quote(File.separator));
+                for (int i = 0; i < split.length; i++) {
+                    String fileName = split[i];
+                    // ignore paths which have hidden folders/files (prefixed with dot)
+                    if (fileName.startsWith(".")) {
+                        return false;
+                    }
+
+                    // ignore path elements preceding the last element
+                    if (i != (split.length - 1)) {
+                        continue;
+                    }
+
+                    // ignore paths where file name doesn't end with one of registered extensions
+                    String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                    if (!registeredExtensions.contains(extension)) {
+                        return false;
+                    }
+                }
+                return true;
+            })
+            .map(Path::of);
     }
 }
