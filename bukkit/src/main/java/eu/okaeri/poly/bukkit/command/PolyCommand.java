@@ -14,6 +14,7 @@ import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.api.script.ScriptService;
 import eu.okaeri.poly.core.config.PolyMessages;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 
@@ -21,15 +22,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Permission("poly.admin")
 @Command(label = "poly", aliases = {"poly", "script"})
 public class PolyCommand implements CommandService {
 
-    @Inject private ScriptManager scriptManager;
-    @Inject private BI18n i18n;
-    @Inject private PolyMessages messages;
-    @Inject private Path scriptFolder;
+    private @Inject ScriptManager scriptManager;
+    private @Inject BI18n i18n;
+    private @Inject PolyMessages messages;
+    private @Inject Path scriptFolder;
 
     @Executor
     @SneakyThrows
@@ -37,9 +39,10 @@ public class PolyCommand implements CommandService {
     @Completion(arg = "name", value = "@unloadedscripts")
     public String load(@Arg String name) {
 
-        Optional<Path> pathOptional = Files.list(this.scriptFolder)
-                .filter(path -> path.getFileName().toString().startsWith(name))
-                .findAny();
+        @Cleanup Stream<Path> scriptStream = Files.list(this.scriptFolder);
+        Optional<Path> pathOptional = scriptStream
+            .filter(path -> path.getFileName().toString().startsWith(name))
+            .findAny();
 
         if (pathOptional.isEmpty()) {
             return "No script found found for such name!";
@@ -57,12 +60,13 @@ public class PolyCommand implements CommandService {
     @Completion(arg = "name", value = "@loadedscripts")
     public String unload(@Arg String name) {
 
-        String scriptName = Files.list(this.scriptFolder)
-                .map(Path::getFileName)
-                .map(Path::toString)
-                .filter(fileName -> fileName.startsWith(name))
-                .findAny()
-                .orElse(name);
+        @Cleanup Stream<Path> scriptStream = Files.list(this.scriptFolder);
+        String scriptName = scriptStream
+            .map(Path::getFileName)
+            .map(Path::toString)
+            .filter(fileName -> fileName.startsWith(name))
+            .findAny()
+            .orElse(name);
 
         if (this.scriptManager.unload(scriptName)) {
             return "Unloaded script " + scriptName + "!";
@@ -79,16 +83,16 @@ public class PolyCommand implements CommandService {
         Map<String, ScriptService> services = this.scriptManager.getServices();
 
         audience.accept(this.i18n.get(this.messages.getCommandListServices())
-                .with("backends", services.size()));
+            .with("backends", services.size()));
 
         for (Map.Entry<String, ScriptService> entry : services.entrySet()) {
 
             audience.accept(this.i18n.get(this.messages.getCommandListService())
-                    .with("backend", entry.getKey()));
+                .with("backend", entry.getKey()));
 
             for (String loadedScript : entry.getValue().listLoaded()) {
                 audience.accept(this.i18n.get(this.messages.getCommandListScript())
-                        .with("script", loadedScript));
+                    .with("script", loadedScript));
             }
         }
 

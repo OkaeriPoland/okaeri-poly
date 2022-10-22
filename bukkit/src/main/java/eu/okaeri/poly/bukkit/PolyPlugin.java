@@ -21,7 +21,9 @@ import eu.okaeri.poly.core.config.PolyConfig;
 import eu.okaeri.poly.core.config.PolyMessages;
 import eu.okaeri.poly.core.script.ScriptLoggerWrapper;
 import eu.okaeri.poly.core.script.ScriptManagerImpl;
+import lombok.Cleanup;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.graalvm.polyglot.Engine;
 
@@ -46,7 +48,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @Inject private ScriptManager scriptManager;
 
     @Override
-    public Map<String, Object> getDefaultBindings(ScriptHelper scriptHelper) {
+    public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
         return new LinkedHashMap<>(Map.of(
             "script", scriptHelper,
             "plugin", this,
@@ -58,7 +60,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
     private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
-        Files.list(scriptFolder).forEach(path -> {
+        @Cleanup Stream<Path> scriptStream = Files.list(scriptFolder);
+        scriptStream.forEach(path -> {
             try {
                 long start = System.currentTimeMillis();
                 scriptManager.load(path);
@@ -85,7 +88,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
-                return Files.list(scriptFolder)
+                @Cleanup Stream<Path> scriptStream = Files.list(scriptFolder);
+                return scriptStream
                     .map(Path::getFileName)
                     .map(Path::toString)
                     .filter(name -> !loaded.contains(name));
@@ -112,7 +116,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
             .register("py", new BukkitPythonServiceImpl(this));
 
         // additional supported by graal
-        Engine.create().getLanguages().forEach((extension, lang) -> {
+        @Cleanup Engine polyglot = Engine.create();
+        polyglot.getLanguages().forEach((extension, lang) -> {
 
             // already enabled
             if (scriptManager.getServices().containsKey(extension)) {

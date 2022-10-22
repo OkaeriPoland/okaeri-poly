@@ -11,11 +11,11 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class ScriptEventExecutor<T extends Event> implements EventExecutor, Listener {
 
-    @NonNull private final Consumer<T> consumer;
+    private @NonNull final Consumer<T> consumer;
 
     @Override
     @SuppressWarnings("unchecked")
-    public void execute(Listener listener, Event event) {
+    public void execute(@NonNull Listener listener, @NonNull Event event) {
         this.consumer.accept((T) event);
     }
 }
