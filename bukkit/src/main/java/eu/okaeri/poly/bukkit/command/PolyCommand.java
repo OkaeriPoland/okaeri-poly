@@ -42,10 +42,10 @@ public class PolyCommand implements CommandService {
         Path path = this.scriptFolder.resolve(Path.of(name));
 
         if (Files.isDirectory(path)) {
-            return "Given path is directory!";
+            return "Given path is a directory!";
         }
         if (!Files.isRegularFile(path)) {
-            return "No script found under following path: " + path;
+            return "No script found for the path: " + path;
         }
 
         String userFriendlyName = this.scriptFolder.relativize(path).toString();
