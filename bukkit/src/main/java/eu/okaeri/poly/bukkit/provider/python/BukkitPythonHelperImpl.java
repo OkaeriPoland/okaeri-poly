@@ -11,7 +11,7 @@ import org.python.core.PyFunction;
 
 public class BukkitPythonHelperImpl extends BukkitScriptHelperImpl implements BukkitPythonHelper {
 
-    public BukkitPythonHelperImpl(Plugin plugin, String scriptName) {
+    public BukkitPythonHelperImpl(@NonNull Plugin plugin, @NonNull String scriptName) {
         super(plugin, scriptName);
     }
 

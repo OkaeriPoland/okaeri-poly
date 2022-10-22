@@ -6,10 +6,8 @@ import eu.okaeri.commands.annotation.Executor;
 import eu.okaeri.commands.bukkit.annotation.Permission;
 import eu.okaeri.commands.service.CommandService;
 import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.core.config.PolyConfig;
-import eu.okaeri.poly.core.config.PolyMessages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,10 +20,8 @@ import java.util.Set;
 @Command(label = "eval", aliases = {">"})
 public class EvalCommand implements CommandService {
 
-    @Inject private ScriptManager scriptManager;
-    @Inject private PolyConfig config;
-    @Inject private BI18n i18n;
-    @Inject private PolyMessages messages;
+    private @Inject ScriptManager scriptManager;
+    private @Inject PolyConfig config;
 
     @Executor(pattern = "*...")
     public String eval(CommandSender sender, @Arg String code) {
@@ -66,7 +62,7 @@ public class EvalCommand implements CommandService {
 
     private boolean canAccessEval(CommandSender sender) {
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             return true;
         }
 
@@ -75,9 +71,7 @@ public class EvalCommand implements CommandService {
             return true;
         }
 
-        Player player = (Player) sender;
         InetSocketAddress address = player.getAddress();
-
         if (address == null) {
             return false;
         }
