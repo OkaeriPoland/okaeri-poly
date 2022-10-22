@@ -14,7 +14,6 @@ import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.api.script.ScriptService;
 import eu.okaeri.poly.core.config.PolyMessages;
-import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 
@@ -33,43 +32,34 @@ public class PolyCommand implements CommandService {
     private @Inject PolyMessages messages;
     private @Inject Path scriptFolder;
 
-    @Executor
     @SneakyThrows
     @Permission("poly.admin.load")
+    @Executor(pattern = "load *...")
     @Completion(arg = "name", value = "@unloadedscripts")
     public String load(@Arg String name) {
 
-        @Cleanup Stream<Path> scriptStream = Files.list(this.scriptFolder);
-        Optional<Path> pathOptional = scriptStream
-            .filter(path -> path.getFileName().toString().startsWith(name))
-            .findAny();
+        Path path = this.scriptFolder.resolve(Path.of(name));
 
-        if (pathOptional.isEmpty()) {
-            return "No script found found for such name!";
+        if (Files.isDirectory(path)) {
+            return "Given path is a directory!";
+        }
+        if (!Files.isRegularFile(path)) {
+            return "No script found for the path: " + path;
         }
 
-        Path path = pathOptional.get();
-        ScriptHelper script = this.scriptManager.load(path);
+        String userFriendlyName = this.scriptFolder.relativize(path).toString();
+        ScriptHelper script = this.scriptManager.load(userFriendlyName, Files.readString(path));
 
         return "Loaded script " + script.getName() + "!";
     }
 
-    @Executor
     @SneakyThrows
     @Permission("poly.admin.unload")
+    @Executor(pattern = "unload *...")
     @Completion(arg = "name", value = "@loadedscripts")
     public String unload(@Arg String name) {
-
-        @Cleanup Stream<Path> scriptStream = Files.list(this.scriptFolder);
-        String scriptName = scriptStream
-            .map(Path::getFileName)
-            .map(Path::toString)
-            .filter(fileName -> fileName.startsWith(name))
-            .findAny()
-            .orElse(name);
-
-        if (this.scriptManager.unload(scriptName)) {
-            return "Unloaded script " + scriptName + "!";
+        if (this.scriptManager.unload(name)) {
+            return "Unloaded script " + name + "!";
         }
 
         return "No script found for such name!";
