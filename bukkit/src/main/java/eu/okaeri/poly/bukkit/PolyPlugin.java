@@ -132,7 +132,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         return scriptManager;
     }
 
-    private Stream<Path> getScriptPaths(Path scriptFolder) throws IOException {
+    private @NonNull Stream<Path> getScriptPaths(Path scriptFolder) throws IOException {
         Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
         return Files.walk(scriptFolder)
             .filter(Predicate.not(Files::isDirectory))
