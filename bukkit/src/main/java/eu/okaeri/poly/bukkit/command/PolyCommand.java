@@ -14,7 +14,6 @@ import eu.okaeri.poly.api.script.ScriptHelper;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.api.script.ScriptService;
 import eu.okaeri.poly.core.config.PolyMessages;
-import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 
