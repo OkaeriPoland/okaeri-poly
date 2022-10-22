@@ -30,7 +30,6 @@ import org.graalvm.polyglot.Engine;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -38,6 +37,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Getter // api
@@ -47,7 +47,8 @@ import java.util.stream.Stream;
 @Register(EvalCommand.class)
 public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
-    @Inject private ScriptManager scriptManager;
+    @Inject
+    private ScriptManager scriptManager;
 
     @Override
     public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
@@ -62,7 +63,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     @SneakyThrows
     @Planned(ExecutionPhase.STARTUP)
     private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
-        @Cleanup Stream<Path> scriptStream = Files.walk(scriptFolder);
+        Stream<Path> scriptStream = Files.walk(scriptFolder);
         scriptStream.filter(Predicate.not(Files::isDirectory))
             .forEach(path -> {
                 try {
@@ -71,8 +72,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
                     scriptManager.load(userFriendlyName, Files.readString(path));
                     long took = System.currentTimeMillis() - start;
                     this.log("- Loaded script: " + userFriendlyName + " [" + took + " ms]");
-                }
-                catch (Exception exception) {
+                } catch (Exception exception) {
                     this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
                 }
             });
@@ -92,14 +92,36 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
-                @Cleanup Stream<Path> scriptStream = Files.walk(scriptFolder);
+                Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
+                Stream<Path> scriptStream = Files.walk(scriptFolder);
                 return scriptStream
                     .filter(Predicate.not(Files::isDirectory))
                     .map(scriptFolder::relativize)
                     .map(Path::toString)
-                    .filter(Predicate.not(loaded::contains));
-            }
-            catch (IOException ignored) {
+                    .filter(Predicate.not(loaded::contains))
+                    .filter(name -> {
+                        String[] split = name.split(Pattern.quote(File.separator));
+                        for (int i = 0; i < split.length; i++) {
+                            String fileName = split[i];
+                            // ignore paths which have hidden folders/files (prefixed with dot)
+                            if (fileName.startsWith(".")) {
+                                return false;
+                            }
+
+                            // ignore path elements preceding the last element
+                            if (i != (split.length - 1)) {
+                                continue;
+                            }
+
+                            // ignore paths where file name doesn't end with one of registered extensions
+                            String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                            if (!registeredExtensions.contains(extension)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
+            } catch (IOException ignored) {
                 return Stream.of();
             }
         }));

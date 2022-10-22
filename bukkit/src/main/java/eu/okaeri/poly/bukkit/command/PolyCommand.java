@@ -59,17 +59,8 @@ public class PolyCommand implements CommandService {
     @Executor(pattern = "unload *...")
     @Completion(arg = "name", value = "@loadedscripts")
     public String unload(@Arg String name) {
-
-        @Cleanup Stream<Path> scriptStream = Files.list(this.scriptFolder);
-        String scriptName = scriptStream
-            .map(Path::getFileName)
-            .map(Path::toString)
-            .filter(fileName -> fileName.startsWith(name))
-            .findAny()
-            .orElse(name);
-
-        if (this.scriptManager.unload(scriptName)) {
-            return "Unloaded script " + scriptName + "!";
+        if (this.scriptManager.unload(name)) {
+            return "Unloaded script " + name + "!";
         }
 
         return "No script found for such name!";
