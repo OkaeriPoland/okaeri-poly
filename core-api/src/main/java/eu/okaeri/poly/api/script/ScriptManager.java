@@ -14,8 +14,6 @@ public interface ScriptManager {
 
     Set<String> listLoaded();
 
-    ScriptHelper load(@NonNull Path path);
-
     ScriptHelper load(@NonNull String name, @NonNull String source);
 
     default Object eval(@NonNull String extension, @NonNull String source) {
