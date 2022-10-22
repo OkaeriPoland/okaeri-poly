@@ -47,8 +47,7 @@ import java.util.stream.Stream;
 @Register(EvalCommand.class)
 public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
-    @Inject
-    private ScriptManager scriptManager;
+    private @Inject ScriptManager scriptManager;
 
     @Override
     public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
@@ -65,16 +64,16 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
     private void loadAllScripts(@Inject("dataFolder") File dataFolder, ScriptManager scriptManager, Path scriptFolder) {
         @Cleanup Stream<Path> scriptStream = this.getScriptPaths(scriptFolder);
         scriptStream.forEach(path -> {
-                try {
-                    long start = System.currentTimeMillis();
-                    String userFriendlyName = scriptFolder.relativize(path).toString();
-                    scriptManager.load(userFriendlyName, Files.readString(path));
-                    long took = System.currentTimeMillis() - start;
-                    this.log("- Loaded script: " + userFriendlyName + " [" + took + " ms]");
-                } catch (Exception exception) {
-                    this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
-                }
-            });
+            try {
+                long start = System.currentTimeMillis();
+                String userFriendlyName = scriptFolder.relativize(path).toString();
+                scriptManager.load(userFriendlyName, Files.readString(path));
+                long took = System.currentTimeMillis() - start;
+                this.log("- Loaded script: " + userFriendlyName + " [" + took + " ms]");
+            } catch (Exception exception) {
+                this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
+            }
+        });
     }
 
     @SneakyThrows
@@ -87,8 +86,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Planned(ExecutionPhase.PRE_STARTUP)
     private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
-        commands.registerCompletion("loadedscripts", new SimpleNamedCompletionHandler(this.scriptManager.listLoaded()::stream));
-        commands.registerCompletion("unloadedscripts", new SimpleNamedCompletionHandler(() -> {
+        commands.registerCompletion("loadedscripts", this.scriptManager.listLoaded()::stream);
+        commands.registerCompletion("unloadedscripts", () -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
                 return this.getScriptPaths(scriptFolder)
@@ -98,7 +97,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
             } catch (IOException ignored) {
                 return Stream.of();
             }
-        }));
+        });
     }
 
     @SneakyThrows
