@@ -2,3 +2,5 @@
 *.iml
 target/
 .jython_cache/
+run/
+.DS_Store
