@@ -1,7 +1,6 @@
 package eu.okaeri.poly.bukkit;
 
 import eu.okaeri.commands.Commands;
-import eu.okaeri.commands.handler.completion.SimpleNamedCompletionHandler;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
 import eu.okaeri.platform.core.annotation.Bean;
@@ -132,7 +131,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         return scriptManager;
     }
 
-    private @NonNull Stream<Path> getScriptPaths(Path scriptFolder) throws IOException {
+    @SuppressWarnings("resource")
+    private Stream<Path> getScriptPaths(@NonNull Path scriptFolder) throws IOException {
         Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
         return Files.walk(scriptFolder)
             .filter(Predicate.not(Files::isDirectory))
