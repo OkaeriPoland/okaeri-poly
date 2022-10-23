@@ -1,7 +1,6 @@
 package eu.okaeri.poly.bukkit;
 
 import eu.okaeri.commands.Commands;
-import eu.okaeri.commands.handler.completion.SimpleNamedCompletionHandler;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
 import eu.okaeri.platform.core.annotation.Bean;
@@ -47,7 +46,33 @@ import java.util.stream.Stream;
 @Register(EvalCommand.class)
 public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
-    private @Inject ScriptManager scriptManager;
+    private ScriptManager scriptManager;
+
+    @Override
+    // initialize ScriptManager early to allow external
+    // registration of services before scripts are loaded
+    public void onLoad() {
+
+        // basic a.k.a. default languages
+        this.scriptManager = ScriptManagerImpl.create()
+            .register("groovy", new BukkitGroovyServiceImpl(this))
+            .register("js", new BukkitGraalServiceImpl(this, "js"))
+            .register("py", new BukkitPythonServiceImpl(this));
+
+        // additional supported by graal
+        @Cleanup Engine polyglot = Engine.create();
+        polyglot.getLanguages().forEach((extension, lang) -> {
+
+            // already enabled
+            if (this.scriptManager.getServices().containsKey(extension)) {
+                return;
+            }
+
+            // add support
+            this.scriptManager.register(extension, new BukkitGraalServiceImpl(this, extension));
+            this.log("Added language: " + lang);
+        });
+    }
 
     @Override
     public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
@@ -108,31 +133,11 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Bean("scriptManager")
     private ScriptManager configureScriptManager() {
-
-        // basic a.k.a. default languages
-        ScriptManager scriptManager = ScriptManagerImpl.create()
-            .register("groovy", new BukkitGroovyServiceImpl(this))
-            .register("js", new BukkitGraalServiceImpl(this, "js"))
-            .register("py", new BukkitPythonServiceImpl(this));
-
-        // additional supported by graal
-        @Cleanup Engine polyglot = Engine.create();
-        polyglot.getLanguages().forEach((extension, lang) -> {
-
-            // already enabled
-            if (scriptManager.getServices().containsKey(extension)) {
-                return;
-            }
-
-            // add support
-            scriptManager.register(extension, new BukkitGraalServiceImpl(this, extension));
-            this.log("Added language: " + lang);
-        });
-
-        return scriptManager;
+        return this.scriptManager;
     }
 
-    private @NonNull Stream<Path> getScriptPaths(Path scriptFolder) throws IOException {
+    @SuppressWarnings("resource")
+    private Stream<Path> getScriptPaths(@NonNull Path scriptFolder) throws IOException {
         Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
         return Files.walk(scriptFolder)
             .filter(Predicate.not(Files::isDirectory))
