@@ -22,7 +22,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <library.okaeri-platform.version>0.4.0-preview.74</library.okaeri-platform.version>
+        <library.okaeri-platform.version>0.4.0-preview.82</library.okaeri-platform.version>
         <library.graalvm.version>22.1.0.1</library.graalvm.version>
         <library.groovy.version>3.0.11</library.groovy.version>
         <library.jython.version>2.7.2</library.jython.version>
