@@ -10,12 +10,10 @@ import kotlin.script.experimental.jvmhost.jsr223.importAllBindings
 import kotlin.script.experimental.jvmhost.jsr223.jsr223
 
 @KotlinScript(
-    // File extension for the script type
     fileExtension = "kts",
-    // Compilation configuration for the script type
-    compilationConfiguration = CustomMainKtsScriptDefinition::class
+    compilationConfiguration = ScriptWithMavenDepsConfiguration::class
 )
-abstract class ScriptWithMavenDeps()
+abstract class ScriptWithMavenDeps
 
 object ScriptWithMavenDepsConfiguration: ScriptCompilationConfiguration(
     {
@@ -25,27 +23,6 @@ object ScriptWithMavenDepsConfiguration: ScriptCompilationConfiguration(
         }
         refineConfiguration {
                 onAnnotations(DependsOn::class, Repository::class, handler = ::configureMavenDepsOnAnnotations)
-        }
-        ide {
-            acceptedLocations(ScriptAcceptedLocation.Everywhere)
-        }
-        jsr223 {
-            importAllBindings(true)
-        }
-    }
-)
-object CustomMainKtsScriptDefinition : ScriptCompilationConfiguration(
-    {
-        defaultImports(DependsOn::class, Repository::class, Import::class, CompilerOptions::class, ScriptFileLocation::class)
-        jvm {
-//            dependenciesFromClassloader(classLoader = PolyPlugin::class.java.classLoader, wholeClasspath = true)
-            dependenciesFromCurrentContext(wholeClasspath = true)
-        }
-        refineConfiguration {
-            onAnnotations(DependsOn::class, Repository::class, Import::class, CompilerOptions::class, handler = MainKtsConfigurator())
-            onAnnotations(ScriptFileLocation::class, handler = ScriptFileLocationCustomConfigurator())
-            beforeCompiling(::configureScriptFileLocationPathVariablesForCompilation)
-            beforeCompiling(::configureProvidedPropertiesFromJsr223Context)
         }
         ide {
             acceptedLocations(ScriptAcceptedLocation.Everywhere)

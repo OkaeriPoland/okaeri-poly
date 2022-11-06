@@ -1,9 +1,8 @@
-name: Poly
+name: PolyKts
 version: ${project.version}
 main: eu.okaeri.poly.bukkit.ext.PolyKotlinScriptExtension
 description: Kotlin Script extension for Poly
 website: https://github.com/OkaeriPoland/okaeri-poly
 author: 'Bartosz Stefańczyk <bartosz@cdfn.dev>'
 api-version: 1.13
-depend:
-  - Poly
+depend: [Poly]
