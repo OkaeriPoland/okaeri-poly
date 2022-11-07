@@ -1,28 +1,54 @@
+import eu.okaeri.poly.bukkit.PolyPlugin
+import eu.okaeri.poly.bukkit.ext.BukkitKotlinScriptScriptHelper
+import eu.okaeri.poly.core.script.ScriptLoggerWrapper
 import kotlinx.coroutines.runBlocking
+import org.bukkit.Server
 import org.jetbrains.kotlin.mainKts.*
+import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngine
+import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
+import org.jetbrains.kotlin.script.jsr223.KotlinStandardJsr223ScriptTemplate
+import java.util.logging.Logger
+import javax.script.Bindings
+import javax.script.ScriptContext
+import javax.script.ScriptEngine
 import kotlin.script.experimental.annotations.KotlinScript
 import kotlin.script.experimental.api.*
 import kotlin.script.experimental.dependencies.*
 import kotlin.script.experimental.dependencies.maven.MavenDependenciesResolver
 import kotlin.script.experimental.jvm.*
-import kotlin.script.experimental.jvmhost.jsr223.configureProvidedPropertiesFromJsr223Context
+import kotlin.script.experimental.jvm.util.scriptCompilationClasspathFromContext
 import kotlin.script.experimental.jvmhost.jsr223.importAllBindings
 import kotlin.script.experimental.jvmhost.jsr223.jsr223
 
 @KotlinScript(
-    fileExtension = "kts",
+    fileExtension = "poly.kts",
     compilationConfiguration = ScriptWithMavenDepsConfiguration::class
 )
-abstract class ScriptWithMavenDeps
+abstract class ScriptWithMavenDeps(val bindings: Map<String, Any?>) {
+    @JvmField
+    val server = bindings["server"] as Server
+    @JvmField
+    var script = bindings["script"] as BukkitKotlinScriptScriptHelper
+    @JvmField
+    var logger = bindings["logger"] as ScriptLoggerWrapper
+    @JvmField
+    var plugin = bindings["plugin"] as PolyPlugin
+}
 
-object ScriptWithMavenDepsConfiguration: ScriptCompilationConfiguration(
+object ScriptWithMavenDepsConfiguration : ScriptCompilationConfiguration(
     {
-        defaultImports(DependsOn::class, Repository::class, Import::class, CompilerOptions::class, ScriptFileLocation::class)
+        defaultImports(
+            DependsOn::class,
+            Repository::class,
+            Import::class,
+            CompilerOptions::class,
+            ScriptFileLocation::class
+        )
         jvm {
             dependenciesFromCurrentContext(wholeClasspath = true)
         }
         refineConfiguration {
-                onAnnotations(DependsOn::class, Repository::class, handler = ::configureMavenDepsOnAnnotations)
+            onAnnotations(DependsOn::class, Repository::class, handler = ::configureMavenDepsOnAnnotations)
         }
         ide {
             acceptedLocations(ScriptAcceptedLocation.Everywhere)
@@ -39,11 +65,9 @@ fun configureMavenDepsOnAnnotations(context: ScriptConfigurationRefinementContex
     val annotations = context.collectedData?.get(ScriptCollectedData.collectedAnnotations)?.takeIf { it.isNotEmpty() }
         ?: return context.compilationConfiguration.asSuccess() // If no action is performed, the original configuration should be returned
     return runBlocking {
-        // resolving maven artifacts using annotation arguments
         resolver.resolveFromScriptSourceAnnotations(annotations)
     }.onSuccess {
         context.compilationConfiguration.with {
-            // updating the original configurations with the newly resolved artifacts as compilation dependencies
             dependencies.append(JvmDependency(it))
         }.asSuccess()
     }

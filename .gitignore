@@ -4,3 +4,4 @@ target/
 .jython_cache/
 run/
 .DS_Store
+!run/plugins/Poly/scripts/**/*
