@@ -123,21 +123,6 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-scripting-common</artifactId>
-            <version>${library.kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-scripting-jvm</artifactId>
-            <version>${library.kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-scripting-jvm-host</artifactId>
-            <version>${library.kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-scripting-dependencies</artifactId>
             <version>${library.kotlin.version}</version>
         </dependency>
@@ -155,6 +140,12 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-main-kts</artifactId>
             <version>${library.kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-script-runtime</artifactId>
+            <version>1.7.20</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
