@@ -118,7 +118,7 @@ maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 Add dependency to the `maven` section:
 
 ```groovy
-compileOnly 'eu.okaeri:okaeri-poly-okaeri-poly-[platform]-api:1.2.3'
+compileOnly 'eu.okaeri:okaeri-poly-[platform]-api:1.2.3'
 ```
 
 ### IDE
