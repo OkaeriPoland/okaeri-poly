@@ -74,19 +74,6 @@
                                     <shadedPattern>eu/okaeri/poly/lib/$1</shadedPattern>
                                     <rawString>true</rawString>
                                 </relocation>
-                                <!-- graal -->
-                                <relocation>
-                                    <pattern>com.ibm.</pattern>
-                                    <shadedPattern>eu.okaeri.poly.lib.ibm.</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.oracle.</pattern>
-                                    <shadedPattern>eu.okaeri.poly.lib.oracle.</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.graalvm.</pattern>
-                                    <shadedPattern>eu.okaeri.poly.lib.graalvm.</shadedPattern>
-                                </relocation>
                                 <!-- groovy (did not figure how to run relocated yet) -->
                                 <!--                                <relocation>-->
                                 <!--                                    <pattern>org.codehaus.groovy.</pattern>-->
@@ -115,43 +102,6 @@
                                 <!--                                <relocation>-->
                                 <!--                                    <pattern>groovyjarjarpicocli.</pattern>-->
                                 <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.picocli.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!-- python (this one did not work with relocations too) -->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>javatests.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.javatests.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>jnr.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.jnr.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>jni.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.jni.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>com.kenai.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.kenai.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>com.xhaus.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.xhaus.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>com.ziclix.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.ziclix.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>org.python.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.python.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>org.w3c.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.w3c.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>org.fusesource.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.fusesource.</shadedPattern>-->
                                 <!--                                </relocation>-->
                             </relocations>
                         </configuration>

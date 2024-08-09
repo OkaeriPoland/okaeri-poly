@@ -6,12 +6,11 @@
 ![Contributors](https://img.shields.io/github/contributors/OkaeriPoland/okaeri-poly)
 [![Discord](https://img.shields.io/discord/589089838200913930)](https://discord.gg/hASN5eX)
 
-Enterprise grade Minecraft scripting adapter for Groovy, JavaScript, and Python. Created with [okaeri-platform](https://github.com/OkaeriPoland/okaeri-platform).
+Enterprise grade Minecraft scripting adapter for Groovy (formerly also JavaScript, and Python). Created with [okaeri-platform](https://github.com/OkaeriPoland/okaeri-platform).
 
 ## Requirements
 
-Java 17 or newer. Using GraalVM will improve performance if JavaScript backend is required. It is also recommended not to run other plugins using Groovy/Jython, with exception to plugins using Poly as
-a script provider and a dependency.
+Java 17 or newer. It is not recommended to run other plugins using Groovy, with the exception to plugins using Poly as a script provider and a dependency.
 
 ## Supported platforms
 
@@ -56,8 +55,6 @@ script.listen(PlayerJoinEvent) { event ->
 | Backend    | Helper                                                                                                                                                   | Note                                                                                                                               |
 |------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Groovy     | [BukkitGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and BukkitScriptHelper should work too.   |
-| JavaScript | [BukkitScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitScriptHelper.java) | Uses generalized helper implementation with no custom additions. All needed methods are contained in BukkitScriptHelper.           |
-| Python     | [BukkitPythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bukkit-api/src/main/java/eu/okaeri/poly/api/bukkit/BukkitPythonHelper.java) | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
 
 Additional global variables:
 
@@ -72,8 +69,6 @@ Demo project: [bukkit-example-groovy](https://github.com/OkaeriPoland/okaeri-pol
 | Backend    | Helper                                                                                                                                                   | Note                                                                                                                               |
 |------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Groovy     | [BungeeGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and BungeeScriptHelper should work too.   |
-| JavaScript | [BungeeScriptHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeScriptHelper.java) | Uses generalized helper implementation with no custom additions. All needed methods are contained in BungeeScriptHelper.           |
-| Python     | [BungeePythonHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeePythonHelper.java) | Uses python functions instead of standard methods accepting java consumers/functions due to poor interop and language limitations. |
 
 Additional global variables:
 
@@ -156,29 +151,11 @@ my-poly-project/
   - Set property type to matching helper type (see sections above).
   - Optionally add additional variables that are specified.
 
-#### IntelliJ (JavaScript)
-
-```console
-my-poly-project/
-    src/
-        script1.js
-        script2.js
-    okaeri-poly-[platform]-api-[target].d.ts
-    okaeri-poly-graal.d.ts
-```
-
-- Create new (empty) project or use existing project of your choice.
-- Download `.d.ts` files for `graal` from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
-- Download `.d.ts` for your platform (or minimal target) from [releases](https://github.com/OkaeriPoland/okaeri-poly/releases).
-- Put `.d.ts` files alongside your project `.js` files.
-
 ### Details
 
 Otherwise, standard implementation practices/limitations apply. This software is intended for advanced users that are not afraid to explore. See provider repos for more details:
 
 - Groovy: [apache/groovy](https://github.com/apache/groovy), docs: [groovy-lang.org](https://groovy-lang.org/documentation.html)
-- JavaScript: [oracle/graaljs](https://github.com/oracle/graaljs), docs: [www.graalvm.org (basics)](https://www.graalvm.org/reference-manual/js/JavaInteroperability/), [www.graalvm.org (modules)](https://www.graalvm.org/reference-manual/js/Modules/)
-- Python: [jython/jython](https://github.com/jython/jython), docs: [jython.readthedocs.io](https://jython.readthedocs.io/en/latest/)
 
 ## Backend comparison
 
@@ -186,8 +163,6 @@ Otherwise, standard implementation practices/limitations apply. This software is
 |------------------------------|--------------------------|--------------------------|------------------------|------------------|
 | ⭐ Groovy (w. @CompileStatic) | ⭐ Excellent              | ⭐ Excellent              | ⭐ Excellent            | ⭐ Excellent      |
 | ⭐ Groovy                     | 🔵 Good                   | 🔵 Good                   | 🟢 Very good            | ⭐ Excellent      |
-| 🔵 JavaScript (Graaljs)       | 🟠 Fair                   | 🟢 Very good              | 🟠 Fair                 | 🟢 Very good      |
-| 🟠 Python (Jython)            | 🔵 Good                   | 🔵 Good                   | 🔴 Poor                 | 🟠 Fair           |
 
 ### Performance
 
