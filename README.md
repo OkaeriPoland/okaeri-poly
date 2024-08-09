@@ -10,16 +10,16 @@ Enterprise grade Minecraft scripting adapter for Groovy (formerly also JavaScrip
 
 ## Requirements
 
-Java 17 or newer. It is not recommended to run other plugins using Groovy, with the exception to plugins using Poly as a script provider and a dependency.
+Java 17 or newer. It is recommended not to run other plugins using Groovy, with the exception to plugins using Poly as a script provider and a dependency.
 
 ## Supported platforms
 
 - **[Bukkit](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit)**: Spigot/Paper minecraft server plugin (**disclaimer**: requires version `1.13` or newer)
-- ~~**[Bungee](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bungee)**: BungeeCord/Waterfall minecraft proxy plugin~~ (incoming)
+- ~~**[Velocity](https://github.com/OkaeriPoland/okaeri-poly/tree/master/velocity)**: Velocity minecraft proxy plugin~~ (incoming)
 
 ## Installation
 
-Grab latest [release](https://github.com/OkaeriPoland/okaeri-poly/releases) jar for your platform and install it like any other plugin, e.g. put in `plugins/` for Spigot/Paper and BungeeCord/Waterfall
+Grab latest [release](https://github.com/OkaeriPoland/okaeri-poly/releases) jar for your platform and install it like any other plugin, e.g. put in `plugins/` for Spigot/Paper and Velocity
 servers.
 
 Put your script files inside `plugins/Poly/scripts/` directory. File extension will determine backend to be used (`groovy`, `js`, `py`).
@@ -64,19 +64,19 @@ Additional global variables:
 
 Demo project: [bukkit-example-groovy](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example-groovy), [bukkit-example-javascript](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bukkit-example-javascript)
 
-### Bungee
+### Velocity
 
-| Backend    | Helper                                                                                                                                                   | Note                                                                                                                               |
-|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Groovy     | [BungeeGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/bungee-api/src/main/java/eu/okaeri/poly/api/bungee/BungeeGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and BungeeScriptHelper should work too.   |
+| Backend    | Helper                                                                                                                                                           | Note                                                                                                                               |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Groovy     | [VelocityGroovyHelper](https://github.com/OkaeriPoland/okaeri-poly/blob/master/velocity-api/src/main/java/eu/okaeri/poly/api/velocity/VelocityGroovyHelper.java) | Exposes additional closure based methods for even better typing support. Use is optional and VelocityScriptHelper should work too. |
 
 Additional global variables:
 
-- `plugin`: instance of `eu.okaeri.poly.bungee.PolyPlugin`
-- `logger`: instance of `java.util.logging.Logger`
-- `proxy`: instance of `net.md_5.bungee.api.ProxyServer`
+- `plugin`: instance of `eu.okaeri.poly.velocity.PolyPlugin`
+- `logger`: instance of `org.slf4j.Logger`
+- `proxy`: instance of `com.velocitypowered.api.proxy.ProxyServer`
 
-Demo project: [bungee-example](https://github.com/OkaeriPoland/okaeri-poly/tree/master/bungee-example)
+Demo project: [velocity-example](https://github.com/OkaeriPoland/okaeri-poly/tree/master/velocity-example)
 
 ### Dependency
 
