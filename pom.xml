@@ -14,6 +14,7 @@
         <module>core-api</module>
         <module>bukkit</module>
         <module>bukkit-api</module>
+        <module>bukkit-ext-kts</module>
     </modules>
 
     <properties>
@@ -25,6 +26,7 @@
         <library.graalvm.version>22.1.0.1</library.graalvm.version>
         <library.groovy.version>3.0.11</library.groovy.version>
         <library.jython.version>2.7.2</library.jython.version>
+        <library.kotlin.version>1.7.20</library.kotlin.version>
     </properties>
 
     <build>
