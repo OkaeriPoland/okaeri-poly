@@ -20,8 +20,6 @@ import org.bukkit.command.CommandSender;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Permission("poly.admin")
 @Command(label = "poly", aliases = {"poly", "script"})
@@ -35,7 +33,7 @@ public class PolyCommand implements CommandService {
     @SneakyThrows
     @Permission("poly.admin.load")
     @Executor(pattern = "load *...")
-    @Completion(arg = "name", value = "@unloadedscripts")
+    @Completion(arg = "name", value = "@script:unloaded")
     public String load(@Arg String name) {
 
         Path path = this.scriptFolder.resolve(Path.of(name));
@@ -56,7 +54,7 @@ public class PolyCommand implements CommandService {
     @SneakyThrows
     @Permission("poly.admin.unload")
     @Executor(pattern = "unload *...")
-    @Completion(arg = "name", value = "@loadedscripts")
+    @Completion(arg = "name", value = "@script:loaded")
     public String unload(@Arg String name) {
         if (this.scriptManager.unload(name)) {
             return "Unloaded script " + name + "!";
@@ -67,7 +65,7 @@ public class PolyCommand implements CommandService {
 
     @Executor
     @Permission("poly.admin.list")
-    public Audience list(CommandSender sender) {
+    public Audience<?> list(CommandSender sender) {
 
         BukkitAudience audience = BukkitAudience.of(sender);
         Map<String, ScriptService> services = this.scriptManager.getServices();

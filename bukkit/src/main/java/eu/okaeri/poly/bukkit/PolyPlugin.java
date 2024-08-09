@@ -89,8 +89,8 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Planned(ExecutionPhase.PRE_STARTUP)
     private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
-        commands.registerCompletion("loadedscripts", this.scriptManager.listLoaded()::stream);
-        commands.registerCompletion("unloadedscripts", () -> {
+        commands.registerCompletion("script:loaded", this.scriptManager.listLoaded()::stream);
+        commands.registerCompletion("script:unloaded", () -> {
             try {
                 Set<String> loaded = this.scriptManager.listLoaded();
                 return this.getScriptPaths(scriptFolder)
