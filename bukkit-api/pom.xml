@@ -25,12 +25,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython</artifactId>
-            <version>${library.jython.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
             <version>${library.groovy.version}</version>
