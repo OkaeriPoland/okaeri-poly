@@ -5,10 +5,7 @@ import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.api.script.ScriptService;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.SneakyThrows;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,11 +26,20 @@ public class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public Set<String> listLoaded() {
-        return this.services.values().stream()
-            .map(ScriptService::listLoaded)
-            .flatMap(Collection::stream)
-            .collect(Collectors.toSet());
+    public Map<ScriptService, Set<ScriptHelper>> getLoadedScripts() {
+        return this.services.values().stream().collect(Collectors.toMap(
+            service -> service,
+            ScriptService::getLoadedScripts,
+            (a, b) -> {
+                throw new IllegalStateException("duplicate script service: a=" + a + ", b=" + b);
+            },
+            LinkedHashMap::new
+        ));
+    }
+
+    @Override
+    public boolean isLoaded(@NonNull String name) {
+        return this.services.values().stream().anyMatch(service -> service.isLoaded(name));
     }
 
     @Override

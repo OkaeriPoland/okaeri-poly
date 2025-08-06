@@ -78,9 +78,9 @@ public class PolyCommand implements CommandService {
             audience.accept(this.i18n.get(this.messages.getCommandListService())
                 .with("backend", entry.getKey()));
 
-            for (String loadedScript : entry.getValue().listLoaded()) {
+            for (ScriptHelper loadedScript : entry.getValue().getLoadedScripts()) {
                 audience.accept(this.i18n.get(this.messages.getCommandListScript())
-                    .with("script", loadedScript));
+                    .with("script", loadedScript.getName()));
             }
         }
 

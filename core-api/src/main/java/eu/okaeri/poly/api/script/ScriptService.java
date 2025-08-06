@@ -7,7 +7,9 @@ import java.util.Set;
 
 public interface ScriptService {
 
-    Set<String> listLoaded();
+    Set<ScriptHelper> getLoadedScripts();
+
+    boolean isLoaded(@NonNull String name);
 
     Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper);
 

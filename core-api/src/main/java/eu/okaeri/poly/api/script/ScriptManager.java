@@ -2,9 +2,9 @@ package eu.okaeri.poly.api.script;
 
 import lombok.NonNull;
 
-import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface ScriptManager {
 
@@ -12,7 +12,15 @@ public interface ScriptManager {
 
     Map<String, ScriptService> getServices();
 
-    Set<String> listLoaded();
+    Map<ScriptService, Set<ScriptHelper>> getLoadedScripts();
+
+    default Set<String> getLoadedScriptNames() {
+        return this.getLoadedScripts().values().stream()
+            .flatMap(scripts -> scripts.stream().map(ScriptHelper::getName))
+            .collect(Collectors.toSet());
+    }
+
+    boolean isLoaded(@NonNull String name);
 
     ScriptHelper load(@NonNull String name, @NonNull String source);
 

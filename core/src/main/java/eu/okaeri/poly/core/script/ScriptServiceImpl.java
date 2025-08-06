@@ -6,10 +6,7 @@ import eu.okaeri.poly.api.script.ScriptService;
 import lombok.*;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PROTECTED)
@@ -19,13 +16,18 @@ public abstract class ScriptServiceImpl implements ScriptService {
     private final Poly poly;
 
     @Override
-    public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
-        return this.poly.getDefaultBindings(scriptHelper);
+    public Set<ScriptHelper> getLoadedScripts() {
+        return Set.copyOf(this.scripts.values());
     }
 
     @Override
-    public Set<String> listLoaded() {
-        return Collections.unmodifiableSet(this.scripts.keySet());
+    public boolean isLoaded(@NonNull String name) {
+        return this.scripts.containsKey(name);
+    }
+
+    @Override
+    public Map<String, Object> getDefaultBindings(@NonNull ScriptHelper scriptHelper) {
+        return this.poly.getDefaultBindings(scriptHelper);
     }
 
     @Override

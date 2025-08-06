@@ -86,10 +86,24 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Planned(ExecutionPhase.PRE_STARTUP)
     private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
-        commands.registerCompletion("script", () -> this.getScriptPaths(scriptFolder)
-            .map(scriptFolder::relativize)
-            .map(Path::toString));
-        commands.registerCompletion("script:loaded", this.scriptManager.listLoaded()::stream);
+        commands.registerCompletion("script", () -> {
+            @Cleanup Stream<Path> scriptPaths = this.getScriptPaths(scriptFolder);
+            return scriptPaths
+                .map(scriptFolder::relativize)
+                .map(Path::toString)
+                .toList() // FIXME: should okaeri-commands close this stream by itself?
+                .stream();
+        });
+        commands.registerCompletion("script:loaded", this.scriptManager.getLoadedScriptNames()::stream);
+        commands.registerCompletion("script:unloaded", () -> {
+            @Cleanup Stream<Path> scriptPaths = this.getScriptPaths(scriptFolder);
+            return scriptPaths
+                .map(scriptFolder::relativize)
+                .map(Path::toString)
+                .filter(Predicate.not(this.scriptManager::isLoaded))
+                .toList() // FIXME: should okaeri-commands close this stream by itself?
+                .stream();
+        });
     }
 
     @SneakyThrows
@@ -124,7 +138,7 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
                         continue;
                     }
 
-                    // ignore paths where file name doesn't end with one of registered extensions
+                    // ignore paths where file name doesn't end with one of the registered extensions
                     String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                     if (!registeredExtensions.contains(extension)) {
                         return false;
