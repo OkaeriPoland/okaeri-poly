@@ -13,7 +13,6 @@ import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.bukkit.command.EvalCommand;
 import eu.okaeri.poly.bukkit.command.PolyCommand;
 import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyServiceImpl;
-import eu.okaeri.poly.core.PolyClassLoader;
 import eu.okaeri.poly.core.config.PolyConfig;
 import eu.okaeri.poly.core.config.PolyMessages;
 import eu.okaeri.poly.core.script.ScriptLoggerWrapper;
@@ -25,7 +24,6 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -77,14 +75,6 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
                 this.getLogger().log(Level.SEVERE, "Failed script load for " + path, exception);
             }
         });
-    }
-
-    @SneakyThrows
-    @Planned(ExecutionPhase.SETUP)
-    private void setupClassLoader() {
-        URL[] urls = {this.getFile().toURI().toURL()};
-        PolyClassLoader loader = new PolyClassLoader(urls, this.getClassLoader());
-        Thread.currentThread().setContextClassLoader(loader);
     }
 
     @Planned(ExecutionPhase.PRE_STARTUP)
