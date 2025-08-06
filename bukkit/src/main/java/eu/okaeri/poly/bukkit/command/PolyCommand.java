@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.util.Map;
 
 @Permission("poly.admin")
-@Command(label = "poly", aliases = {"poly", "script"})
+@Command(label = "poly", aliases = {"script"})
 public class PolyCommand implements CommandService {
 
     private @Inject ScriptManager scriptManager;
