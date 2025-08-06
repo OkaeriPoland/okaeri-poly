@@ -56,7 +56,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -74,35 +74,6 @@
                                     <shadedPattern>eu/okaeri/poly/lib/$1</shadedPattern>
                                     <rawString>true</rawString>
                                 </relocation>
-                                <!-- groovy (did not figure how to run relocated yet) -->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>org.codehaus.groovy.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.codehaus.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>org.apache.groovy.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.apache.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>groovy.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.groovy.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>groovyjarjarantlr.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.antlr.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>groovyjarjarantlr4.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.antlr4.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>groovyjarjarasm.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.asm.</shadedPattern>-->
-                                <!--                                </relocation>-->
-                                <!--                                <relocation>-->
-                                <!--                                    <pattern>groovyjarjarpicocli.</pattern>-->
-                                <!--                                    <shadedPattern>eu.okaeri.poly.lib.groovy.x.picocli.</shadedPattern>-->
-                                <!--                                </relocation>-->
                             </relocations>
                         </configuration>
                     </execution>

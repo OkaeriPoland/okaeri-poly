@@ -26,9 +26,10 @@
 
         <!-- groovy -->
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
             <version>${library.groovy.version}</version>
+            <type>pom</type>
         </dependency>
 
     </dependencies>

@@ -24,10 +24,13 @@
             <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
             <version>${library.groovy.version}</version>
+            <scope>provided</scope>
+            <type>pom</type>
         </dependency>
     </dependencies>
 
