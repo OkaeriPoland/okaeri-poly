@@ -10,7 +10,7 @@ Enterprise grade Minecraft scripting adapter for Groovy (formerly also JavaScrip
 
 ## Requirements
 
-Java 17 or newer. It is recommended not to run other plugins using Groovy, with the exception to plugins using Poly as a script provider and a dependency.
+Java 21 or newer. It is recommended not to run other plugins using Groovy, with the exception to plugins using Poly as a script provider and a dependency.
 
 ## Supported platforms
 
