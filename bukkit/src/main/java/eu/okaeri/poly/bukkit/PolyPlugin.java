@@ -79,18 +79,10 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
 
     @Planned(ExecutionPhase.PRE_STARTUP)
     private void setupCustomCompletion(Commands commands, @Inject("scriptFolder") Path scriptFolder) {
+        commands.registerCompletion("script", () -> this.getScriptPaths(scriptFolder)
+            .map(scriptFolder::relativize)
+            .map(Path::toString));
         commands.registerCompletion("script:loaded", this.scriptManager.listLoaded()::stream);
-        commands.registerCompletion("script:unloaded", () -> {
-            try {
-                Set<String> loaded = this.scriptManager.listLoaded();
-                return this.getScriptPaths(scriptFolder)
-                    .map(scriptFolder::relativize)
-                    .map(Path::toString)
-                    .filter(Predicate.not(loaded::contains));
-            } catch (IOException ignored) {
-                return Stream.of();
-            }
-        });
     }
 
     @SneakyThrows
@@ -104,8 +96,9 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
         return this.scriptManager;
     }
 
+    @SneakyThrows
     @SuppressWarnings("resource")
-    private Stream<Path> getScriptPaths(@NonNull Path scriptFolder) throws IOException {
+    private Stream<Path> getScriptPaths(@NonNull Path scriptFolder) {
         Set<String> registeredExtensions = this.scriptManager.getServices().keySet();
         return Files.walk(scriptFolder)
             .filter(Predicate.not(Files::isDirectory))

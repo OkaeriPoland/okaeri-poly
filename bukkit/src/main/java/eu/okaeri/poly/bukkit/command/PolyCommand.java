@@ -33,7 +33,7 @@ public class PolyCommand implements CommandService {
     @SneakyThrows
     @Permission("poly.admin.load")
     @Executor(pattern = "load *...")
-    @Completion(arg = "name", value = "@script:unloaded")
+    @Completion(arg = "name", value = "@script")
     public String load(@Arg String name) {
 
         Path path = this.scriptFolder.resolve(Path.of(name));
