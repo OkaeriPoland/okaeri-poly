@@ -9,6 +9,8 @@ import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.core.config.PolyConfig;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.net.InetSocketAddress;
@@ -27,11 +29,19 @@ public class EvalCommand implements CommandService {
     public String eval(CommandSender sender, @Arg String code) {
 
         if (!this.config.getEval().isEnabled()) {
-            return "Eval not enabled! (see config.yml)";
+            return "Poly's eval is disabled! (see plugins/Poly/config.yml)";
+        }
+
+        if ((sender instanceof RemoteConsoleCommandSender remote) && !this.config.getEval().isRemoteConsole()) {
+            return "Remote console sender (CRON) eval is disabled! (see plugins/Poly/config.yml)";
+        }
+
+        if ((sender instanceof ConsoleCommandSender) && !this.config.getEval().isLocalConsole()) {
+            return "Local console sender eval is disabled! (see plugins/Poly/config.yml)";
         }
 
         if (!this.canAccessEval(sender)) {
-            return "You are not allowed to use eval! (see config.yml)";
+            return "You are not allowed to use eval! (see plugins/Poly/config.yml)";
         }
 
         Map<String, Object> context = new LinkedHashMap<>();

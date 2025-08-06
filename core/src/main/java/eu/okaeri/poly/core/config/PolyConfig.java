@@ -29,6 +29,16 @@ public class PolyConfig extends OkaeriConfig {
         @Comment("to execute any arbitrary code/scripts.")
         private boolean enabled = false;
 
+        @Variable("POLY_EVAL_LOCAL_CONSOLE")
+        @Comment("Should a local console / plugin dispatch be allowed to use eval?")
+        @Comment("This is only applicable if eval is enabled.")
+        private boolean localConsole = false;
+
+        @Variable("POLY_EVAL_REMOTE_CONSOLE")
+        @Comment("Should a remote console sender (CRON) be allowed to use eval?")
+        @Comment("This is only applicable if eval is enabled.")
+        private boolean remoteConsole = false;
+
         @TargetType(LinkedHashSet.class)
         @Variable("POLY_EVAL_ADDRESS_WHITELIST")
         @Comment("Which IP addresses should be allowed to use eval?")
