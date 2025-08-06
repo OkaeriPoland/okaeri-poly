@@ -8,12 +8,17 @@ import eu.okaeri.commands.service.CommandService;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.poly.api.script.ScriptManager;
 import eu.okaeri.poly.core.config.PolyConfig;
+import lombok.Cleanup;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +55,27 @@ public class EvalCommand implements CommandService {
         if (sender instanceof Player player) {
             context.put("player", player);
             context.put("world", player.getWorld());
+        }
+
+        if (code.startsWith("http")) {
+            if (!this.config.getEval().isUrls()) {
+                return "Auto download of scripts is disabled! (see plugins/Poly/config.yml)";
+            }
+            try {
+                @Cleanup HttpClient client = HttpClient.newHttpClient();
+                code = client
+                    .send(
+                        HttpRequest.newBuilder(URI.create(code))
+                            .header("User-Agent", "Poly/1.3.0")
+                            .GET()
+                            .build(),
+                        HttpResponse.BodyHandlers.ofString()
+                    )
+                    .body();
+            }
+            catch (Exception e) {
+                return "$!> Failed to fetch script from URL: " + e.getMessage();
+            }
         }
 
         String engine = this.config.getEval().getEngine();

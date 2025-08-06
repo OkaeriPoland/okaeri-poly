@@ -29,6 +29,13 @@ public class PolyConfig extends OkaeriConfig {
         @Comment("to execute any arbitrary code/scripts.")
         private boolean enabled = false;
 
+        @Variable("POLY_EVAL_DOWNLOAD_URLS")
+        @Comment("Should eval auto download scripts from URLs?")
+        @Comment("Example usage: /> https://example.com/myscript.groovy")
+        @Comment("This is only applicable if eval is enabled.")
+        @Comment("Disabling this won't prevent loading remote scripts manually!")
+        private boolean urls = true;
+
         @Variable("POLY_EVAL_LOCAL_CONSOLE")
         @Comment("Should a local console / plugin dispatch be allowed to use eval?")
         @Comment("This is only applicable if eval is enabled.")
