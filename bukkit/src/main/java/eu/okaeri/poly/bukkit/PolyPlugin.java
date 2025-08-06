@@ -14,7 +14,6 @@ import eu.okaeri.poly.bukkit.command.EvalCommand;
 import eu.okaeri.poly.bukkit.command.PolyCommand;
 import eu.okaeri.poly.bukkit.provider.groovy.BukkitGroovyServiceImpl;
 import eu.okaeri.poly.core.config.PolyConfig;
-import eu.okaeri.poly.core.config.PolyMessages;
 import eu.okaeri.poly.core.script.ScriptLoggerWrapper;
 import eu.okaeri.poly.core.script.ScriptManagerImpl;
 import lombok.Cleanup;
@@ -26,7 +25,6 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -41,7 +39,6 @@ import java.util.stream.Stream;
 
 @Getter // api
 @Register(PolyConfig.class)
-@Register(PolyMessages.class)
 @Register(PolyCommand.class)
 @Register(EvalCommand.class)
 public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
