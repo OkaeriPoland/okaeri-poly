@@ -21,6 +21,9 @@ import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +32,11 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter // api
@@ -56,7 +61,9 @@ public class PolyPlugin extends OkaeriBukkitPlugin implements Poly {
             "script", scriptHelper,
             "plugin", this,
             "logger", new ScriptLoggerWrapper(this.getLogger(), scriptHelper.getName()),
-            "server", this.getServer()
+            "server", this.getServer(),
+            "players", Bukkit.getOnlinePlayers().stream().collect(Collectors.toMap(Player::getName, Function.identity())),
+            "worlds", Bukkit.getWorlds().stream().collect(Collectors.toMap(World::getName, Function.identity()))
         ));
     }
 
