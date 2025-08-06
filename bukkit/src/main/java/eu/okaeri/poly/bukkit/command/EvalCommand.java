@@ -66,7 +66,7 @@ public class EvalCommand implements CommandService {
                 code = client
                     .send(
                         HttpRequest.newBuilder(URI.create(code))
-                            .header("User-Agent", "Poly/1.3.0")
+                            .header("User-Agent", "Poly/1.4.0")
                             .GET()
                             .build(),
                         HttpResponse.BodyHandlers.ofString()
